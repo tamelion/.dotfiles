@@ -1,0 +1,8 @@
+# Start the device auto-mounter with notifications
+devmon --exec-on-drive "notify-send \"Volume %l has been mounted\"" --exec-on-unmount "notify-send \"Volume %l can be safely removed\"" &
+
+# Pretty notifications
+dunst &
+
+# Check state of HDMI
+/home/jim/.local/bin/hdmi

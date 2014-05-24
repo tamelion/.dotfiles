@@ -1,0 +1,15 @@
+# List
+alias ls='ls -h --color=auto --group-directories-first'
+alias ll='ls -hl --color=auto --group-directories-first'
+alias la='ls -Ahl --color=auto --group-directories-first'
+
+# Admin
+alias spm="sudo pacman"
+
+# Git
+alias gs='git status'
+alias ga='git add'
+alias gr='git rm'
+alias gc='git commit -m'
+alias gl='git log --oneline -5'
+alias gca='git commit --amend -m'

@@ -1,0 +1,5 @@
+" Point to real .vimrc for autocommands
+let $MYVIMRC='~/.dotfiles/common/.vimrc'
+
+" Source real .vimrc
+source ~/.dotfiles/common/.vimrc

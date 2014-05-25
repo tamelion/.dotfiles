@@ -58,8 +58,9 @@ URxvt*mapAlert: true
 URxvt*mouseWheelScrollPage: false
 URxvt*colorUL: yellow
 URxvt*underlineColor: yellow
-URxvt*font: xft:terminus:size=9
-URxvt*boldFont: xft:terminus:bold:size=9
+URxvt*font: -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+!URxvt*font: xft:terminus:size=10
+!URxvt*boldFont: xft:terminus:bold:size=10
 URxvt*saveLines: 0
 URxvt*buffered: true
 URxvt*hold: false

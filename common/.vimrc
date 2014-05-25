@@ -21,7 +21,7 @@ Plugin 'gmarik/vundle'                  " vundle
 Plugin 'tomasr/molokai'                 " colour scheme
 Plugin 'bling/vim-airline'              " Status bar plus plus
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
-Plugin 'tpope/vim-surround'             " changed tag surrounds
+Plugin 'tpope/vim-surround'             " changes tag surrounds
 
 Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
 Plugin 'groenewege/vim-less'            " LESS syntax highlighing
@@ -35,7 +35,8 @@ Plugin 'mattn/gist-vim'                 " Gists
 Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
-Plugin 'Shougo/unite.vim'               " unite menu
+"Plugin 'Shougo/unite.vim'               " unite menu
+Plugin 'szw/vim-ctrlspace'              " Ctrl-space
 
 " Airline
 let g:airline_theme='molokai'
@@ -44,13 +45,29 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline_section_b = '%{getcwd()}'
+"let g:airline_section_b = '%{getcwd()}'
+let g:airline_exclude_preview = 1       " for ctrl-space
+
+" Unite
+"let g:unite_source_history_yank_enable = 1
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+"nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+"nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+"nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+"nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+"nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
 
 " Easymotion mapping
 nmap s <Plug>(easymotion-s)
-
-" Unite mapping
-nmap <leader>e :Unite buffer file<CR>
 
 " emmet mapping
 let g:user_emmet_leader_key='<C-y>'
@@ -131,7 +148,7 @@ set history=700
 set autoread
 
 " Change directory to the current buffer when opening files.
-set autochdir
+"set autochdir              " off for ctrl-space
 
 " save changed files dialog
 set confirm
@@ -233,12 +250,16 @@ set tm=500
 syntax enable
 
 " Colour scheme
-let g:rehash256=1
+let g:rehash256=1      "closer terminal colours
 set background=dark
 colorscheme molokai
 
 " Transparent bg
 hi Normal ctermbg=NONE
+
+" Highlight current line
+set cursorline
+hi CursorLine ctermbg=black guibg=black
 
 " Set extra options when running in GUI
 if has("gui_running")
@@ -248,7 +269,7 @@ if has("gui_running")
     set guioptions-=r  "remove right-hand scroll bar
     set guioptions-=L  "remove left-hand scroll bar
   if has("gui_gtk2")
-    set guifont=Inconsolata\ 10
+    set guifont=Terminus\ 9
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
@@ -342,11 +363,11 @@ nmap <down>  :10wincmd -<cr>
 " Open buffer
 "nmap <leader>e :e<space>
 
-" Switch buffer by name
-nmap <leader>b :ls<cr>:b<space>
-" Switch buffers back and forth
-nmap <leader>n :bn<cr>
-nmap <leader>p :bp<cr>
+"" Switch buffer by name
+"nmap <leader>b :ls<cr>:b<space>
+"" Switch buffers back and forth
+"nmap <leader>n :bn<cr>
+"nmap <leader>p :bp<cr>
 
 " Close buffer without closing windows
 nmap <leader>d :bp<bar>sp<bar>bn<bar>bd<cr>

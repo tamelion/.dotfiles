@@ -1,3 +1,9 @@
+" use '.vim' directory on Windows too
+if has('win32') || has('win64')
+  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+  set viminfo+=n~/.viminfo
+endif
+
 " Point to real .vimrc for autocommands
 let $MYVIMRC='~/.dotfiles/common/.vimrc'
 

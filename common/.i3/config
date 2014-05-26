@@ -177,20 +177,15 @@ bar {
         }
 }
 
-# unmount all removable drives
+# Unmount all removable drives
 bindsym $mod+u exec --no-startup-id devmon -r --no-gui 
 
-# Start Chromium
-set $browser import $BROWSER
-bindsym $mod+c exec $browser
+# Start browser
+set $brs import $BROWSER
+bindsym $mod+c exec $brs
 
-# Default workspaces for apps
-assign [class="^Chromium$"] → 1
-assign [class="^Google-chrome-beta$"] → 1
-
-# Make Chromium pop-ups (hangouts etc.) float
+# Make Chromium/Chrome pop-ups (hangouts etc.) float
 for_window [window_role="pop-up"] floating enable
 
-# Autostart aps
-#exec --no-startup-id feh --recursive --randomize --bg-fill ~/Pictures/Shared
+# Wallpaper
 exec --no-startup-id feh --bg-fill ~/.i3/wallpaper.jpg

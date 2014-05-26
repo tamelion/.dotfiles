@@ -1,13 +1,10 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Set up for Vundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "we loViMprovement
 set nocompatible
 
-" use '.vim' on win
-if has('win32') || has('win64')
-  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-  set viminfo+=n~/.viminfo
-endif
-
-" turn off temporarily for vundle
+" turn off temporarily
 filetype off
 
 " add vundle to rtp
@@ -38,6 +35,10 @@ Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
 "Plugin 'Shougo/unite.vim'               " unite menu
 Plugin 'szw/vim-ctrlspace'              " Ctrl-space
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
 let g:airline_theme='molokai'
 if !exists('g:airline_symbols')
@@ -47,6 +48,12 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 "let g:airline_section_b = '%{getcwd()}'
 let g:airline_exclude_preview = 1       " for ctrl-space
+
+" CtrlSpace
+"let g:ctrlspace_workspace_file=[$HOME."/.vim/sessions/cs_workspaces"]
+"let g:ctrlspace_files_cache=0 "disable
+"let g:ctrlspace_save_workspace_on_exit=1
+"let g:ctrlspace_load_last_workspace_on_start=1
 
 " Unite
 "let g:unite_source_history_yank_enable = 1
@@ -59,12 +66,12 @@ let g:airline_exclude_preview = 1       " for ctrl-space
 "nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
 " Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
+"autocmd FileType unite call s:unite_settings()
+"function! s:unite_settings()
+"  " Enable navigation with control-j and control-k in insert mode
+"  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+"  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+"endfunction
 
 " Easymotion mapping
 nmap s <Plug>(easymotion-s)
@@ -243,6 +250,7 @@ set novisualbell
 set t_vb=
 set tm=500
 
+ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colours and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -286,6 +294,7 @@ set ffs=unix,dos,mac
 " Highlight column 81 to help keep lines of code 80 characters or less "
 set colorcolumn=81
 
+ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -316,6 +325,7 @@ nmap <M-k> mz:m-2<cr>`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 
+ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

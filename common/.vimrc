@@ -32,46 +32,22 @@ Plugin 'mattn/gist-vim'                 " Gists
 Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
-"Plugin 'Shougo/unite.vim'               " unite menu
-Plugin 'szw/vim-ctrlspace'              " Ctrl-space
-
+Plugin 'kien/ctrlp.vim'                 " Quick file opener
+Plugin 'FelikZ/ctrlp-py-matcher'        " Python matcher replacement (for ctrlp)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
 let g:airline_theme='molokai'
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+"if !exists('g:airline_symbols')
+"    let g:airline_symbols = {}
+"endif
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 "let g:airline_section_b = '%{getcwd()}'
-let g:airline_exclude_preview = 1       " for ctrl-space
-
-" CtrlSpace
-"let g:ctrlspace_workspace_file=[$HOME."/.vim/sessions/cs_workspaces"]
-"let g:ctrlspace_files_cache=0 "disable
-"let g:ctrlspace_save_workspace_on_exit=1
-"let g:ctrlspace_load_last_workspace_on_start=1
-
-" Unite
-"let g:unite_source_history_yank_enable = 1
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-"nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-"nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-"nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-"nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-"nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-
-" Custom mappings for the unite buffer
-"autocmd FileType unite call s:unite_settings()
-"function! s:unite_settings()
-"  " Enable navigation with control-j and control-k in insert mode
-"  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-"  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-"endfunction
+" Bufferline-like plugin
+let g:airline#extensions#tabline#enabled = 1
 
 " Easymotion mapping
 nmap s <Plug>(easymotion-s)
@@ -83,12 +59,10 @@ let g:user_emmet_leader_key='<C-y>'
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
-" Select first match in menu
-"let g:neocomplete#enable_auto_select = 1
 " Insert / delimiter for filename completion
 let g:neocomplete#enable_auto_delimiter = 1
-" Only complete after 3
-let g:neocomplete#auto_completion_start_length = 1
+" Only complete after 3 (for keywords only)
+let g:neocomplete#auto_completion_start_length = 3
 
 " For snippet_complete marker.
 if has('conceal')
@@ -100,6 +74,12 @@ imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 " Undo completion
 imap <expr><S-Tab> neocomplete#undo_completion()
+
+" PyMatcher for CtrlP
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+
+" Ignore files
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -155,7 +135,7 @@ set history=700
 set autoread
 
 " Change directory to the current buffer when opening files.
-"set autochdir              " off for ctrl-space
+set autochdir
 
 " save changed files dialog
 set confirm
@@ -173,7 +153,10 @@ set laststatus=2
 set backupdir=~/.vim/tmp//
 set directory=~/.vim/tmp//
 
-" For sessions
+" Session options
+set sessionoptions=blank,buffers,curdir,folds,tabpages,winpos,winsize
+
+" Session mappings
 nmap <leader>ss :mks ~/.vim/sessions/
 nmap <leader>so :so ~/.vim/sessions/
 
@@ -193,6 +176,7 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => User interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -205,8 +189,9 @@ set so=999
 " Turn on the WiLd menu and add shell-style completion
 set wildmode=list:longest
 
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
+" Ignore files
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 " Display full path always
 set statusline+=%F
@@ -370,14 +355,14 @@ nmap <right> :10wincmd ><cr>
 nmap <up>    :10wincmd +<cr>
 nmap <down>  :10wincmd -<cr>
 
-" Open buffer
-"nmap <leader>e :e<space>
+" Netrw default to tree
+let g:netrw_liststyle=3
+" Open file in netrw
+nmap <leader>e :Ex<CR>
 
-"" Switch buffer by name
-"nmap <leader>b :ls<cr>:b<space>
-"" Switch buffers back and forth
-"nmap <leader>n :bn<cr>
-"nmap <leader>p :bp<cr>
+" Switch buffer by name
+"nmap <leader>b :ls<cr>:b<Space>
+nmap <leader>b :CtrlPBuffer
 
 " Close buffer without closing windows
 nmap <leader>d :bp<bar>sp<bar>bn<bar>bd<cr>
@@ -390,10 +375,3 @@ nmap <leader>tp :tabprev<cr>
 
 " Switch CWD to the directory of the open buffer
 nmap <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry

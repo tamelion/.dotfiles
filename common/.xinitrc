@@ -16,5 +16,8 @@ xbindkeys
 # Include xprofile
 [ -f ~/.xprofile ] && source ~/.xprofile
 
+# Start urxvt daemon
+urxvtd -q -o -f
+
 # Start WM
 exec i3

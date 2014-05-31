@@ -4,7 +4,7 @@ alias ll='ls -hl --color=auto --group-directories-first'
 alias la='ls -Ahl --color=auto --group-directories-first'
 
 # Admin
-alias spm="sudo pacman"
+alias spam="sudo pacman"
 
 # Git
 alias gs='git status'

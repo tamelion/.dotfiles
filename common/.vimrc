@@ -45,9 +45,7 @@ let g:airline_theme='molokai'
 "endif
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-"let g:airline_section_b = '%{getcwd()}'
-" Bufferline-like plugin
-let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_b = '%{getcwd()}'
 
 " Easymotion mapping
 nmap s <Plug>(easymotion-s)
@@ -72,15 +70,17 @@ endif
 " Complete snippet or move through menu
 imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
-" Undo completion
-imap <expr><S-Tab> neocomplete#undo_completion()
 
 " PyMatcher for CtrlP
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-
+" Set no max file limit
+let g:ctrlp_max_files = 0
 " Ignore files
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-
+"let g:ctrlp_custom_ignore = {
+"    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"    \ 'file': '\v\.(exe|so|dll|jpg|jpeg|png|gif|pdf|ppt|doc|pps|eps|woff|ttf|eot)$',
+"    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+"    \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -149,9 +149,11 @@ set relativenumber
 " Always show the status line
 set laststatus=2
 
-" Directories
-set backupdir=~/.vim/tmp//
-set directory=~/.vim/tmp//
+" Backup and swap
+"set backupdir=~/.vim/tmp//
+"set directory=~/.vim/tmp//
+set nobackup
+set noswapfile
 
 " Session options
 set sessionoptions=blank,buffers,curdir,folds,tabpages,winpos,winsize
@@ -190,8 +192,12 @@ set so=999
 set wildmode=list:longest
 
 " Ignore files
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
+set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
+set wildignore+=*.zip,*.exe,*.sh  
+set wildignore+=*.eot,*.svg,*.ttf,*.woff,*.ico
+set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.tiff,*.eps,*.psd
+set wildignore+=*.pdf,*.doc,*.docx,*.ppt,*.xls
 
 " Display full path always
 set statusline+=%F
@@ -215,7 +221,7 @@ set smartcase
 " Highlight search results
 set hlsearch
 
-" Makes search act like search in modern browsers
+" Jump to search as you type
 set incsearch
 
 " Don't redraw while executing macros (good performance config)
@@ -235,7 +241,15 @@ set novisualbell
 set t_vb=
 set tm=500
 
- 
+" Toggle Netrw
+map <silent> <C-e> :Lexplore<CR>
+" Netrw window absolute width
+let g:netrw_winsize = -28
+" Netrw banner info off
+let g:netrw_banner = 0
+" Netrw default to tree
+let g:netrw_liststyle=3
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colours and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -249,7 +263,6 @@ colorscheme molokai
 
 " Transparent bg
 hi Normal ctermbg=NONE
-
 " Highlight current line
 set cursorline
 hi CursorLine ctermbg=black guibg=black
@@ -279,12 +292,13 @@ set ffs=unix,dos,mac
 " Highlight column 81 to help keep lines of code 80 characters or less "
 set colorcolumn=81
 
- 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
-set expandtab
+"set expandtab
+autocmd filetype python set expandtab
 
 " Be smart when using tabs ;)
 set smarttab
@@ -310,10 +324,13 @@ nmap <M-k> mz:m-2<cr>`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 
- 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use ; for commands
+nnoremap ; :
+
 " More convenient escape sequence
 imap jk <Esc>
 cmap jk <Esc>
@@ -355,14 +372,11 @@ nmap <right> :10wincmd ><cr>
 nmap <up>    :10wincmd +<cr>
 nmap <down>  :10wincmd -<cr>
 
-" Netrw default to tree
-let g:netrw_liststyle=3
-" Open file in netrw
-nmap <leader>e :Ex<CR>
-
 " Switch buffer by name
 "nmap <leader>b :ls<cr>:b<Space>
-nmap <leader>b :CtrlPBuffer
+inoremap <C-Space> :CtrlPBuffer<CR>
+" Remap for terminal
+inoremap <C-@> <C-Space>
 
 " Close buffer without closing windows
 nmap <leader>d :bp<bar>sp<bar>bn<bar>bd<cr>

@@ -16,6 +16,7 @@ call vundle#rc()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'gmarik/vundle'                  " vundle
 Plugin 'tomasr/molokai'                 " colour scheme
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'              " Status bar plus plus
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
 Plugin 'tpope/vim-surround'             " changes tag surrounds
@@ -33,19 +34,18 @@ Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
 Plugin 'kien/ctrlp.vim'                 " Quick file opener
-Plugin 'FelikZ/ctrlp-py-matcher'        " Python matcher replacement (for ctrlp)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
-let g:airline_theme='molokai'
+let g:airline_theme='solarized'
 "if !exists('g:airline_symbols')
 "    let g:airline_symbols = {}
 "endif
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline_section_b = '%{getcwd()}'
+"let g:airline_section_b = '%{getcwd()}'
 
 " Easymotion mapping
 nmap s <Plug>(easymotion-s)
@@ -64,15 +64,15 @@ let g:neocomplete#auto_completion_start_length = 3
 
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+	set conceallevel=2 concealcursor=i
 endif
 
 " Complete snippet or move through menu
 imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
+			\ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 
-" PyMatcher for CtrlP
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+" Extra mapping for CtrlP
+nmap <leader>p :CtrlP<CR>
 " Set no max file limit
 let g:ctrlp_max_files = 0
 " Ignore files
@@ -94,7 +94,7 @@ filetype indent on
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=pythoncomplete#Comple
 
 " Completion menu use longest
 "set completeopt=menu,preview
@@ -172,9 +172,9 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Return to last edit position when opening file
 autocmd BufReadPost *
-    \if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \endif
+			\if line("'\"") > 0 && line("'\"") <= line("$") |
+			\   exe "normal! g`\"" |
+			\endif
 " Remember info about open buffers on close
 set viminfo^=%
 
@@ -194,7 +194,7 @@ set wildmode=list:longest
 " Ignore files
 set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
 set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
-set wildignore+=*.zip,*.exe,*.sh  
+set wildignore+=*.zip,*.exe,*.sh
 set wildignore+=*.eot,*.svg,*.ttf,*.woff,*.ico
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.tiff,*.eps,*.psd
 set wildignore+=*.pdf,*.doc,*.docx,*.ppt,*.xls
@@ -242,13 +242,15 @@ set t_vb=
 set tm=500
 
 " Toggle Netrw
-map <silent> <C-e> :Lexplore<CR>
+map <silent> <leader>e :Explore<CR>
 " Netrw window absolute width
 let g:netrw_winsize = -28
 " Netrw banner info off
 let g:netrw_banner = 0
 " Netrw default to tree
-let g:netrw_liststyle=3
+let g:netrw_liststyle = 3
+" Netrw keep current dir same as browsing dir
+let g:netrw_keepdir = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colours and Fonts
@@ -259,28 +261,28 @@ syntax enable
 " Colour scheme
 let g:rehash256=1      "closer terminal colours
 set background=dark
-colorscheme molokai
+colorscheme solarized
 
 " Transparent bg
 hi Normal ctermbg=NONE
 " Highlight current line
 set cursorline
-hi CursorLine ctermbg=black guibg=black
+"hi CursorLine ctermbg=black guibg=black
 
 " Set extra options when running in GUI
 if has("gui_running")
-    set guioptions-=m  "remove menu bar
-    set guioptions-=T  "remove toolbar
-    set guioptions-=e  "remove GUI tabs
-    set guioptions-=r  "remove right-hand scroll bar
-    set guioptions-=L  "remove left-hand scroll bar
-  if has("gui_gtk2")
-    set guifont=Terminus\ 9
-  elseif has("gui_macvim")
-    set guifont=Menlo\ Regular:h14
-  elseif has("gui_win32")
-    set guifont=Consolas:h10:cANSI
-  endif
+	set guioptions-=m  "remove menu bar
+	set guioptions-=T  "remove toolbar
+	set guioptions-=e  "remove GUI tabs
+	set guioptions-=r  "remove right-hand scroll bar
+	set guioptions-=L  "remove left-hand scroll bar
+	if has("gui_gtk2")
+		set guifont=Terminus\ 9
+	elseif has("gui_macvim")
+		set guifont=Menlo\ Regular:h14
+	elseif has("gui_win32")
+		set guifont=Consolas:h10:cANSI
+	endif
 endif
 
 " Set utf8 as standard encoding
@@ -324,6 +326,8 @@ nmap <M-k> mz:m-2<cr>`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 
+" Remove trailing spaces
+nmap <leader><Space> mz:%s/\s\+$//e<CR>`z
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -342,28 +346,28 @@ map <silent> <leader>/ :noh<cr>
 
 " Change windows seamlessly in vim and tmux
 if exists('$TMUX')
-  function! TmuxOrSplitSwitch(wincmd, tmuxdir)
-    let previous_winnr = winnr()
-    silent! execute "wincmd " . a:wincmd
-    if previous_winnr == winnr()
-      call system("tmux select-pane -" . a:tmuxdir)
-      redraw!
-    endif
-  endfunction
+	function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+		let previous_winnr = winnr()
+		silent! execute "wincmd " . a:wincmd
+		if previous_winnr == winnr()
+			call system("tmux select-pane -" . a:tmuxdir)
+			redraw!
+		endif
+	endfunction
 
-  let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
-  let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
-  let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+	let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+	let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+	let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
 
-  nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
-  nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
-  nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
-  nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
+	nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
+	nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
+	nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
+	nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
 else
-  map <C-h> <C-w>h
-  map <C-j> <C-w>j
-  map <C-k> <C-w>k
-  map <C-l> <C-w>l
+	map <C-h> <C-w>h
+	map <C-j> <C-w>j
+	map <C-k> <C-w>k
+	map <C-l> <C-w>l
 endif
 
 " Resize windows
@@ -374,9 +378,10 @@ nmap <down>  :10wincmd -<cr>
 
 " Switch buffer by name
 "nmap <leader>b :ls<cr>:b<Space>
-inoremap <C-Space> :CtrlPBuffer<CR>
-" Remap for terminal
-inoremap <C-@> <C-Space>
+nmap <leader>b :CtrlPBuffer<CR>
+
+" Switch CWD to the directory of the open buffer
+nmap <leader>c :cd %:p:h<cr>:pwd<cr>
 
 " Close buffer without closing windows
 nmap <leader>d :bp<bar>sp<bar>bn<bar>bd<cr>
@@ -386,6 +391,3 @@ nmap <leader>tt :tabnew<cr>
 nmap <leader>tc :tabclose<cr>
 nmap <leader>tn :tabnext<cr>
 nmap <leader>tp :tabprev<cr>
-
-" Switch CWD to the directory of the open buffer
-nmap <leader>cd :cd %:p:h<cr>:pwd<cr>

@@ -16,7 +16,6 @@ call vundle#rc()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'gmarik/vundle'                  " vundle
 Plugin 'tomasr/molokai'                 " colour scheme
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'              " Status bar plus plus
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
 Plugin 'tpope/vim-surround'             " changes tag surrounds
@@ -39,7 +38,7 @@ Plugin 'kien/ctrlp.vim'                 " Quick file opener
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
-let g:airline_theme='solarized'
+let g:airline_theme='molokai'
 "if !exists('g:airline_symbols')
 "    let g:airline_symbols = {}
 "endif
@@ -71,8 +70,6 @@ endif
 imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
 			\ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 
-" Extra mapping for CtrlP
-nmap <leader>p :CtrlP<CR>
 " Set no max file limit
 let g:ctrlp_max_files = 0
 " Ignore files
@@ -158,13 +155,6 @@ set noswapfile
 " Session options
 set sessionoptions=blank,buffers,curdir,folds,tabpages,winpos,winsize
 
-" Session mappings
-nmap <leader>ss :mks ~/.vim/sessions/
-nmap <leader>so :so ~/.vim/sessions/
-
-" Fast saving
-nmap <leader>w :w<cr>
-
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f')<CR>
@@ -202,11 +192,11 @@ set wildignore+=*.pdf,*.doc,*.docx,*.ppt,*.xls
 " Display full path always
 set statusline+=%F
 
-"Always show current position
+" Always show current position
 set ruler
 
-" A buffer becomes hidden when it is abandoned
-set hidden
+" Show buffers in list even when hidden
+"set hidden
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -241,8 +231,6 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Toggle Netrw
-map <silent> <leader>e :Explore<CR>
 " Netrw window absolute width
 let g:netrw_winsize = -28
 " Netrw banner info off
@@ -261,13 +249,13 @@ syntax enable
 " Colour scheme
 let g:rehash256=1      "closer terminal colours
 set background=dark
-colorscheme solarized
+colorscheme molokai
 
 " Transparent bg
 hi Normal ctermbg=NONE
 " Highlight current line
 set cursorline
-"hi CursorLine ctermbg=black guibg=black
+hi CursorLine ctermbg=black guibg=black
 
 " Set extra options when running in GUI
 if has("gui_running")
@@ -282,6 +270,8 @@ if has("gui_running")
 		set guifont=Menlo\ Regular:h14
 	elseif has("gui_win32")
 		set guifont=Consolas:h10:cANSI
+		" For CJK
+		set guifontwide=NSimsun:h10
 	endif
 endif
 
@@ -317,17 +307,11 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-" File re-indentation
-nmap <leader>= mzgg=G`z
-
 " Move a line or block of text using Meta+[jk]
 nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-
-" Remove trailing spaces
-nmap <leader><Space> mz:%s/\s\+$//e<CR>`z
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -335,14 +319,14 @@ nmap <leader><Space> mz:%s/\s\+$//e<CR>`z
 " Use ; for commands
 nnoremap ; :
 
+" Mouse off in GUI (yuck)
+set mouse-=a
+
 " More convenient escape sequence
 imap jk <Esc>
 cmap jk <Esc>
 imap kj <Esc>
 cmap kj <Esc>
-
-" Disable highlight
-map <silent> <leader>/ :noh<cr>
 
 " Change windows seamlessly in vim and tmux
 if exists('$TMUX')
@@ -376,18 +360,49 @@ nmap <right> :10wincmd ><cr>
 nmap <up>    :10wincmd +<cr>
 nmap <down>  :10wincmd -<cr>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => List of custom leader shortcuts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Switch buffer by name
-"nmap <leader>b :ls<cr>:b<Space>
-nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>b :ls<cr>:b
+"nmap <leader>b :CtrlPBuffer<CR>
 
 " Switch CWD to the directory of the open buffer
-nmap <leader>c :cd %:p:h<cr>:pwd<cr>
+"nmap <leader>c :cd %:p:h<cr>:pwd<cr>
 
 " Close buffer without closing windows
 nmap <leader>d :bp<bar>sp<bar>bn<bar>bd<cr>
+
+" Toggle Netrw
+nmap <silent> <leader>e :Explore<CR>
+
+" Fuzzy search for files
+nmap <leader>f :CtrlP<CR>
+
+" Create new file and set syntax
+nmap <leader>n :enew<CR>:set syntax=
+
+" Quick set syntax for new file
+"nmap <Leader>s :set syntax=
+
+" Session mappings
+nmap <leader>ss :mks ~/.vim/sessions/
+nmap <leader>so :so ~/.vim/sessions/
 
 " Useful mappings for managing tabs
 nmap <leader>tt :tabnew<cr>
 nmap <leader>tc :tabclose<cr>
 nmap <leader>tn :tabnext<cr>
 nmap <leader>tp :tabprev<cr>
+
+" Fast saving
+nmap <leader>w :w<cr>
+
+" File re-indentation
+nmap <leader>= mzgg=G`z
+
+" Disable highlight
+nmap <silent> <leader>/ :noh<cr>
+
+" Remove trailing spaces
+nmap <leader><Space> mz:%s/\s\+$//e<CR>`z

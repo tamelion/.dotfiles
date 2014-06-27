@@ -16,7 +16,6 @@ call vundle#rc()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'gmarik/vundle'                  " vundle
 Plugin 'tomasr/molokai'                 " colour scheme
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'              " Status bar plus plus
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
 Plugin 'tpope/vim-surround'             " changes tag surrounds
@@ -39,7 +38,7 @@ Plugin 'kien/ctrlp.vim'                 " Quick file opener
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
-let g:airline_theme='solarized'
+let g:airline_theme='molokai'
 "if !exists('g:airline_symbols')
 "    let g:airline_symbols = {}
 "endif
@@ -71,10 +70,9 @@ endif
 imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
 			\ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
 
-" Extra mapping for CtrlP
-nmap <leader>p :CtrlP<CR>
 " Set no max file limit
 let g:ctrlp_max_files = 0
+
 " Ignore files
 "let g:ctrlp_custom_ignore = {
 "    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -150,23 +148,13 @@ set relativenumber
 set laststatus=2
 
 " Backup and swap
-"set backupdir=~/.vim/tmp//
-"set directory=~/.vim/tmp//
 set nobackup
 set noswapfile
 
 " Session options
 set sessionoptions=blank,buffers,curdir,folds,tabpages,winpos,winsize
 
-" Session mappings
-nmap <leader>ss :mks ~/.vim/sessions/
-nmap <leader>so :so ~/.vim/sessions/
-
-" Fast saving
-nmap <leader>w :w<cr>
-
 " Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
@@ -175,8 +163,9 @@ autocmd BufReadPost *
 			\if line("'\"") > 0 && line("'\"") <= line("$") |
 			\   exe "normal! g`\"" |
 			\endif
+
 " Remember info about open buffers on close
-set viminfo^=%
+"set viminfo^=%
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -200,13 +189,13 @@ set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.tiff,*.eps,*.psd
 set wildignore+=*.pdf,*.doc,*.docx,*.ppt,*.xls
 
 " Display full path always
-set statusline+=%F
+"set statusline+=%F
 
 "Always show current position
-set ruler
+"set ruler
 
 " A buffer becomes hidden when it is abandoned
-set hidden
+"set hidden
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -232,6 +221,7 @@ set magic
 
 " Show matching brackets when text indicator is over them
 set showmatch
+
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -241,16 +231,15 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Toggle Netrw
-map <silent> <leader>e :Explore<CR>
 " Netrw window absolute width
-let g:netrw_winsize = -28
+"let g:netrw_winsize = -28
 " Netrw banner info off
 let g:netrw_banner = 0
 " Netrw default to tree
 let g:netrw_liststyle = 3
 " Netrw keep current dir same as browsing dir
 let g:netrw_keepdir = 0
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colours and Fonts
@@ -261,13 +250,13 @@ syntax enable
 " Colour scheme
 let g:rehash256=1      "closer terminal colours
 set background=dark
-colorscheme solarized
+colorscheme molokai
 
 " Transparent bg
-hi Normal ctermbg=NONE
+"hi Normal ctermbg=NONE
+
 " Highlight current line
 set cursorline
-"hi CursorLine ctermbg=black guibg=black
 
 " Set extra options when running in GUI
 if has("gui_running")
@@ -317,17 +306,11 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-" File re-indentation
-nmap <leader>= mzgg=G`z
-
 " Move a line or block of text using Meta+[jk]
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-
-" Remove trailing spaces
-nmap <leader><Space> mz:%s/\s\+$//e<CR>`z
+nmap <M-j> mz:m+<CR>`z
+nmap <M-k> mz:m-2<CR>`z
+vmap <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
+vmap <M-j> :m'>+<CR>`<my`>mzgv`yo`z
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -340,9 +323,6 @@ imap jk <Esc>
 cmap jk <Esc>
 imap kj <Esc>
 cmap kj <Esc>
-
-" Disable highlight
-map <silent> <leader>/ :noh<cr>
 
 " Change windows seamlessly in vim and tmux
 if exists('$TMUX')
@@ -359,10 +339,10 @@ if exists('$TMUX')
 	let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
 	let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
 
-	nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
-	nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
-	nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
-	nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
+	nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<CR>
+	nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<CR>
+	nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<CR>
+	nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<CR>
 else
 	map <C-h> <C-w>h
 	map <C-j> <C-w>j
@@ -371,23 +351,49 @@ else
 endif
 
 " Resize windows
-nmap <left>  :10wincmd <<cr>
-nmap <right> :10wincmd ><cr>
-nmap <up>    :10wincmd +<cr>
-nmap <down>  :10wincmd -<cr>
+nmap <left>  :10wincmd <<CR>
+nmap <right> :10wincmd ><CR>
+nmap <up>    :10wincmd +<CR>
+nmap <down>  :10wincmd -<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Custom leader keys
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Switch buffer by name
-"nmap <leader>b :ls<cr>:b<Space>
-nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>b :ls<CR>:b
+"nmap <leader>b :CtrlPBuffer<CR>
 
 " Switch CWD to the directory of the open buffer
-nmap <leader>c :cd %:p:h<cr>:pwd<cr>
+nmap <leader>c :cd %:p:h<CR>:pwd<CR>
 
 " Close buffer without closing windows
-nmap <leader>d :bp<bar>sp<bar>bn<bar>bd<cr>
+nmap <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
+
+" Toggle Netrw
+map <silent> <leader>e :Explore<CR>
+
+" Extra mapping for CtrlP
+nmap <leader>f :CtrlP<CR>
+
+" Session mappings
+nmap <leader>ss :mks ~/.vim/sessions/
+nmap <leader>so :so ~/.vim/sessions/
 
 " Useful mappings for managing tabs
-nmap <leader>tt :tabnew<cr>
-nmap <leader>tc :tabclose<cr>
-nmap <leader>tn :tabnext<cr>
-nmap <leader>tp :tabprev<cr>
+nmap <leader>tt :tabnew<CR>
+nmap <leader>tc :tabclose<CR>
+nmap <leader>tn :tabnext<CR>
+nmap <leader>tp :tabprev<CR>
+
+" Fast saving
+nmap <leader>w :w<CR>
+
+" File re-indentation
+nmap <leader>= mzgg=G`z
+
+" Disable highlight
+map <silent> <leader>/ :noh<CR>
+
+" Remove trailing spaces
+nmap <leader><Space> mz:%s/\s\+$//e<CR>`z
+

@@ -271,6 +271,8 @@ if has("gui_running")
 		set guifont=Menlo\ Regular:h14
 	elseif has("gui_win32")
 		set guifont=Consolas:h10:cANSI
+		" For CJK
+		set guifontwide=NSimsun:h10
 	endif
 endif
 
@@ -317,6 +319,9 @@ vmap <M-j> :m'>+<CR>`<my`>mzgv`yo`z
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use ; for commands
 nnoremap ; :
+
+" Mouse off in GUI (yuck)
+set mouse-=a
 
 " More convenient escape sequence
 imap jk <Esc>
@@ -367,13 +372,19 @@ nmap <leader>b :ls<CR>:b
 nmap <leader>c :cd %:p:h<CR>:pwd<CR>
 
 " Close buffer without closing windows
-nmap <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
+nmap <leader>d :bp<bar>sp<bar>bn<bar>bd<cr>
 
 " Toggle Netrw
-map <silent> <leader>e :Explore<CR>
+nmap <silent> <leader>e :Explore<CR>
 
-" Extra mapping for CtrlP
+" Fuzzy search for files
 nmap <leader>f :CtrlP<CR>
+
+" Create new file and set syntax
+nmap <leader>n :enew<CR>:set syntax=
+
+" Quick set syntax for new file
+"nmap <Leader>s :set syntax=
 
 " Session mappings
 nmap <leader>ss :mks ~/.vim/sessions/

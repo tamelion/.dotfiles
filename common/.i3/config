@@ -34,9 +34,9 @@ bindsym $mod+Return exec urxvtc
 bindsym $mod+Shift+q kill
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+` move scratchpad
-# Show the first scratchpad window
-bindsym $mod+` scratchpad show
+bindsym $mod+Shift+grave move scratchpad
+# Show the first scratcHpad window
+bindsym $mod+grave scratchpad show
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
@@ -121,13 +121,8 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+space exec --no-startup-id i3lock -i /home/jim/.i3/i3lock_screen.png -n
 
 # resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
         bindsym Left resize shrink width 10 px or 10 ppt
 		bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
@@ -137,7 +132,12 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+
+# Resize without resize mode :)
+bindsym $mod+Left resize shrink width 10 px or 10 ppt
+bindsym $mod+Down resize grow height 10 px or 10 ppt
+bindsym $mod+Up resize shrink height 10 px or 10 ppt
+bindsym $mod+Right resize grow width 10 px or 10 ppt
 
 # molokai colours plus extras
 set $red    #f92672
@@ -180,11 +180,12 @@ bar {
 # Unmount all removable drives
 bindsym $mod+u exec --no-startup-id devmon -r --no-gui 
 
-# Start browser
-set $brs import $BROWSER
-bindsym $mod+c exec $brs
+# Bind apps
+bindsym $mod+c exec google-chrome-beta
+bindsym $mod+g exec gvim
+bindsym $mod+F4 exec /home/jim/bin/hdmi
 
-# Make Chromium/Chrome pop-ups (hangouts etc.) float
+# Make Chrome pop-ups (hangouts etc.) float
 for_window [window_role="pop-up"] floating enable
 
 # Wallpaper

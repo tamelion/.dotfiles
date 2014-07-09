@@ -195,7 +195,7 @@ set wildignore+=*.pdf,*.doc,*.docx,*.ppt,*.xls
 "set ruler
 
 " A buffer becomes hidden when it is abandoned
-"set hidden
+set hidden
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent

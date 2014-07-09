@@ -60,7 +60,7 @@ URxvt*colorUL: yellow
 URxvt*underlineColor: yellow
 URxvt*font: xft:terminus:size=9:antialias=false
 URxvt*boldFont: xft:terminus:bold:size=9:antialias=false
-URxvt*saveLines: 0
+URxvt*saveLines: 5120
 URxvt*buffered: true
 URxvt*hold: false
 URxvt*internalBorder:

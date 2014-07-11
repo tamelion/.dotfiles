@@ -15,29 +15,36 @@ call vundle#rc()
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'gmarik/vundle'                  " vundle
+
+""""" Vanity
 Plugin 'tomasr/molokai'                 " colour scheme
 Plugin 'bling/vim-airline'              " Status bar plus plus
+
+""""" Helpers
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
-Plugin 'tpope/vim-surround'             " changes tag surrounds
-
-Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
-Plugin 'groenewege/vim-less'            " LESS syntax highlighing
-Plugin 'othree/html5.vim'               " HTML5 recognition
-Plugin 'scrooloose/syntastic'           " multi-language linting
-Plugin 'skammer/vim-css-color'          " colour of hex values
-
-Plugin 'mattn/emmet-vim'                " HTML zen
-Plugin 'mattn/webapi-vim'               " For Gist
-Plugin 'mattn/gist-vim'                 " Gists
 Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
-Plugin 'kien/ctrlp.vim'                 " Quick file opener
+Plugin 'scrooloose/syntastic'           " multi-language linting
+
+""""" Language specific
+Plugin 'tpope/vim-surround'             " changes tag surrounds
+Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
+Plugin 'groenewege/vim-less'            " LESS syntax highlighing
+Plugin 'othree/html5.vim'               " HTML5 recognition
+Plugin 'skammer/vim-css-color'          " colour of hex values
+Plugin 'mattn/emmet-vim'                " HTML zen
+
+"Plugin 'mattn/webapi-vim'               " For Gist
+"Plugin 'mattn/gist-vim'                 " Gists
+"Plugin 'kien/ctrlp.vim'                 " Quick file opener
+"Plugin 'hinz/vim-startify'              " Startify
+Plugin 'terryma/vim-multiple-cursors'   " Multi-cursor
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Airline
+""""" Airline
 let g:airline_theme='molokai'
 "if !exists('g:airline_symbols')
 "    let g:airline_symbols = {}
@@ -46,39 +53,36 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 "let g:airline_section_b = '%{getcwd()}'
 
-" Easymotion mapping
+""""" Ctrl-P
+let g:ctrlp_max_files = 0
+let g:ctrlp_clear_cache_on_exit = 0
+" Ignore files
+let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
+
+""""" Easymotion
 nmap s <Plug>(easymotion-s)
 
-" emmet mapping
+""""" Emmet
 let g:user_emmet_leader_key='<C-y>'
 
-" Enable NeoComplete
+""""" Neocomplete
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Insert / delimiter for filename completion
 let g:neocomplete#enable_auto_delimiter = 1
 " Only complete after 3 (for keywords only)
-let g:neocomplete#auto_completion_start_length = 3
-
+let g:neocomplete#auto_completion_start_length = 1
 " For snippet_complete marker.
 if has('conceal')
 	set conceallevel=2 concealcursor=i
 endif
 
+""""" Neosnippet
 " Complete snippet or move through menu
-imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
-			\ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
-
-" Set no max file limit
-let g:ctrlp_max_files = 0
-
-" Ignore files
-"let g:ctrlp_custom_ignore = {
-"    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"    \ 'file': '\v\.(exe|so|dll|jpg|jpeg|png|gif|pdf|ppt|doc|pps|eps|woff|ttf|eot)$',
-"    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-"    \ }
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General

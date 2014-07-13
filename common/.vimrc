@@ -22,6 +22,7 @@ Plugin 'bling/vim-airline'              " Status bar plus plus
 
 """"" Helpers
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
+Plugin 'Shougo/vimproc.vim'             " Multithreading
 Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
@@ -33,13 +34,9 @@ Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
 Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
 Plugin 'skammer/vim-css-color'          " colour of hex values
-Plugin 'mattn/emmet-vim'                " HTML zen
 
-"Plugin 'mattn/webapi-vim'               " For Gist
-"Plugin 'mattn/gist-vim'                 " Gists
-"Plugin 'kien/ctrlp.vim'                 " Quick file opener
-"Plugin 'hinz/vim-startify'              " Startify
-Plugin 'terryma/vim-multiple-cursors'   " Multi-cursor
+Plugin 'kien/ctrlp.vim'                 " Quick file opener
+"Plugin 'terryma/vim-multiple-cursors'   " Multi-cursor
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
@@ -60,7 +57,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
 
 """"" Easymotion
-nmap s <Plug>(easymotion-s)
+nmap f <Plug>(easymotion-s)
 
 """"" Emmet
 let g:user_emmet_leader_key='<C-y>'
@@ -171,6 +168,9 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 "set viminfo^=%
 
+" Command to save with sudo
+ cmap w!! w !sudo tee > /dev/null %
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => User interface
@@ -189,8 +189,8 @@ set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
 set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
 set wildignore+=*.zip,*.exe,*.sh
 set wildignore+=*.eot,*.svg,*.ttf,*.woff,*.ico
-set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.tiff,*.eps,*.psd
-set wildignore+=*.pdf,*.doc,*.docx,*.ppt,*.xls
+set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.gif,*.tiff,*.eps,*.psd
+set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls
 
 " Display full path always
 "set statusline+=%F
@@ -369,8 +369,8 @@ nmap <down>  :10wincmd -<CR>
 " => Custom leader keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Switch buffer by name
-nmap <leader>b :ls<CR>:b
-"nmap <leader>b :CtrlPBuffer<CR>
+"nmap <leader>b :ls<CR>:b
+nmap <leader>b :CtrlPBuffer<CR>
 
 " Switch CWD to the directory of the open buffer
 nmap <leader>c :cd %:p:h<CR>:pwd<CR>
@@ -399,6 +399,9 @@ nmap <leader>tt :tabnew<CR>
 nmap <leader>tc :tabclose<CR>
 nmap <leader>tn :tabnext<CR>
 nmap <leader>tp :tabprev<CR>
+
+" Fast open vimrc
+nmap <leader>v :e $MYVIMRC<CR>
 
 " Fast saving
 nmap <leader>w :w<CR>

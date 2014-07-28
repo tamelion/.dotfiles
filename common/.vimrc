@@ -36,7 +36,10 @@ Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
 Plugin 'skammer/vim-css-color'          " colour of hex values
 
+""""" Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
+Plugin 'mhinz/vim-startify'             " startup menu
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
@@ -80,6 +83,16 @@ endif
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
+
+""""" Startify
+let g:startify_custom_header = [
+\'     ____ _     _                   _ _           _ ',
+\'    / ___( ) __| | __ _ _   _      | (_)_ __ ___ | |',
+\'   | |  _|/ / _` |/ _` | | | |  _  | | | `_ ` _ \| |',
+\'   | |_| | | (_| | (_| | |_| | | |_| | | | | | | |_|',
+\'    \____|  \__,_|\__,_|\__, |  \___/|_|_| |_| |_(_)',
+\'                        |___/                       ',
+\ ]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -386,8 +399,8 @@ nmap <leader>n :enew<CR>:set syntax=
 "nmap <Leader>s :set syntax=
 
 " Session mappings
-nmap <leader>ss :mks ~/.vim/sessions/
-nmap <leader>so :so ~/.vim/sessions/
+nmap <leader>ss :mks ~/.vim/session/
+nmap <leader>so :so ~/.vim/session/
 
 " Useful mappings for managing tabs
 nmap <leader>tt :tabnew<CR>

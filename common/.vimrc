@@ -17,10 +17,11 @@ call vundle#rc()
 Plugin 'gmarik/vundle'                  " vundle
 
 """"" Vanity
-Plugin 'tomasr/molokai'                 " colour scheme
+Plugin 'chriskempson/base16-vim'        " colour scheme
 Plugin 'bling/vim-airline'              " Status bar plus plus
 
 """"" Helpers
+Plugin 'kien/ctrlp.vim'                 " Quick file opener
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
 Plugin 'Shougo/vimproc.vim'             " Multithreading
 Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
@@ -35,14 +36,13 @@ Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
 Plugin 'skammer/vim-css-color'          " colour of hex values
 
-Plugin 'kien/ctrlp.vim'                 " Quick file opener
-"Plugin 'terryma/vim-multiple-cursors'   " Multi-cursor
+Plugin 'vim-scripts/vimwiki'            " vimwiki
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"" Airline
-let g:airline_theme='molokai'
+let g:airline_theme='tomorrow'
 "if !exists('g:airline_symbols')
 "    let g:airline_symbols = {}
 "endif
@@ -124,8 +124,8 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Comple
 "Enable extended % matching
 runtime macros/matchit.vim
 
-" map space as leader
-map <space> <leader>
+" map leader
+map ; <leader>
 
 " Sets how many lines of history VIM has to remember
 set history=700
@@ -155,9 +155,8 @@ set noswapfile
 " Session options
 set sessionoptions=blank,buffers,curdir,folds,tabpages,winpos,winsize
 
-" Visual mode pressing * or # searches for the current selection
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
+" Set shorter wait time for keys
+set timeoutlen=200
 
 " Return to last edit position when opening file
 autocmd BufReadPost *
@@ -170,7 +169,6 @@ autocmd BufReadPost *
 
 " Command to save with sudo
  cmap w!! w !sudo tee > /dev/null %
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => User interface
@@ -244,7 +242,6 @@ let g:netrw_liststyle = 3
 " Netrw keep current dir same as browsing dir
 let g:netrw_keepdir = 0
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colours and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -252,12 +249,11 @@ let g:netrw_keepdir = 0
 syntax enable
 
 " Colour scheme
-let g:rehash256=1      "closer terminal colours
 set background=dark
-colorscheme molokai
+colorscheme base16-tomorrow
 
 " Transparent bg
-"hi Normal ctermbg=NONE
+hi Normal ctermbg=NONE
 
 " Highlight current line
 set cursorline
@@ -288,7 +284,6 @@ set ffs=unix,dos,mac
 
 " Highlight column 81 to help keep lines of code 80 characters or less "
 set colorcolumn=81
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -321,17 +316,14 @@ vmap <M-j> :m'>+<CR>`<my`>mzgv`yo`z
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use ; for commands
-nnoremap ; :
-
 " Mouse off in GUI (yuck)
 set mouse-=a
 
 " More convenient escape sequence
-imap jk <Esc>
-cmap jk <Esc>
-imap kj <Esc>
-cmap kj <Esc>
+inoremap jk <Esc>
+cnoremap jk <Esc>
+inoremap kj <Esc>
+cnoremap kj <Esc>
 
 " Change windows seamlessly in vim and tmux
 if exists('$TMUX')
@@ -368,6 +360,9 @@ nmap <down>  :10wincmd -<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Custom leader keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Update if necessary
+nmap <leader>a :update<CR>
+
 " Switch buffer by name
 "nmap <leader>b :ls<CR>:b
 nmap <leader>b :CtrlPBuffer<CR>
@@ -403,14 +398,14 @@ nmap <leader>tp :tabprev<CR>
 " Fast open vimrc
 nmap <leader>v :e $MYVIMRC<CR>
 
-" Fast saving
-nmap <leader>w :w<CR>
+" Fast quit
+nmap <leader>q :q<CR>
 
 " File re-indentation
 nmap <leader>= mzgg=G`z
 
 " Disable highlight
-map <silent> <leader>/ :noh<CR>
+nmap <silent> <leader>/ :noh<CR>
 
 " Remove trailing spaces
 nmap <leader><Space> mz:%s/\s\+$//e<CR>`z

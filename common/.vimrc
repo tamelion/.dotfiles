@@ -17,13 +17,14 @@ call vundle#rc()
 Plugin 'gmarik/vundle'                  " vundle
 
 """"" Vanity
-Plugin 'chriskempson/base16-vim'        " colour scheme
-Plugin 'bling/vim-airline'              " Status bar plus plus
+Plugin 'chriskempson/base16-vim'        " coding colour scheme
+Plugin 'reedes/vim-colors-pencil'       " writing colour scheme
+Plugin 'bling/vim-airline'              " Status bar
 
 """"" Helpers
 Plugin 'kien/ctrlp.vim'                 " Quick file opener
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
-Plugin 'Shougo/vimproc.vim'             " Multithreading
+"Plugin 'Shougo/vimproc.vim'             " Multithreading
 Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
@@ -35,11 +36,11 @@ Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
 Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
 Plugin 'skammer/vim-css-color'          " colour of hex values
+Plugin 'reedes/vim-pencil'       		" writing helper
 
 """"" Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
 Plugin 'mhinz/vim-startify'             " startup menu
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
@@ -86,13 +87,14 @@ xmap <C-k> <Plug>(neosnippet_expand_target)
 
 """"" Startify
 let g:startify_custom_header = [
-\'     ____ _     _                   _ _           _ ',
-\'    / ___( ) __| | __ _ _   _      | (_)_ __ ___ | |',
-\'   | |  _|/ / _` |/ _` | | | |  _  | | | `_ ` _ \| |',
-\'   | |_| | | (_| | (_| | |_| | | |_| | | | | | | |_|',
-\'    \____|  \__,_|\__,_|\__, |  \___/|_|_| |_| |_(_)',
-\'                        |___/                       ',
-\ ]
+			\'     ____ _     _                   _ _           _ ',
+			\'    / ___( ) __| | __ _ _   _      | (_)_ __ ___ | |',
+			\'   | |  _|/ / _` |/ _` | | | |  _  | | | `_ ` _ \| |',
+			\'   | |_| | | (_| | (_| | |_| | | |_| | | | | | | |_|',
+			\'    \____|  \__,_|\__,_|\__, |  \___/|_|_| |_| |_(_)',
+			\'                        |___/                       ',
+			\ ]
+let g:startify_session_dir = '~/.vim/session'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -169,7 +171,7 @@ set noswapfile
 set sessionoptions=blank,buffers,curdir,folds,tabpages,winpos,winsize
 
 " Set shorter wait time for keys
-set timeoutlen=200
+"set timeoutlen=200
 
 " Return to last edit position when opening file
 autocmd BufReadPost *
@@ -181,7 +183,7 @@ autocmd BufReadPost *
 "set viminfo^=%
 
 " Command to save with sudo
- cmap w!! w !sudo tee > /dev/null %
+cmap w!! w !sudo tee > /dev/null %
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => User interface
@@ -338,31 +340,49 @@ cnoremap jk <Esc>
 inoremap kj <Esc>
 cnoremap kj <Esc>
 
+" The ' is easier to reach than `
+"nnoremap ' `
+"nnoremap ` '
+
 " Change windows seamlessly in vim and tmux
-if exists('$TMUX')
-	function! TmuxOrSplitSwitch(wincmd, tmuxdir)
-		let previous_winnr = winnr()
-		silent! execute "wincmd " . a:wincmd
-		if previous_winnr == winnr()
-			call system("tmux select-pane -" . a:tmuxdir)
-			redraw!
+"if exists('$TMUX')
+"	function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+"		let previous_winnr = winnr()
+"		silent! execute "wincmd " . a:wincmd
+"		if previous_winnr == winnr()
+"			call system("tmux select-pane -" . a:tmuxdir)
+"			redraw!
+"		endif
+"	endfunction
+"
+"	let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+"	let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+"	let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+"
+"	nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<CR>
+"	nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<CR>
+"	nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<CR>
+"	nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<CR>
+"else
+"	map <C-h> <C-w>h
+"	map <C-j> <C-w>j
+"	map <C-k> <C-w>k
+"	map <C-l> <C-w>l
+"endif
+
+" Move or create window -- from http://www.agillo.net/simple-vim-window-management/
+function! WinMove(key) 
+	let t:curwin = winnr()
+	exec "wincmd ".a:key
+	if (t:curwin == winnr()) "we havent moved
+		if (match(a:key,'[jk]')) "were we going up/down
+			wincmd v
+		else 
+			wincmd s
 		endif
-	endfunction
-
-	let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
-	let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
-	let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
-
-	nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<CR>
-	nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<CR>
-	nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<CR>
-	nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<CR>
-else
-	map <C-h> <C-w>h
-	map <C-j> <C-w>j
-	map <C-k> <C-w>k
-	map <C-l> <C-w>l
-endif
+		exec "wincmd ".a:key
+	endif
+endfunction
 
 " Resize windows
 nmap <left>  :10wincmd <<CR>
@@ -392,15 +412,41 @@ nmap <silent> <leader>e :Explore<CR>
 " Fuzzy search for files
 nmap <leader>f :CtrlP<CR>
 
+" Switch or create windows
+map <leader>h              :call WinMove('h')<cr>
+map <leader>k              :call WinMove('k')<cr>
+map <leader>l              :call WinMove('l')<cr>
+map <leader>j              :call WinMove('j')<cr>
+
+" Move windows
+map <leader>H              :wincmd H<cr>
+map <leader>K              :wincmd K<cr>
+map <leader>L              :wincmd L<cr>
+map <leader>J              :wincmd J<cr>
+
+" File re-indentation
+nmap <leader>i mzgg=G`z
+
+" Open startify menu
+nmap <leader>m :Startify<CR>
+
 " Create new file and set syntax
 nmap <leader>n :enew<CR>:set syntax=
 
-" Quick set syntax for new file
-"nmap <Leader>s :set syntax=
+" Close window
+nmap <leader>q :q<CR>
+
+" Rotate windows
+nmap <leader>r <C-W>r
 
 " Session mappings
-nmap <leader>ss :mks ~/.vim/session/
-nmap <leader>so :so ~/.vim/session/
+"nmap <leader>ss :mks ~/.vim/session/
+"nmap <leader>so :so ~/.vim/session/
+
+" Session mappings using startify
+nmap <leader>ss :SSave
+nmap <leader>so :SLoad
+nmap <leader>sd :SDelete
 
 " Useful mappings for managing tabs
 nmap <leader>tt :tabnew<CR>
@@ -413,9 +459,6 @@ nmap <leader>v :e $MYVIMRC<CR>
 
 " Fast quit
 nmap <leader>q :q<CR>
-
-" File re-indentation
-nmap <leader>= mzgg=G`z
 
 " Disable highlight
 nmap <silent> <leader>/ :noh<CR>

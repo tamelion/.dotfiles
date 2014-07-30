@@ -24,11 +24,15 @@ Plugin 'bling/vim-airline'              " Status bar
 """"" Helpers
 Plugin 'kien/ctrlp.vim'                 " Quick file opener
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
-"Plugin 'Shougo/vimproc.vim'             " Multithreading
+Plugin 'sjl/gundo.vim'                  " Undo tree
 Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
 Plugin 'scrooloose/syntastic'           " multi-language linting
+Plugin 'tpope/vim-fugitive'             " Git wrapper
+Plugin 'airblade/vim-gitgutter'         " Git signs
+Plugin 'tpope/vim-vinegar'              " Tweak Netrw 
+Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
 
 """"" Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
@@ -41,6 +45,7 @@ Plugin 'reedes/vim-pencil'       		" writing helper
 """"" Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
 Plugin 'mhinz/vim-startify'             " startup menu
+Plugin 'tomtom/tcomment_vim'            " quick commenting
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
@@ -65,6 +70,9 @@ nmap f <Plug>(easymotion-s)
 
 """"" Emmet
 let g:user_emmet_leader_key='<C-y>'
+
+""""" Gundo
+let g:gundo_preview_bottom=1
 
 """"" Neocomplete
 let g:neocomplete#enable_at_startup = 1
@@ -140,7 +148,7 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Comple
 runtime macros/matchit.vim
 
 " map leader
-map ; <leader>
+map <Space> <leader>
 
 " Sets how many lines of history VIM has to remember
 set history=700
@@ -259,7 +267,7 @@ let g:netrw_keepdir = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colours and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
 
@@ -281,13 +289,13 @@ if has("gui_running")
 	set guioptions-=r  "remove right-hand scroll bar
 	set guioptions-=L  "remove left-hand scroll bar
 	if has("gui_gtk2")
-		set guifont=Terminus\ 9
+		set guifont=Terminus\ 10
 	elseif has("gui_macvim")
 		set guifont=Menlo\ Regular:h14
 	elseif has("gui_win32")
-		set guifont=Consolas:h10:cANSI
+		set guifont=Consolas:h11:cANSI
 		" For CJK
-		set guifontwide=NSimsun:h10
+		set guifontwide=NSimsun:h11
 	endif
 endif
 
@@ -371,13 +379,13 @@ cnoremap kj <Esc>
 "endif
 
 " Move or create window -- from http://www.agillo.net/simple-vim-window-management/
-function! WinMove(key) 
+function! WinMove(key)
 	let t:curwin = winnr()
 	exec "wincmd ".a:key
 	if (t:curwin == winnr()) "we havent moved
 		if (match(a:key,'[jk]')) "were we going up/down
 			wincmd v
-		else 
+		else
 			wincmd s
 		endif
 		exec "wincmd ".a:key
@@ -453,6 +461,9 @@ nmap <leader>tt :tabnew<CR>
 nmap <leader>tc :tabclose<CR>
 nmap <leader>tn :tabnext<CR>
 nmap <leader>tp :tabprev<CR>
+
+""""" Gundo
+nmap <leader>u :GundoToggle<CR>
 
 " Fast open vimrc
 nmap <leader>v :e $MYVIMRC<CR>

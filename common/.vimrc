@@ -30,8 +30,7 @@ Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
 Plugin 'scrooloose/syntastic'           " multi-language linting
 Plugin 'tpope/vim-fugitive'             " Git wrapper
-Plugin 'airblade/vim-gitgutter'         " Git signs
-Plugin 'tpope/vim-vinegar'              " Tweak Netrw 
+Plugin 'tpope/vim-vinegar'              " Tweak Netrw
 Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
 
 """"" Language specific
@@ -48,107 +47,10 @@ Plugin 'mhinz/vim-startify'             " startup menu
 Plugin 'tomtom/tcomment_vim'            " quick commenting
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugin settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""" Airline
-let g:airline_theme='tomorrow'
-"if !exists('g:airline_symbols')
-"    let g:airline_symbols = {}
-"endif
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-"let g:airline_section_b = '%{getcwd()}'
-
-""""" Ctrl-P
-let g:ctrlp_max_files = 0
-let g:ctrlp_clear_cache_on_exit = 0
-" Ignore files
-let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
-
-""""" Easymotion
-nmap f <Plug>(easymotion-s)
-
-""""" Emmet
-let g:user_emmet_leader_key='<C-y>'
-
-""""" Gundo
-let g:gundo_preview_bottom=1
-
-""""" Neocomplete
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Insert / delimiter for filename completion
-let g:neocomplete#enable_auto_delimiter = 1
-" Only complete after 3 (for keywords only)
-let g:neocomplete#auto_completion_start_length = 1
-" For snippet_complete marker.
-if has('conceal')
-	set conceallevel=2 concealcursor=i
-endif
-
-""""" Neosnippet
-" Complete snippet or move through menu
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-
-""""" Startify
-let g:startify_custom_header = [
-			\'     ____ _     _                   _ _           _ ',
-			\'    / ___( ) __| | __ _ _   _      | (_)_ __ ___ | |',
-			\'   | |  _|/ / _` |/ _` | | | |  _  | | | `_ ` _ \| |',
-			\'   | |_| | | (_| | (_| | |_| | | |_| | | | | | | |_|',
-			\'    \____|  \__,_|\__,_|\__, |  \___/|_|_| |_| |_(_)',
-			\'                        |___/                       ',
-			\ ]
-let g:startify_session_dir = '~/.vim/session'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" Omnicompletion (Intellisense TM)
-"set omnifunc=syntaxcomplete#Complete
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Comple
-
-" Completion menu use longest
-"set completeopt=menu,preview
-
-"" autocomplete with tab/shift+tab
-"function! SuperCleverTab(direction)
-"    let substr = strpart( getline('.'), 0, col('.')-1 )
-"    if substr =~ '^\s*$'
-"        return a:direction == 1 ? "\<Tab>" : "\<S-Tab>"
-"    else
-"        if pumvisible()
-"            return a:direction == 1 ? "\<C-n>" : "\<C-p>"
-"        elseif &omnifunc != ''
-"            return "\<C-x>\<C-o>"
-"        elseif match(substr, '\/') != -1
-"            return "\<c-x>\<c-f>"
-"        elseif &dictionary != ''
-"            return "\<C-k>"
-"        else
-"            return a:direction == 1 ? "\<C-n>" : "\<C-p>"
-"        endif
-"    endif
-"endfunction
-"
-"inoremap <Tab> <C-R>=SuperCleverTab(1)<CR>
-"inoremap <S-Tab> <C-R>=SuperCleverTab(-1)<CR>
-
-"Enable extended % matching
-runtime macros/matchit.vim
-
-" map leader
-map <Space> <leader>
+" Mouse off in GUI (yuck)
+set mouse-=a
 
 " Sets how many lines of history VIM has to remember
 set history=700
@@ -162,62 +64,29 @@ set autochdir
 " save changed files dialog
 set confirm
 
-" Display line numbers
-set number
-
-" Set relative line numbers
-set relativenumber
+" Display line numbers (and relatively)
+set number relativenumber
 
 " Always show the status line
 set laststatus=2
 
 " Backup and swap
-set nobackup
-set noswapfile
+set nobackup noswapfile
 
-" Session options
+" Session options (when saving)
 set sessionoptions=blank,buffers,curdir,folds,tabpages,winpos,winsize
 
-" Set shorter wait time for keys
-"set timeoutlen=200
+" Set utf8 as standard encoding
+set encoding=utf8
 
-" Return to last edit position when opening file
-autocmd BufReadPost *
-			\if line("'\"") > 0 && line("'\"") <= line("$") |
-			\   exe "normal! g`\"" |
-			\endif
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
 
-" Remember info about open buffers on close
-"set viminfo^=%
-
-" Command to save with sudo
-cmap w!! w !sudo tee > /dev/null %
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => User interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Give terminal ViM a title
 set title
 
 " Scrolloff
 set so=999
-
-" Turn on the WiLd menu and add shell-style completion
-set wildmode=list:longest
-
-" Ignore files
-set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
-set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
-set wildignore+=*.zip,*.exe,*.sh
-set wildignore+=*.eot,*.svg,*.ttf,*.woff,*.ico
-set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.gif,*.tiff,*.eps,*.psd
-set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls
-
-" Display full path always
-"set statusline+=%F
-
-"Always show current position
-"set ruler
 
 " A buffer becomes hidden when it is abandoned
 set hidden
@@ -226,17 +95,8 @@ set hidden
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
-" Ignore case when searching
-set ignorecase
-
-" Turn on case sensitivity when capital in search
-set smartcase
-
-" Highlight search results
-set hlsearch
-
-" Jump to search as you type
-set incsearch
+" Search - ignore case, unless capital typed, highlight, jump as you type
+set ignorecase smartcase hlsearch incsearch
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -251,23 +111,14 @@ set showmatch
 set mat=2
 
 " No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
-
-" Netrw window absolute width
-"let g:netrw_winsize = -28
-" Netrw banner info off
-let g:netrw_banner = 0
-" Netrw default to tree
-let g:netrw_liststyle = 3
-" Netrw keep current dir same as browsing dir
-let g:netrw_keepdir = 0
+set noerrorbells novisualbell t_vb= tm=500
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colours and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Highlight column 81 to help keep lines of code 80 characters or less "
+set colorcolumn=81
+
 " Enable syntax highlighting
 syntax enable
 
@@ -299,14 +150,6 @@ if has("gui_running")
 	endif
 endif
 
-" Set utf8 as standard encoding
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-" Highlight column 81 to help keep lines of code 80 characters or less "
-set colorcolumn=81
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -330,53 +173,26 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-" Move a line or block of text using Meta+[jk]
-nmap <M-j> mz:m+<CR>`z
-nmap <M-k> mz:m-2<CR>`z
-vmap <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
-vmap <M-j> :m'>+<CR>`<my`>mzgv`yo`z
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Filetype specific
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set local options for specific filetypes
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
+" => Custom mappings, functions and commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mouse off in GUI (yuck)
-set mouse-=a
-
 " More convenient escape sequence
 inoremap jk <Esc>
 cnoremap jk <Esc>
 inoremap kj <Esc>
 cnoremap kj <Esc>
-
-" The ' is easier to reach than `
-"nnoremap ' `
-"nnoremap ` '
-
-" Change windows seamlessly in vim and tmux
-"if exists('$TMUX')
-"	function! TmuxOrSplitSwitch(wincmd, tmuxdir)
-"		let previous_winnr = winnr()
-"		silent! execute "wincmd " . a:wincmd
-"		if previous_winnr == winnr()
-"			call system("tmux select-pane -" . a:tmuxdir)
-"			redraw!
-"		endif
-"	endfunction
-"
-"	let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
-"	let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
-"	let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
-"
-"	nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<CR>
-"	nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<CR>
-"	nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<CR>
-"	nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<CR>
-"else
-"	map <C-h> <C-w>h
-"	map <C-j> <C-w>j
-"	map <C-k> <C-w>k
-"	map <C-l> <C-w>l
-"endif
 
 " Move or create window -- from http://www.agillo.net/simple-vim-window-management/
 function! WinMove(key)
@@ -392,15 +208,27 @@ function! WinMove(key)
 	endif
 endfunction
 
+" Move a line or block of text using Meta+[jk]
+nmap <M-j> mz:m+<CR>`z
+nmap <M-k> mz:m-2<CR>`z
+vmap <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
+vmap <M-j> :m'>+<CR>`<my`>mzgv`yo`z
+
 " Resize windows
 nmap <left>  :10wincmd <<CR>
 nmap <right> :10wincmd ><CR>
 nmap <up>    :10wincmd +<CR>
 nmap <down>  :10wincmd -<CR>
 
+" Command to save with sudo
+cmap w!! w !sudo tee > /dev/null %
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Custom leader keys
+" => Custom mappings - leader
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" map leader
+map <Space> <leader>
+
 " Update if necessary
 nmap <leader>a :update<CR>
 
@@ -421,16 +249,16 @@ nmap <silent> <leader>e :Explore<CR>
 nmap <leader>f :CtrlP<CR>
 
 " Switch or create windows
-map <leader>h              :call WinMove('h')<cr>
-map <leader>k              :call WinMove('k')<cr>
-map <leader>l              :call WinMove('l')<cr>
-map <leader>j              :call WinMove('j')<cr>
+map <leader>h :call WinMove('h')<cr>
+map <leader>k :call WinMove('k')<cr>
+map <leader>l :call WinMove('l')<cr>
+map <leader>j :call WinMove('j')<cr>
 
 " Move windows
-map <leader>H              :wincmd H<cr>
-map <leader>K              :wincmd K<cr>
-map <leader>L              :wincmd L<cr>
-map <leader>J              :wincmd J<cr>
+map <leader>H :wincmd H<cr>
+map <leader>K :wincmd K<cr>
+map <leader>L :wincmd L<cr>
+map <leader>J :wincmd J<cr>
 
 " File re-indentation
 nmap <leader>i mzgg=G`z
@@ -477,3 +305,81 @@ nmap <silent> <leader>/ :noh<CR>
 " Remove trailing spaces
 nmap <leader><Space> mz:%s/\s\+$//e<CR>`z
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Built-in extensions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Netrw banner info off
+let g:netrw_banner = 0
+" Netrw default to tree
+let g:netrw_liststyle = 3
+" Netrw keep current dir same as browsing dir
+"let g:netrw_keepdir = 0
+
+" Turn on the WiLd menu and add shell-style completion
+set wildmode=list:longest
+
+" Ignore files
+set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
+set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
+set wildignore+=*.zip,*.exe,*.sh
+set wildignore+=*.eot,*.svg,*.ttf,*.woff,*.ico
+set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.gif,*.tiff,*.eps,*.psd
+set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls
+
+"Enable extended % matching
+runtime macros/matchit.vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""" Airline
+let g:airline_theme='tomorrow'
+"if !exists('g:airline_symbols')
+"    let g:airline_symbols = {}
+"endif
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+"let g:airline_section_b = '%{getcwd()}'
+
+""""" Ctrl-P
+let g:ctrlp_max_files = 0
+let g:ctrlp_clear_cache_on_exit = 0
+" Ignore files
+let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
+
+""""" Easymotion
+nmap f <Plug>(easymotion-s)
+
+""""" Gundo
+let g:gundo_preview_bottom=1
+
+""""" Neocomplete
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Insert / delimiter for filename completion
+let g:neocomplete#enable_auto_delimiter = 1
+" Characters before keywords complete
+let g:neocomplete#auto_completion_start_length = 1
+" For snippet_complete marker.
+if has('conceal')
+	set conceallevel=2 concealcursor=i
+endif
+
+""""" Neosnippet
+" Complete snippet or move through menu
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+""""" Startify
+let g:startify_custom_header = [
+			\'     ____ _     _                   _ _           _ ',
+			\'    / ___( ) __| | __ _ _   _      | (_)_ __ ___ | |',
+			\'   | |  _|/ / _` |/ _` | | | |  _  | | | `_ ` _ \| |',
+			\'   | |_| | | (_| | (_| | |_| | | |_| | | | | | | |_|',
+			\'    \____|  \__,_|\__,_|\__, |  \___/|_|_| |_| |_(_)',
+			\'                        |___/                       ',
+			\ ]
+" Specify for Windows
+let g:startify_session_dir = '~/.vim/session'

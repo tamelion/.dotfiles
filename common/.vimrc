@@ -26,7 +26,6 @@ Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
 Plugin 'scrooloose/syntastic'           " multi-language linting
 Plugin 'tpope/vim-fugitive'             " Git wrapper
-Plugin 'tpope/vim-vinegar'              " Tweak Netrw
 Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
 """"" Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
@@ -90,18 +89,24 @@ set wrap
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colours and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256
 " Highlight column 81 to help keep lines of code 80 characters or less
 set colorcolumn=81
 " Enable syntax highlighting
 syntax enable
 " Colour scheme
 set background=dark
+let base16colorspace=256
 colorscheme base16-tomorrow
-" Transparent bg
-hi Normal ctermbg=NONE
 " Highlight current line
 set cursorline
-" Set extra options when running in GUI
+" Set highlights for terminal
+"hi CursorLine ctermbg=235
+"hi CursorLineNr ctermbg=235
+"hi LineNr ctermbg=235
+"hi SignColumn ctermbg=235
+"hi Pmenu ctermbg=235
+""" Set extra options when running in GUI
 if has("gui_running")
 	set mouse-=a       "mouse off
 	set guioptions-=m  "remove menu bar
@@ -149,7 +154,7 @@ set wildmode=list:longest
 " Ignore files
 set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
 set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
-set wildignore+=*.zip,*.exe,*.sh
+set wildignore+=*.zip,*.exe
 set wildignore+=*.eot,*.svg,*.ttf,*.woff,*.ico
 set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.gif,*.tiff,*.eps,*.psd
 set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls

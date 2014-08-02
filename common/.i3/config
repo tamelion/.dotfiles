@@ -73,7 +73,7 @@ bindsym $mod+f fullscreen
 # change container layout
 bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
-bindsym $mod+w layout stacking 
+bindsym $mod+w layout stacking
 
 # toggle tiling / floating
 bindsym $mod+Shift+Tab floating toggle
@@ -139,21 +139,21 @@ bindsym $mod+Down resize grow height 10 px or 10 ppt
 bindsym $mod+Up resize shrink height 10 px or 10 ppt
 bindsym $mod+Right resize grow width 10 px or 10 ppt
 
-# molokai colours plus extras
-set $red    #f92672
-set $green  #a6e22e
-set $yellow #e6db74
-set $purple #ae81ff
-set $cyan   #66d9ef
-set $orange #fd971f
+# tomorrow colours except blue
+set $red    #cc6666
+set $green  #b5bd68
+set $yellow #f0c674
+set $purple #b294bb
+set $cyan   #8abeb7
+set $orange #de935f
 
 set $blue   #6394de
 
-set $black  #000000
-set $dgrey  #2c2c2e
-set $grey   #808080
-set $lgrey  #dddddd
-set $white  #ffffff
+set $black  #1d1f21
+set $dgrey  #373b41
+set $grey   #969896
+set $lgrey  #b4b7b4
+set $white  #e0e0e0
 
                           # border     background  text
 client.focused              $blue      $blue       $white
@@ -176,9 +176,6 @@ bar {
             urgent_workspace    $red        $dgrey      $white
         }
 }
-
-# Unmount all removable drives
-bindsym $mod+u exec --no-startup-id devmon -r --no-gui 
 
 # Bind apps
 bindsym $mod+c exec google-chrome-beta

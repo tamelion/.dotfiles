@@ -6,16 +6,15 @@ set nocompatible
 " turn off temporarily for vundle
 filetype off
 " add vundle to rtp and call
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/vundle.vim/
 call vundle#rc()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'gmarik/vundle'                  " vundle
+Plugin 'gmarik/vundle.vim'                  " vundle
 """"" Vanity
 Plugin 'chriskempson/base16-vim'        " coding colour scheme
-Plugin 'reedes/vim-colors-pencil'       " writing colour scheme
 Plugin 'bling/vim-airline'              " Status bar
 """"" Helpers
 Plugin 'kien/ctrlp.vim'                 " Quick file opener
@@ -33,7 +32,6 @@ Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
 Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
 Plugin 'skammer/vim-css-color'          " colour of hex values
-Plugin 'reedes/vim-pencil'       		" writing helper
 """"" Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
 Plugin 'mhinz/vim-startify'             " startup menu
@@ -45,7 +43,7 @@ Plugin 'tomtom/tcomment_vim'            " quick commenting
 " Sets how many lines of history VIM has to remember
 set history=700
 " Change directory to the current buffer when opening files.
-set autochdir
+"set autochdir
 " save changed files dialog
 set confirm
 " Backup and swap
@@ -135,8 +133,6 @@ filetype indent on
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" Compress HTML
-autocmd filetype html set shiftwidth=2 tabstop=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Built-in extensions
@@ -174,7 +170,9 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 "let g:airline_section_b = '%{getcwd()}'
 """"" Ctrl-P
+" Unlimited files
 let g:ctrlp_max_files = 0
+" Keep cache on exit
 let g:ctrlp_clear_cache_on_exit = 0
 " Ignore files
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
@@ -269,14 +267,14 @@ nnoremap <silent> <leader>H :wincmd H<cr>
 nnoremap <silent> <leader>K :wincmd K<cr>
 nnoremap <silent> <leader>L :wincmd L<cr>
 nnoremap <silent> <leader>J :wincmd J<cr>
-" File re-indentation (and remove trailing spaces)
-nnoremap <leader>i mz:%s/\s\+$//e<CR>gg=G`z
+" Translate carriage returns, remove trailing space and re-indent
+nnoremap <leader>i mz:%s/\r\+$//e<CR>:%s/\s\+$//e<CR>gg=G`z
 " Open startify menu
 nnoremap <leader>m :Startify<CR>
 " Create new file and set syntax
 nnoremap <leader>n :enew<CR>:set syntax=
 " Close operations
-nnoremap <leader>q :q<CR>
+nnoremap <leader>q <C-w>c<CR>
 nnoremap <leader>Q :qa<CR>
 " Rotate windows
 nnoremap <leader>r <C-W>r

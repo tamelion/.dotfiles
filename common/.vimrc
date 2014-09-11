@@ -32,6 +32,7 @@ Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
 Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
 Plugin 'skammer/vim-css-color'          " colour of hex values
+Plugin 'pangloss/vim-javascript'        " Better JS indentation
 """"" Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
 Plugin 'mhinz/vim-startify'             " startup menu
@@ -208,6 +209,9 @@ let g:startify_custom_header = [
 			\ ]
 " Specify for Windows
 let g:startify_session_dir = '~/.vim/session'
+let g:startify_files_number = 25
+"""""" Syntastic
+let g:syntastic_javascript_checkers = ['jshint']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Custom mappings, functions and commands

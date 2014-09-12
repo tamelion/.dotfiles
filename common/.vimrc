@@ -19,13 +19,14 @@ Plugin 'bling/vim-airline'              " Status bar
 """"" Helpers
 Plugin 'kien/ctrlp.vim'                 " Quick file opener
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
-Plugin 'sjl/gundo.vim'                  " Undo tree
+Plugin 'mbbill/undotree'                " Undo tree
 Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
 Plugin 'scrooloose/syntastic'           " multi-language linting
 Plugin 'tpope/vim-fugitive'             " Git wrapper
 Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
+Plugin 'godlygeek/tabular'              " Line up text
 """"" Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
 Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
@@ -33,6 +34,7 @@ Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
 Plugin 'skammer/vim-css-color'          " colour of hex values
 Plugin 'pangloss/vim-javascript'        " Better JS indentation
+Plugin 'marijnh/tern_for_vim'           " JS code analysis
 """"" Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
 Plugin 'mhinz/vim-startify'             " startup menu
@@ -84,6 +86,9 @@ set shiftwidth=4 tabstop=4
 set autoindent smartindent
 " Line wrap
 set wrap
+" Persistant undo
+set undodir='~/.vim/undo'
+set undofile
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colours and Fonts
@@ -179,8 +184,6 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
 """"" Easymotion
 nmap f <Plug>(easymotion-s)
-""""" Gundo
-let g:gundo_preview_bottom=1
 """"" Neocomplete
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
@@ -212,6 +215,8 @@ let g:startify_session_dir = '~/.vim/session'
 let g:startify_files_number = 25
 """""" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
+"""""" Undotree
+let g:undotree_SetFocusWhenToggle = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Custom mappings, functions and commands
@@ -221,19 +226,6 @@ inoremap jk <Esc>
 cnoremap jk <Esc>
 inoremap kj <Esc>
 cnoremap kj <Esc>
-" Move or create window -- from http://www.agillo.net/simple-vim-window-management/
-function! WinMove(key)
-	let t:curwin = winnr()
-	exec "wincmd ".a:key
-	if (t:curwin == winnr()) "we havent moved
-		if (match(a:key,'[jk]')) "were we going up/down
-			wincmd v
-		else
-			wincmd s
-		endif
-		exec "wincmd ".a:key
-	endif
-endfunction
 " Move a line or block of text using Meta+[jk]
 nnoremap <M-j> mz:m+<CR>`z
 nnoremap <M-k> mz:m-2<CR>`z
@@ -252,6 +244,9 @@ cnoremap w!! w !sudo tee > /dev/null %
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map leader
 map <Space> <leader>
+" map easy splits
+nnoremap <leader>' <C-w>v
+nnoremap <leader>; <C-w>s
 " Switch buffer by name
 nnoremap <leader>b :CtrlPBuffer<CR>
 " Switch CWD to the directory of the open buffer
@@ -262,15 +257,15 @@ nnoremap <leader>d :bp<bar>sp<bar>bn<bar>bd<cr>
 nnoremap <leader>f :CtrlP<CR>
 nnoremap <leader>F :Explore<CR>
 " Switch or create windows
-nnoremap <silent> <leader>h :call WinMove('h')<cr>
-nnoremap <silent> <leader>k :call WinMove('k')<cr>
-nnoremap <silent> <leader>l :call WinMove('l')<cr>
-nnoremap <silent> <leader>j :call WinMove('j')<cr>
+nnoremap <silent> <leader>h <C-W>h
+nnoremap <silent> <leader>k <C-W>k
+nnoremap <silent> <leader>l <C-W>l
+nnoremap <silent> <leader>j <C-W>j
 " Move windows
-nnoremap <silent> <leader>H :wincmd H<cr>
-nnoremap <silent> <leader>K :wincmd K<cr>
-nnoremap <silent> <leader>L :wincmd L<cr>
-nnoremap <silent> <leader>J :wincmd J<cr>
+nnoremap <silent> <leader>H <C-W>H
+nnoremap <silent> <leader>K <C-W>K
+nnoremap <silent> <leader>L <C-W>L
+nnoremap <silent> <leader>J <C-W>J
 " Translate carriage returns, remove trailing space and re-indent
 nnoremap <leader>i mz:%s/\r\+$//e<CR>:%s/\s\+$//e<CR>gg=G`z
 " Open startify menu
@@ -289,8 +284,8 @@ nnoremap <leader>r <C-W>r
 nnoremap <leader>ss :SSave
 nnoremap <leader>so :SLoad
 nnoremap <leader>sd :SDelete
-" Gundo
-nnoremap <leader>u :GundoToggle<CR>
+" Toggle undo tree
+nnoremap <silent> <leader>u :UndotreeToggle<CR>
 " Fast open vimrc
 nnoremap <leader>v :e $MYVIMRC<CR>
 " Disable highlight

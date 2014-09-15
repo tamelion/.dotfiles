@@ -34,7 +34,6 @@ Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
 Plugin 'skammer/vim-css-color'          " colour of hex values
 Plugin 'pangloss/vim-javascript'        " Better JS indentation
-Plugin 'marijnh/tern_for_vim'           " JS code analysis
 """"" Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
 Plugin 'mhinz/vim-startify'             " startup menu
@@ -123,7 +122,7 @@ if has("gui_running")
 	elseif has("gui_macvim")
 		set guifont=Menlo\ Regular:h14
 	elseif has("gui_win32")
-		set guifont=Consolas:h11:cANSI
+		set guifont=Consolas:h14:cANSI
 		" For CJK
 		set guifontwide=NSimsun:h11
 	endif

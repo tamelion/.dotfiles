@@ -29,10 +29,11 @@ Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
 Plugin 'godlygeek/tabular'              " Line up text
 """"" Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
+Plugin 'mattn/emmet-vim'                " Emmet
 Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
 Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
-Plugin 'skammer/vim-css-color'          " colour of hex values
+Plugin 'skammer/vim-css-color'          " CSS colour of hex values
 Plugin 'pangloss/vim-javascript'        " Better JS indentation
 """"" Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
@@ -99,7 +100,7 @@ set colorcolumn=81
 syntax enable
 " Colour scheme
 set background=dark
-let base16colorspace=256
+"let base16colorspace=256
 colorscheme base16-tomorrow
 " Highlight current line
 set cursorline
@@ -122,7 +123,7 @@ if has("gui_running")
 	elseif has("gui_macvim")
 		set guifont=Menlo\ Regular:h14
 	elseif has("gui_win32")
-		set guifont=Consolas:h14:cANSI
+		set guifont=Consolas:h11:cANSI
 		" For CJK
 		set guifontwide=NSimsun:h11
 	endif
@@ -156,7 +157,7 @@ set wildmode=list:longest
 set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
 set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
 set wildignore+=*.zip,*.exe
-set wildignore+=*.eot,*.svg,*.ttf,*.woff,*.ico
+set wildignore+=*.eot,*.svg,*.ttf,*.woff,*.ico,*.db
 set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.gif,*.tiff,*.eps,*.psd
 set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls
 """"" Macros
@@ -244,8 +245,8 @@ cnoremap w!! w !sudo tee > /dev/null %
 " map leader
 map <Space> <leader>
 " map easy splits
-nnoremap <leader>' <C-w>v
-nnoremap <leader>; <C-w>s
+nnoremap <leader>\| <C-w>v
+nnoremap <leader>- <C-w>s
 " Switch buffer by name
 nnoremap <leader>b :CtrlPBuffer<CR>
 " Switch CWD to the directory of the open buffer
@@ -266,16 +267,20 @@ nnoremap <silent> <leader>K <C-W>K
 nnoremap <silent> <leader>L <C-W>L
 nnoremap <silent> <leader>J <C-W>J
 " Translate carriage returns, remove trailing space and re-indent
-nnoremap <leader>i mz:%s/\r\+$//e<CR>:%s/\s\+$//e<CR>gg=G`z
+nnoremap <leader>ii mz:%s/\r\+$//e<CR>:%s/\s\+$//e<CR>gg=G`z
+" Format CSS - add extra space after colons and remove blank lines
+nnoremap <silent><leader>ic :%s/:\s*/: /g<CR>:g/^\s*$/d<CR>
 " Open startify menu
 nnoremap <leader>m :Startify<CR>
 " Create new file and set syntax
 nnoremap <leader>n :enew<CR>:set syntax=
+" Paste last cut (not last delete)
+nnoremap <leader>p "0p
 " Close operations
 nnoremap <leader>q <C-w>c<CR>
 nnoremap <leader>Q :qa<CR>
-" Rotate windows
-nnoremap <leader>r <C-W>r
+" Reload .vimrc
+nnoremap <leader>r :so $MYVIMRC<CR>
 " Session mappings
 "nnoremap <leader>ss :mks ~/.vim/session/
 "nnoremap <leader>so :so ~/.vim/session/

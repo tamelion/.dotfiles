@@ -120,10 +120,8 @@ if has("gui_running")
 	set guioptions-=L  "remove left-hand scroll bar
 	if has("gui_gtk2")
 		set guifont=Terminus\ 10
-	elseif has("gui_macvim")
-		set guifont=Menlo\ Regular:h14
 	elseif has("gui_win32")
-		set guifont=Consolas:h11:cANSI
+		set guifont=Consolas:h10:cANSI
 		" For CJK
 		set guifontwide=NSimsun:h11
 	endif
@@ -240,60 +238,62 @@ nnoremap <down>  :10wincmd -<CR>
 cnoremap w!! w !sudo tee > /dev/null %
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Custom mappings - leader (alphabetical)
+" => Custom mappings - Leader (alphabetical)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" map leader
-map <Space> <leader>
+" map Leader
+map <Space> <Leader>
 " map easy splits
-nnoremap <leader>\| <C-w>v
-nnoremap <leader>- <C-w>s
+nnoremap <Leader>\| <C-w>v
+nnoremap <Leader>_ <C-w>s
 " Switch buffer by name
-nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <Leader>b :CtrlPBuffer<CR>
 " Switch CWD to the directory of the open buffer
-nnoremap <leader>c :cd %:p:h<CR>:pwd<CR>
-" Close buffer without closing window
-nnoremap <leader>d :bp<bar>sp<bar>bn<bar>bd<cr>
+nnoremap <Leader>c :cd %:p:h<CR>:pwd<CR>
+" Close buffer
+nnoremap <Leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <Leader>D :bd<CR>
 " Open operations
-nnoremap <leader>f :CtrlP<CR>
-nnoremap <leader>F :Explore<CR>
+nnoremap <Leader>e :Explore<CR>
+nnoremap <Leader>f :CtrlP<CR>
 " Switch or create windows
-nnoremap <silent> <leader>h <C-W>h
-nnoremap <silent> <leader>k <C-W>k
-nnoremap <silent> <leader>l <C-W>l
-nnoremap <silent> <leader>j <C-W>j
+nnoremap <silent> <Leader>h <C-W>h
+nnoremap <silent> <Leader>k <C-W>k
+nnoremap <silent> <Leader>l <C-W>l
+nnoremap <silent> <Leader>j <C-W>j
 " Move windows
-nnoremap <silent> <leader>H <C-W>H
-nnoremap <silent> <leader>K <C-W>K
-nnoremap <silent> <leader>L <C-W>L
-nnoremap <silent> <leader>J <C-W>J
+nnoremap <silent> <Leader>H <C-W>H
+nnoremap <silent> <Leader>K <C-W>K
+nnoremap <silent> <Leader>L <C-W>L
+nnoremap <silent> <Leader>J <C-W>J
 " Translate carriage returns, remove trailing space and re-indent
-nnoremap <leader>ii mz:%s/\r\+$//e<CR>:%s/\s\+$//e<CR>gg=G`z
-" Format CSS - add extra space after colons and remove blank lines
-nnoremap <silent><leader>ic :%s/:\s*/: /g<CR>:g/^\s*$/d<CR>
+nnoremap <Leader>i mz:%s/\r\+$//e<CR>:%s/\s\+$//e<CR>gg=G`z
+" Remove blank lines
+nnoremap <silent><Leader>ic :g/^\s*$/d<CR>
 " Open startify menu
-nnoremap <leader>m :Startify<CR>
+nnoremap <Leader>m :Startify<CR>
 " Create new file and set syntax
-nnoremap <leader>n :enew<CR>:set syntax=
+nnoremap <Leader>n :enew<CR>:set syntax=
 " Paste last cut (not last delete)
-nnoremap <leader>p "0p
-" Close operations
-nnoremap <leader>q <C-w>c<CR>
-nnoremap <leader>Q :qa<CR>
-" Reload .vimrc
-nnoremap <leader>r :so $MYVIMRC<CR>
+nnoremap <Leader>p "0p
+" Close all
+nnoremap <Leader>q :qa<CR>
 " Session mappings
-"nnoremap <leader>ss :mks ~/.vim/session/
-"nnoremap <leader>so :so ~/.vim/session/
+"nnoremap <Leader>ss :mks ~/.vim/session/
+"nnoremap <Leader>so :so ~/.vim/session/
 " Session mappings using startify
-nnoremap <leader>ss :SSave
-nnoremap <leader>so :SLoad
-nnoremap <leader>sd :SDelete
+nnoremap <Leader>ss :SSave<CR>
+nnoremap <Leader>so :SLoad<CR>
+nnoremap <Leader>sd :SDelete<CR>
 " Toggle undo tree
-nnoremap <silent> <leader>u :UndotreeToggle<CR>
+nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 " Fast open vimrc
-nnoremap <leader>v :e $MYVIMRC<CR>
+nnoremap <Leader>v :e $MYVIMRC<CR>
+" Reload .vimrc
+nnoremap <Leader>V :so $MYVIMRC<CR>
 " Disable highlight
-nnoremap <silent> <leader>/ :noh<CR>
+nnoremap <silent> <Leader>/ :noh<CR>
 " Write operations
-nnoremap <leader><Space> :w<CR>
-nnoremap <leader><S-Space> :set buftype=<CR>:w<CR>
+nnoremap <Leader><Space> :w<CR>
+nnoremap <Leader><S-Space> :set buftype=<CR>:w<CR>
+" Fix unicode characters
+nnoremap <silent> <Leader>' :%s/’/'/ge<CR>:%s/“/"/ge<CR>:%s/”/"/ge<CR>:%s/–/-/ge<CR>

@@ -62,18 +62,17 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # vertical split (i3 calls this h)
-bindsym $mod+v split h
+#bindsym $mod+v split h
 
 # horizontal split (i3 calls this v)
-bindsym $mod+s split v
+#bindsym $mod+s split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
 
 # change container layout
 bindsym $mod+t layout tabbed
-bindsym $mod+e layout toggle split
-bindsym $mod+w layout stacking
+bindsym $mod+s layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+Tab floating toggle

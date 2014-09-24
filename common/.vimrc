@@ -250,8 +250,8 @@ nnoremap <Leader>b :CtrlPBuffer<CR>
 " Switch CWD to the directory of the open buffer
 nnoremap <Leader>c :cd %:p:h<CR>:pwd<CR>
 " Close buffer
-nnoremap <Leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
-nnoremap <Leader>D :bd<CR>
+"nnoremap <Leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <Leader>d :bd<CR>
 " Open operations
 nnoremap <Leader>e :Explore<CR>
 nnoremap <Leader>f :CtrlP<CR>
@@ -266,9 +266,9 @@ nnoremap <silent> <Leader>K <C-W>K
 nnoremap <silent> <Leader>L <C-W>L
 nnoremap <silent> <Leader>J <C-W>J
 " Translate carriage returns, remove trailing space and re-indent
-nnoremap <Leader>i mz:%s/\r\+$//e<CR>:%s/\s\+$//e<CR>gg=G`z
+nnoremap <Leader>ii mz:%s/\r\+$//e<CR>:%s/\s\+$//e<CR>gg=G`z
 " Remove blank lines
-nnoremap <silent><Leader>ic :g/^\s*$/d<CR>
+nnoremap <silent><Leader>i<space> :g/^\s*$/d<CR>
 " Open startify menu
 nnoremap <Leader>m :Startify<CR>
 " Create new file and set syntax

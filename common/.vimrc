@@ -12,9 +12,9 @@ call vundle#rc()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'gmarik/vundle.vim'                  " vundle
+Plugin 'gmarik/vundle.vim'              " vundle
 """"" Vanity
-Plugin 'chriskempson/base16-vim'        " coding colour scheme
+Plugin 'ChrisKempson/vim-tomorrow-theme' " coding colour scheme
 Plugin 'bling/vim-airline'              " Status bar
 """"" Helpers
 Plugin 'kien/ctrlp.vim'                 " Quick file opener
@@ -70,8 +70,8 @@ set lazyredraw
 set magic
 " No annoying sound on errors
 set noerrorbells novisualbell t_vb= tm=500
-" Display line numbers (and relatively)
-set number relativenumber
+" Display line numbers
+set number
 " Always show the status line
 set laststatus=2
 " Give terminal ViM a title
@@ -100,8 +100,7 @@ set colorcolumn=81
 syntax enable
 " Colour scheme
 set background=dark
-"let base16colorspace=256
-colorscheme base16-tomorrow
+colorscheme Tomorrow-Night
 " Highlight current line
 set cursorline
 " Set highlights for terminal
@@ -137,6 +136,8 @@ filetype indent on
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" HTML indentation
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Built-in extensions
@@ -245,6 +246,11 @@ map <Space> <Leader>
 " map easy splits
 nnoremap <Leader>\| <C-w>v
 nnoremap <Leader>_ <C-w>s
+" Disable highlight
+nnoremap <silent> <Leader>/ :noh<CR>
+" Write operations
+nnoremap <Leader><Space> :w<CR>
+nnoremap <Leader><S-Space> :set buftype=<CR>:w<CR>
 " Switch buffer by name
 nnoremap <Leader>b :CtrlPBuffer<CR>
 " Switch CWD to the directory of the open buffer
@@ -256,17 +262,19 @@ nnoremap <Leader>d :bd<CR>
 nnoremap <Leader>e :Explore<CR>
 nnoremap <Leader>f :CtrlP<CR>
 " Switch or create windows
-nnoremap <silent> <Leader>h <C-W>h
-nnoremap <silent> <Leader>k <C-W>k
-nnoremap <silent> <Leader>l <C-W>l
-nnoremap <silent> <Leader>j <C-W>j
+nnoremap <silent> <Leader>h <C-w>h
+nnoremap <silent> <Leader>k <C-w>k
+nnoremap <silent> <Leader>l <C-w>l
+nnoremap <silent> <Leader>j <C-w>j
 " Move windows
-nnoremap <silent> <Leader>H <C-W>H
-nnoremap <silent> <Leader>K <C-W>K
-nnoremap <silent> <Leader>L <C-W>L
-nnoremap <silent> <Leader>J <C-W>J
+nnoremap <silent> <Leader>H <C-w>H
+nnoremap <silent> <Leader>K <C-w>K
+nnoremap <silent> <Leader>L <C-w>L
+nnoremap <silent> <Leader>J <C-w>J
 " Translate carriage returns, remove trailing space and re-indent
-nnoremap <Leader>ii mz:%s/\r\+$//e<CR>:%s/\s\+$//e<CR>gg=G`z
+nnoremap <Leader>ii mz @r @t @i `z
+" Fix unicode characters
+nnoremap <silent> <Leader>iu :%s/’/'/ge<CR>:%s/\(“\|”\)/"/ge<CR>:%s/–/-/ge<CR>
 " Remove blank lines
 nnoremap <silent><Leader>i<space> :g/^\s*$/d<CR>
 " Open startify menu
@@ -275,8 +283,10 @@ nnoremap <Leader>m :Startify<CR>
 nnoremap <Leader>n :enew<CR>:set syntax=
 " Paste last cut (not last delete)
 nnoremap <Leader>p "0p
-" Close all
-nnoremap <Leader>q :qa<CR>
+" Close window
+"nnoremap <Leader>q <C-w>c<CR>
+" Register list
+nnoremap <Leader>r :reg<CR>
 " Session mappings
 "nnoremap <Leader>ss :mks ~/.vim/session/
 "nnoremap <Leader>so :so ~/.vim/session/
@@ -290,10 +300,15 @@ nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 nnoremap <Leader>v :e $MYVIMRC<CR>
 " Reload .vimrc
 nnoremap <Leader>V :so $MYVIMRC<CR>
-" Disable highlight
-nnoremap <silent> <Leader>/ :noh<CR>
-" Write operations
-nnoremap <Leader><Space> :w<CR>
-nnoremap <Leader><S-Space> :set buftype=<CR>:w<CR>
-" Fix unicode characters
-nnoremap <silent> <Leader>' :%s/’/'/ge<CR>:%s/“/"/ge<CR>:%s/”/"/ge<CR>:%s/–/-/ge<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Custom mappings - macros
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Append a line break
+let @b = 'A<br />'
+" Translate carriage returns
+let @r = ':%s/\r\+$//e'
+" Remove trailing space
+let @t = ':%s/\s\+$//e'
+" Re-indent whole file
+let @i = 'gg=G'

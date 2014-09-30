@@ -1,22 +1,22 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Set up for Vundle
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " we loViMprovement
 set nocompatible
+
+" Plugins {{{
+
 " turn off temporarily for vundle
 filetype off
+
 " add vundle to rtp and call
 set rtp+=~/.vim/bundle/vundle.vim/
 call vundle#rc()
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'gmarik/vundle.vim'              " vundle
-""""" Vanity
+
+" Vanity
 Plugin 'ChrisKempson/vim-tomorrow-theme' " coding colour scheme
 Plugin 'bling/vim-airline'              " Status bar
-""""" Helpers
+
+" Helpers
 Plugin 'kien/ctrlp.vim'                 " Quick file opener
 Plugin 'Lokaltog/vim-easymotion'        " move through vim
 Plugin 'mbbill/undotree'                " Undo tree
@@ -27,7 +27,8 @@ Plugin 'scrooloose/syntastic'           " multi-language linting
 Plugin 'tpope/vim-fugitive'             " Git wrapper
 Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
 Plugin 'godlygeek/tabular'              " Line up text
-""""" Language specific
+
+" Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
 Plugin 'mattn/emmet-vim'                " Emmet
 Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
@@ -35,14 +36,15 @@ Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
 Plugin 'skammer/vim-css-color'          " CSS colour of hex values
 Plugin 'pangloss/vim-javascript'        " Better JS indentation
-""""" Other crazy stuff
+
+" Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
 Plugin 'mhinz/vim-startify'             " startup menu
 Plugin 'tomtom/tcomment_vim'            " quick commenting
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"}}}
+"  General {{{
+
 " Sets how many lines of history VIM has to remember
 set history=700
 " Change directory to the current buffer when opening files.
@@ -57,7 +59,7 @@ set sessionoptions=blank,buffers,curdir,folds,tabpages,winpos,winsize
 set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
-" A buffer becomes hidden when it is abandoned
+" Buffer gets hidden when closed
 set hidden
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -90,9 +92,9 @@ set wrap
 set undodir='~/.vim/undo'
 set undofile
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colours and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" Colours and fonts {{{
+
 set t_Co=256
 " Highlight column 81 to help keep lines of code 80 characters or less
 set colorcolumn=81
@@ -103,15 +105,9 @@ set background=dark
 colorscheme Tomorrow-Night
 " Highlight current line
 set cursorline
-" Set highlights for terminal
-"hi CursorLine ctermbg=235
-"hi CursorLineNr ctermbg=235
-"hi LineNr ctermbg=235
-"hi SignColumn ctermbg=235
-"hi Pmenu ctermbg=235
 """ Set extra options when running in GUI
 if has("gui_running")
-	set mouse-=a       "mouse off
+	set mouse-=a       "mouse OFF
 	set guioptions-=m  "remove menu bar
 	set guioptions-=T  "remove toolbar
 	set guioptions-=e  "remove GUI tabs
@@ -126,22 +122,9 @@ if has("gui_running")
 	endif
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Filetype specific
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-" Omnicompletion
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" HTML indentation
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
+" }}}
+" Built-in extensions {{{
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Built-in extensions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"" Netrw
 " Netrw banner info off
 let g:netrw_banner=0
@@ -149,6 +132,7 @@ let g:netrw_banner=0
 let g:netrw_liststyle=3
 " Netrw keep current dir same as browsing dir
 let g:netrw_keepdir = 0
+
 """"" Wildmenu
 " Turn on the WiLd menu and add shell-style completion
 set wildmode=list:longest
@@ -159,13 +143,14 @@ set wildignore+=*.zip,*.exe
 set wildignore+=*.eot,*.svg,*.ttf,*.woff,*.ico,*.db
 set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.gif,*.tiff,*.eps,*.psd
 set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls
+
 """"" Macros
 "Enable extended % matching
 runtime macros/matchit.vim
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugin settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" Plugin settings {{{
+
 """"" Airline
 let g:airline_theme='tomorrow'
 "if !exists('g:airline_symbols')
@@ -174,6 +159,7 @@ let g:airline_theme='tomorrow'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 "let g:airline_section_b = '%{getcwd()}'
+
 """"" Ctrl-P
 " Unlimited files
 let g:ctrlp_max_files = 0
@@ -181,8 +167,7 @@ let g:ctrlp_max_files = 0
 let g:ctrlp_clear_cache_on_exit = 0
 " Ignore files
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
-""""" Easymotion
-nmap f <Plug>(easymotion-s)
+
 """"" Neocomplete
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
@@ -195,11 +180,7 @@ let g:neocomplete#auto_completion_start_length = 1
 if has('conceal')
 	set conceallevel=2 concealcursor=i
 endif
-""""" Neosnippet
-" Complete snippet or move through menu
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
+
 """"" Startify
 let g:startify_custom_header = [
 			\'     ____ _     _                   _ _           _ ',
@@ -212,52 +193,76 @@ let g:startify_custom_header = [
 " Specify for Windows
 let g:startify_session_dir = '~/.vim/session'
 let g:startify_files_number = 25
+
 """""" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
+
 """""" Undotree
 let g:undotree_SetFocusWhenToggle = 1
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Custom mappings, functions and commands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+"  Filetype specific {{{
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Omnicompletion
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+" HTML indentation
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
+
+" }}}
+" Mappings - overrides {{{
+
+" Easy on the pinky
+nnoremap ; :
+
+" Neosnippet
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+" Easymotion
+nnoremap f <Plug>(easymotion-s)
+
 " More convenient escape sequence
 inoremap jk <Esc>
 cnoremap jk <Esc>
 inoremap kj <Esc>
 cnoremap kj <Esc>
-" Move a line or block of text using Meta+[jk]
-nnoremap <M-j> mz:m+<CR>`z
-nnoremap <M-k> mz:m-2<CR>`z
-vnoremap <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
-vnoremap <M-j> :m'>+<CR>`<my`>mzgv`yo`z
+
 " Resize windows
 nnoremap <left>  :10wincmd <<CR>
 nnoremap <right> :10wincmd ><CR>
 nnoremap <up>    :10wincmd +<CR>
 nnoremap <down>  :10wincmd -<CR>
-" Command to save with sudo
-cnoremap w!! w !sudo tee > /dev/null %
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Custom mappings - Leader (alphabetical)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" Mappings - leader {{{
+
 " map Leader
 map <Space> <Leader>
 " map easy splits
-nnoremap <Leader>\| <C-w>v
-nnoremap <Leader>_ <C-w>s
+nnoremap <Leader>\ <C-w>v
+nnoremap <Leader>- <C-w>s
 " Disable highlight
 nnoremap <silent> <Leader>/ :noh<CR>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
-nnoremap <Leader><S-Space> :set buftype=<CR>:w<CR>
+"nnoremap <Leader><S-Space> :set buftype=<CR>:w<CR>
+nnoremap <Leader><S-Space> w !sudo tee > /dev/null %<CR>
 " Switch buffer by name
 nnoremap <Leader>b :CtrlPBuffer<CR>
 " Switch CWD to the directory of the open buffer
 nnoremap <Leader>c :cd %:p:h<CR>:pwd<CR>
-" Close buffer
-"nnoremap <Leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
-nnoremap <Leader>d :bd<CR>
+" Close pane
+nnoremap <Leader>d <C-w>c<CR>
+" Close buffer (and pane)
+nnoremap <Leader>D :bd<CR>
 " Open operations
 nnoremap <Leader>e :Explore<CR>
 nnoremap <Leader>f :CtrlP<CR>
@@ -281,6 +286,12 @@ nnoremap <silent><Leader>i<space> :g/^\s*$/d<CR>
 nnoremap <Leader>m :Startify<CR>
 " Create new file and set syntax
 nnoremap <Leader>n :enew<CR>:set syntax=
+" Open in browser
+if has("gui_win32")
+	nnoremap <Leader>o :!cmd /cstart chrome.exe %<CR>
+else
+	nnoremap <Leader>o :!google-chrome-beta %<CR>
+endif
 " Paste last cut (not last delete)
 nnoremap <Leader>p "0p
 " Close window
@@ -301,9 +312,9 @@ nnoremap <Leader>v :e $MYVIMRC<CR>
 " Reload .vimrc
 nnoremap <Leader>V :so $MYVIMRC<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Custom mappings - macros
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" Mappings - macros {{{
+
 " Append a line break
 let @b = 'A<br />'
 " Translate carriage returns
@@ -312,3 +323,8 @@ let @r = ':%s/\r\+$//e'
 let @t = ':%s/\s\+$//e'
 " Re-indent whole file
 let @i = 'gg=G'
+
+" }}}
+
+" Modeline to fold file:
+" vim:foldmethod=marker:foldlevel=0

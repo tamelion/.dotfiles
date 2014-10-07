@@ -13,8 +13,8 @@ call vundle#rc()
 Plugin 'gmarik/vundle.vim'              " vundle
 
 " Vanity
-Plugin 'ChrisKempson/vim-tomorrow-theme' " coding colour scheme
-Plugin 'bling/vim-airline'              " Status bar
+	Plugin 'chriskempson/base16-vim'        " coding colour scheme
+	Plugin 'bling/vim-airline'              " Status bar
 
 	" Helpers
 	Plugin 'kien/ctrlp.vim'                 " Quick file opener
@@ -102,7 +102,7 @@ Plugin 'bling/vim-airline'              " Status bar
 	syntax enable
 	" Colour scheme
 	set background=dark
-	colorscheme Tomorrow-Night
+	colorscheme base16-tomorrow
 	" Highlight current line
 	set cursorline
 	""" Set extra options when running in GUI

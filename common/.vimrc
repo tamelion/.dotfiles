@@ -13,7 +13,8 @@ call vundle#rc()
 Plugin 'gmarik/vundle.vim'              " vundle
 
 " Vanity
-Plugin 'chriskempson/base16-vim'        " coding colour scheme
+Plugin 'chriskempson/base16-vim'        " coding colour schemes
+"Plugin 'flazz/vim-colorschemes'         " colour scheme pack
 Plugin 'bling/vim-airline'              " Status bar
 
 " Helpers
@@ -27,6 +28,7 @@ Plugin 'scrooloose/syntastic'           " multi-language linting
 Plugin 'tpope/vim-fugitive'             " Git wrapper
 Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
 Plugin 'godlygeek/tabular'              " Line up text
+Plugin 'vim-scripts/marvim'             " Macro manager
 
 " Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
@@ -34,7 +36,8 @@ Plugin 'mattn/emmet-vim'                " Emmet
 Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
 Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
-Plugin 'skammer/vim-css-color'          " CSS colour of hex values
+Plugin 'vim-scripts/closetag.vim'       " Closes HTML tags
+Plugin 'ap/vim-css-color'               " CSS colour of hex values
 Plugin 'pangloss/vim-javascript'        " Better JS indentation
 
 " Other crazy stuff
@@ -139,8 +142,8 @@ set wildmode=list:longest
 set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
 set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
 set wildignore+=*.zip,*.exe
-set wildignore+=*.eot,*.svg,*.ttf,*.woff,*.ico,*.db
-set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.gif,*.tiff,*.eps,*.psd
+set wildignore+=*.eot,*.ttf,*.woff,*.ico,*.db,*.ics
+set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.svg,*.gif,*.tiff,*.eps,*.psd
 set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls
 
 """"" Macros
@@ -166,6 +169,10 @@ let g:ctrlp_max_files = 0
 let g:ctrlp_clear_cache_on_exit = 0
 " Ignore files
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
+
+""""" Marvim
+" Storage dir
+let marvim_store = '.vim/marvim'
 
 """"" Neocomplete
 let g:neocomplete#enable_at_startup = 1
@@ -262,7 +269,7 @@ nnoremap <Leader>b :CtrlPBuffer<CR>
 " Switch CWD to the directory of the open buffer
 nnoremap <Leader>c :cd %:p:h<CR>:pwd<CR>
 " Close pane
-nnoremap <Leader>d <C-w>c<CR>
+nnoremap <Leader>d <C-w>c
 " Close buffer (and pane)
 nnoremap <Leader>D :bd<CR>
 " Open operations
@@ -282,10 +289,6 @@ nnoremap <silent> <Leader>L <C-w>L
 nnoremap <silent> <Leader>J <C-w>J
 " Translate carriage returns, remove trailing space and re-indent
 nnoremap <Leader>ii mz @r @t @i `z
-" Fix unicode characters
-nnoremap <silent> <Leader>iu :%s/’/'/ge<CR>:%s/\(“\|”\)/"/ge<CR>:%s/–/-/ge<CR>
-" Remove blank lines
-nnoremap <silent><Leader>i<space> :g/^\s*$/d<CR>
 " Open startify menu
 nnoremap <Leader>m :Startify<CR>
 " Create new file and set syntax
@@ -300,8 +303,14 @@ endif
 nnoremap <Leader>p "0p
 " Close window
 "nnoremap <Leader>q <C-w>c<CR>
-" Register list
-nnoremap <Leader>r :reg<CR>
+" Remove unicode characters
+nnoremap <silent> <Leader>ru :%s/’/'/ge<Bar>:%s/\(“\|”\)/"/ge<Bar>:%s/–/-/ge<CR>
+" Remove blank lines
+nnoremap <silent> <Leader>rb :g/^\s*$/d<CR>
+" Remove carriage returns
+nnoremap <Leader>r<CR> :%s/\r\+$//e<CR>
+" Remove trailing space
+nnoremap <Leader>r<Space> :%s/\s\+$//e<CR>
 " Session mappings
 "nnoremap <Leader>ss :mks ~/.vim/session/
 "nnoremap <Leader>so :so ~/.vim/session/
@@ -320,11 +329,11 @@ nnoremap <Leader>V :so $MYVIMRC<CR>
 " Mappings - macros {{{
 
 " Append a line break
-let @b = 'A<br />'
+let @b = 'A<br />[m
 " Translate carriage returns
-let @r = ':%s/\r\+$//e'
+let @r = ':%s/\r\+$//e^M'
 " Remove trailing space
-let @t = ':%s/\s\+$//e'
+let @t = ':%s/\s\+$//e^M'
 " Re-indent whole file
 let @i = 'gg=G'
 " Make e-mail link from highlighted

@@ -14,7 +14,6 @@ Plugin 'gmarik/vundle.vim'              " vundle
 
 " Vanity
 Plugin 'chriskempson/base16-vim'        " coding colour schemes
-"Plugin 'flazz/vim-colorschemes'         " colour scheme pack
 Plugin 'bling/vim-airline'              " Status bar
 
 " Helpers
@@ -28,7 +27,7 @@ Plugin 'scrooloose/syntastic'           " multi-language linting
 Plugin 'tpope/vim-fugitive'             " Git wrapper
 Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
 Plugin 'godlygeek/tabular'              " Line up text
-Plugin 'vim-scripts/marvim'             " Macro manager
+Plugin 'tpope/vim-unimpaired'           " Useful macros using [ and ]
 
 " Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
@@ -170,10 +169,6 @@ let g:ctrlp_clear_cache_on_exit = 0
 " Ignore files
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
 
-""""" Marvim
-" Storage dir
-let marvim_store = '.vim/marvim'
-
 """"" Neocomplete
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
@@ -275,8 +270,6 @@ nnoremap <Leader>D :bd<CR>
 " Open operations
 nnoremap <Leader>e :Explore<CR>
 nnoremap <Leader>f :CtrlP<CR>
-" Toggle number type
-nnoremap <Leader>g :set rnu! rnu?<CR>
 " Switch or create windows
 nnoremap <silent> <Leader>h <C-w>h
 nnoremap <silent> <Leader>k <C-w>k
@@ -287,8 +280,8 @@ nnoremap <silent> <Leader>H <C-w>H
 nnoremap <silent> <Leader>K <C-w>K
 nnoremap <silent> <Leader>L <C-w>L
 nnoremap <silent> <Leader>J <C-w>J
-" Translate carriage returns, remove trailing space and re-indent
-nnoremap <Leader>ii mz @r @t @i `z
+" Remove trailing space and re-indent
+nnoremap <Leader>i mzggvG@tgv=`z
 " Open startify menu
 nnoremap <Leader>m :Startify<CR>
 " Create new file and set syntax
@@ -299,18 +292,10 @@ if has("gui_win32")
 else
 	nnoremap <Leader>o :!google-chrome-beta %<CR>
 endif
-" Paste last cut (not last delete)
-nnoremap <Leader>p "0p
-" Close window
-"nnoremap <Leader>q <C-w>c<CR>
-" Remove unicode characters
-nnoremap <silent> <Leader>ru :%s/’/'/ge<Bar>:%s/\(“\|”\)/"/ge<Bar>:%s/–/-/ge<CR>
-" Remove blank lines
-nnoremap <silent> <Leader>rb :g/^\s*$/d<CR>
-" Remove carriage returns
-nnoremap <Leader>r<CR> :%s/\r\+$//e<CR>
-" Remove trailing space
-nnoremap <Leader>r<Space> :%s/\s\+$//e<CR>
+" Paste clipboard indented, XML encode, strip unicode and trailing space
+nmap <Leader>p "+[pmz`[v`][xgv@ugv@t`z
+" Toggle number type
+nnoremap <Leader>r :set rnu! rnu?<CR>
 " Session mappings
 "nnoremap <Leader>ss :mks ~/.vim/session/
 "nnoremap <Leader>so :so ~/.vim/session/
@@ -328,16 +313,18 @@ nnoremap <Leader>V :so $MYVIMRC<CR>
 " }}}
 " Mappings - macros {{{
 
+" Remove blank lines
+let @" = ':g/^\s*$/d'
 " Append a line break
-let @b = 'A<br />[m
-" Translate carriage returns
-let @r = ':%s/\r\+$//e^M'
-" Remove trailing space
-let @t = ':%s/\s\+$//e^M'
-" Re-indent whole file
-let @i = 'gg=G'
-" Make e-mail link from highlighted
+let @b = 'A<br />[m'
+" Make e-mail link from visual selection
 let @e = 'a</a>gv"zyi<a href="mailto:z">'
+" Translate carriage returns
+let @r = ':s/\r\+$//e'
+" Remove trailing space
+let @t = ':s/\s\+$//e'
+" Unicode replacements
+let @u = ':s/[“”]/"/ge:s/[’`]/''/ge:s/–/-/ge'
 
 " }}}
 

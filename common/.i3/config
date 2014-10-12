@@ -10,8 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-floating_modifier Mod4
-
+floating_modifier $mod 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -62,10 +61,10 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # vertical split (i3 calls this h)
-#bindsym $mod+v split h
+bindsym $mod+bar split h
 
 # horizontal split (i3 calls this v)
-#bindsym $mod+s split v
+bindsym $mod+minus split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen

@@ -103,6 +103,7 @@ set colorcolumn=81
 syntax enable
 " Colour scheme
 set background=dark
+let base16colorspace=256
 colorscheme base16-tomorrow
 " Highlight current line
 set cursorline
@@ -214,7 +215,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 " HTML indentation
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType html,xhtml setlocal shiftwidth=2 tabstop=2
 
 " }}}
 " Mappings - overrides {{{

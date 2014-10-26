@@ -24,24 +24,23 @@ Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
 Plugin 'scrooloose/syntastic'           " multi-language linting
-Plugin 'tpope/vim-fugitive'             " Git wrapper
+"Plugin 'tpope/vim-fugitive'             " Git wrapper
 Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
-Plugin 'godlygeek/tabular'              " Line up text
+"Plugin 'godlygeek/tabular'              " Line up text
 Plugin 'tpope/vim-unimpaired'           " Useful macros using [ and ]
 
 " Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
-Plugin 'mattn/emmet-vim'                " Emmet
+"Plugin 'mattn/emmet-vim'                " Emmet
 Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
 Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
-Plugin 'vim-scripts/closetag.vim'       " Closes HTML tags
 Plugin 'ap/vim-css-color'               " CSS colour of hex values
 Plugin 'pangloss/vim-javascript'        " Better JS indentation
 
 " Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
-Plugin 'mhinz/vim-startify'             " startup menu
+"Plugin 'mhinz/vim-startify'             " startup menu
 Plugin 'tomtom/tcomment_vim'            " quick commenting
 
 "}}}
@@ -141,8 +140,8 @@ set wildmode=list:longest
 " Ignore files
 set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
 set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
-set wildignore+=*.zip,*.exe
-set wildignore+=*.eot,*.ttf,*.woff,*.ico,*.db,*.ics
+set wildignore+=*.zip,*.exe,*.ini,*.db,*.ics,*.db,*.ics
+set wildignore+=*.eot,*.ttf,*.woff,*.ico
 set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.svg,*.gif,*.tiff,*.eps,*.psd
 set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls
 
@@ -194,7 +193,7 @@ let g:startify_custom_header = [
 			\ ]
 " Specify for Windows
 let g:startify_session_dir = '~/.vim/session'
-let g:startify_files_number = 25
+let g:startify_files_number = 10
 
 """""" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
@@ -226,6 +225,10 @@ nnoremap ; :
 " Entertastic
 nnoremap <CR> k
 
+" Easy splits
+nnoremap \| <C-w>v
+nnoremap _ <C-w>s
+
 " Neosnippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -251,9 +254,6 @@ nnoremap <down>  :10wincmd -<CR>
 
 " map Leader
 map <Space> <Leader>
-" map easy splits
-nnoremap <Leader>\ <C-w>v
-nnoremap <Leader>- <C-w>s
 " Toggle highlight
 nnoremap <silent> <Leader>/ :set hlsearch! hlsearch?<CR>
 " Write operations
@@ -284,7 +284,7 @@ nnoremap <silent> <Leader>J <C-w>J
 " Remove trailing space and re-indent
 nnoremap <Leader>i mzggvG@tgv=`z
 " Open startify menu
-nnoremap <Leader>m :Startify<CR>
+nnoremap <Leader>m :CtrlPMRUFiles<CR>
 " Create new file and set syntax
 nnoremap <Leader>n :enew<CR>:set syntax=
 " Open in browser
@@ -295,15 +295,18 @@ else
 endif
 " Paste clipboard indented, XML encode, strip unicode and trailing space
 nmap <Leader>p "+[pmz`[v`][xgv@ugv@t`z
-" Toggle number type
-nnoremap <Leader>r :set rnu! rnu?<CR>
 " Session mappings
-"nnoremap <Leader>ss :mks ~/.vim/session/
-"nnoremap <Leader>so :so ~/.vim/session/
-" Session mappings using startify
-nnoremap <Leader>ss :SSave<CR>
-nnoremap <Leader>so :SLoad<CR>
-nnoremap <Leader>sd :SDelete<CR>
+nnoremap <Leader>ss :mks ~/.vim/session/
+nnoremap <Leader>so :so ~/.vim/session/
+"nnoremap <Leader>ss :SSave<CR>
+"nnoremap <Leader>so :SLoad<CR>
+"nnoremap <Leader>sd :SDelete<CR>
+" Toggle diff
+nnoremap <Leader>td :set diff! diff?<CR>
+" Toggle number type
+nnoremap <Leader>tn :set rnu! rnu?<CR>
+" Toggle markers
+nnoremap <Leader>tm :set list! list?<CR>
 " Toggle undo tree
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 " Fast open vimrc
@@ -315,9 +318,9 @@ nnoremap <Leader>V :so $MYVIMRC<CR>
 " Mappings - macros {{{
 
 " Remove blank lines
-let @" = ':g/^\s*$/d'
+let @l = ':g/^\s*$/d'
 " Append a line break
-let @b = 'A<br />[m'
+let @b = 'A<br />'
 " Make e-mail link from visual selection
 let @e = 'a</a>gv"zyi<a href="mailto:z">'
 " Translate carriage returns
@@ -325,8 +328,8 @@ let @r = ':s/\r\+$//e'
 " Remove trailing space
 let @t = ':s/\s\+$//e'
 " Unicode replacements
-let @u = ':s/[“”]/"/ge:s/[’`]/''/ge:s/–/-/ge'
-
+let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge'
+let @f = '^ivar f:as ='
 " }}}
 
 " Modeline to fold file:

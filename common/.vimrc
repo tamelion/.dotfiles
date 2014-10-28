@@ -31,7 +31,7 @@ Plugin 'tpope/vim-unimpaired'           " Useful macros using [ and ]
 
 " Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
-"Plugin 'mattn/emmet-vim'                " Emmet
+Plugin 'mattn/emmet-vim'                " Emmet
 Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
 Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
@@ -108,12 +108,13 @@ colorscheme base16-tomorrow
 set cursorline
 """ Set extra options when running in GUI
 if has("gui_running")
-	set mouse-=a       "mouse OFF
 	set guioptions-=m  "remove menu bar
 	set guioptions-=T  "remove toolbar
 	set guioptions-=e  "remove GUI tabs
 	set guioptions-=r  "remove right-hand scroll bar
 	set guioptions-=L  "remove left-hand scroll bar
+	set mouse-=a
+	map <MiddleMouse> <nop>
 	if has("gui_gtk2")
 		set guifont=Terminus\ 10
 	elseif has("gui_win32")
@@ -222,12 +223,8 @@ autocmd FileType html,xhtml setlocal shiftwidth=2 tabstop=2
 " Easy on the pinky
 nnoremap ; :
 
-" Entertastic
-nnoremap <CR> k
-
-" Easy splits
-nnoremap \| <C-w>v
-nnoremap _ <C-w>s
+" Remove trailing space and re-indent file
+nnoremap <CR> mzggvG@tgv=`z
 
 " Neosnippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -244,7 +241,7 @@ inoremap kj <Esc>
 cnoremap kj <Esc>
 
 " Resize windows
-nnoremap <left>  :10wincmd <<CR>
+nnoremap <Left>  :10wincmd <<CR>
 nnoremap <right> :10wincmd ><CR>
 nnoremap <up>    :10wincmd +<CR>
 nnoremap <down>  :10wincmd -<CR>
@@ -254,6 +251,9 @@ nnoremap <down>  :10wincmd -<CR>
 
 " map Leader
 map <Space> <Leader>
+" Easy splits
+nnoremap <Leader>\| <C-w>v
+nnoremap <Leader>_ <C-w>s
 " Toggle highlight
 nnoremap <silent> <Leader>/ :set hlsearch! hlsearch?<CR>
 " Write operations
@@ -281,8 +281,6 @@ nnoremap <silent> <Leader>H <C-w>H
 nnoremap <silent> <Leader>K <C-w>K
 nnoremap <silent> <Leader>L <C-w>L
 nnoremap <silent> <Leader>J <C-w>J
-" Remove trailing space and re-indent
-nnoremap <Leader>i mzggvG@tgv=`z
 " Open startify menu
 nnoremap <Leader>m :CtrlPMRUFiles<CR>
 " Create new file and set syntax
@@ -293,7 +291,7 @@ if has("gui_win32")
 else
 	nnoremap <Leader>o :!google-chrome-beta %<CR>
 endif
-" Paste clipboard indented, XML encode, strip unicode and trailing space
+" Paste clipboard indented, XML encoded, stripped of unicode and trailing space
 nmap <Leader>p "+[pmz`[v`][xgv@ugv@t`z
 " Session mappings
 nnoremap <Leader>ss :mks ~/.vim/session/

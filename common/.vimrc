@@ -47,7 +47,7 @@ Plugin 'tomtom/tcomment_vim'            " quick commenting
 "  General {{{
 
 " Sets how many lines of history VIM has to remember
-set history=700
+set history=1000
 " Change directory to the current buffer when opening files.
 "set autochdir
 " save changed files dialog
@@ -60,7 +60,7 @@ set sessionoptions=blank,buffers,curdir,folds,tabpages,winpos,winsize
 set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
-" Buffer gets hidden when closed
+" Background without write
 set hidden
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -76,7 +76,7 @@ set noerrorbells novisualbell t_vb= tm=500
 set number
 " Always show the status line
 set laststatus=2
-" Give terminal ViM a title
+" Give terminal vim a title
 set title
 " Scrolloff
 set so=999
@@ -88,6 +88,8 @@ set shiftwidth=4 tabstop=4
 set autoindent smartindent
 " Line wrap
 set wrap
+" Join comments
+set formatoptions+=j
 " Persistant undo
 set undodir='~/.vim/undo'
 set undofile
@@ -122,6 +124,13 @@ if has("gui_running")
 		" For CJK
 		set guifontwide=NSimsun:h11
 	endif
+endif
+" Characters to use in list
+if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
+	let &listchars = "tab:\u21e5\u00b7,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
+	let &fillchars = "vert:\u259a,fold:\u00b7"
+else
+	set listchars=tab:>\ ,trail:-,extends:>,precedes:<
 endif
 
 " }}}
@@ -220,6 +229,10 @@ autocmd FileType html,xhtml setlocal shiftwidth=2 tabstop=2
 " }}}
 " Mappings - overrides {{{
 
+" Map Leader
+let mapleader="\<Space>"
+map <Space> nop
+
 " Easy on the pinky
 nnoremap ; :
 
@@ -249,17 +262,15 @@ nnoremap <down>  :10wincmd -<CR>
 " }}}
 " Mappings - leader {{{
 
-" map Leader
-map <Space> <Leader>
 " Easy splits
 nnoremap <Leader>\| <C-w>v
 nnoremap <Leader>_ <C-w>s
 " Toggle highlight
-nnoremap <silent> <Leader>/ :set hlsearch! hlsearch?<CR>
+"nnoremap <silent> <Leader>/ :set hlsearch! hlsearch?<CR>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
 "nnoremap <Leader><S-Space> :set buftype=<CR>:w<CR>
-nnoremap <Leader><S-Space> w !sudo tee > /dev/null %<CR>
+nnoremap <Leader><S-Space> :w !sudo tee % > /dev/null<CR>
 " Switch buffer by name
 nnoremap <Leader>b :CtrlPBuffer<CR>
 " Switch CWD to the directory of the open buffer
@@ -271,7 +282,7 @@ nnoremap <Leader>D :bd<CR>
 " Open operations
 nnoremap <Leader>e :Explore<CR>
 nnoremap <Leader>f :CtrlP<CR>
-" Switch or create windows
+" Switch windows
 nnoremap <silent> <Leader>h <C-w>h
 nnoremap <silent> <Leader>k <C-w>k
 nnoremap <silent> <Leader>l <C-w>l
@@ -281,7 +292,7 @@ nnoremap <silent> <Leader>H <C-w>H
 nnoremap <silent> <Leader>K <C-w>K
 nnoremap <silent> <Leader>L <C-w>L
 nnoremap <silent> <Leader>J <C-w>J
-" Open startify menu
+" Open MRU menu
 nnoremap <Leader>m :CtrlPMRUFiles<CR>
 " Create new file and set syntax
 nnoremap <Leader>n :enew<CR>:set syntax=
@@ -299,12 +310,6 @@ nnoremap <Leader>so :so ~/.vim/session/
 "nnoremap <Leader>ss :SSave<CR>
 "nnoremap <Leader>so :SLoad<CR>
 "nnoremap <Leader>sd :SDelete<CR>
-" Toggle diff
-nnoremap <Leader>td :set diff! diff?<CR>
-" Toggle number type
-nnoremap <Leader>tn :set rnu! rnu?<CR>
-" Toggle markers
-nnoremap <Leader>tm :set list! list?<CR>
 " Toggle undo tree
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 " Fast open vimrc

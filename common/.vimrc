@@ -90,9 +90,9 @@ set autoindent smartindent
 set wrap
 " Join comments
 set formatoptions+=j
-" Persistant undo
-set undodir='~/.vim/undo'
+" Persistent undo
 set undofile
+set undodir=$HOME/.vim/undo
 
 " }}}
 " Colours and fonts {{{
@@ -118,7 +118,7 @@ if has("gui_running")
 	set mouse-=a
 	map <MiddleMouse> <nop>
 	if has("gui_gtk2")
-		set guifont=Terminus\ 10
+		set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
 	elseif has("gui_win32")
 		set guifont=Consolas:h10:cANSI
 		" For CJK
@@ -172,12 +172,18 @@ let g:airline_right_sep = ''
 "let g:airline_section_b = '%{getcwd()}'
 
 """"" Ctrl-P
+" Use last used mode
+let g:ctrlp_cmd = 'CtrlPMixed'
 " Unlimited files
 let g:ctrlp_max_files = 0
 " Keep cache on exit
 let g:ctrlp_clear_cache_on_exit = 0
 " Ignore files
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
+" Position, order, heights
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
+" Lazy update
+let g:ctrlp_lazy_update = 1
 
 """"" Neocomplete
 let g:neocomplete#enable_at_startup = 1
@@ -229,10 +235,6 @@ autocmd FileType html,xhtml setlocal shiftwidth=2 tabstop=2
 " }}}
 " Mappings - overrides {{{
 
-" Map Leader
-let mapleader="\<Space>"
-map <Space> nop
-
 " Easy on the pinky
 nnoremap ; :
 
@@ -243,6 +245,9 @@ nnoremap <CR> mzggvG@tgv=`z
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
+
+" Switch CWD to the directory of the open buffer
+nnoremap cd :cd %:p:h<CR>:pwd<CR>
 
 " Easymotion
 nmap f <Plug>(easymotion-s)
@@ -262,6 +267,9 @@ nnoremap <down>  :10wincmd -<CR>
 " }}}
 " Mappings - leader {{{
 
+" Map Leader
+map <Space> <Leader>
+
 " Easy splits
 nnoremap <Leader>\| <C-w>v
 nnoremap <Leader>_ <C-w>s
@@ -272,28 +280,26 @@ nnoremap <Leader><Space> :w<CR>
 "nnoremap <Leader><S-Space> :set buftype=<CR>:w<CR>
 nnoremap <Leader><S-Space> :w !sudo tee % > /dev/null<CR>
 " Switch buffer by name
-nnoremap <Leader>b :CtrlPBuffer<CR>
-" Switch CWD to the directory of the open buffer
-nnoremap <Leader>c :cd %:p:h<CR>:pwd<CR>
+"nnoremap <Leader>b :CtrlPBuffer<CR>
 " Close pane
-nnoremap <Leader>d <C-w>c
+"nnoremap <Leader>d <C-w>c
 " Close buffer (and pane)
-nnoremap <Leader>D :bd<CR>
+"nnoremap <Leader>D :bd<CR>
 " Open operations
-nnoremap <Leader>e :Explore<CR>
-nnoremap <Leader>f :CtrlP<CR>
+"nnoremap <Leader>e :Explore<CR>
+"nnoremap <Leader>f :CtrlP<CR>
 " Switch windows
-nnoremap <silent> <Leader>h <C-w>h
-nnoremap <silent> <Leader>k <C-w>k
-nnoremap <silent> <Leader>l <C-w>l
-nnoremap <silent> <Leader>j <C-w>j
+"nnoremap <silent> <Leader>h <C-w>h
+"nnoremap <silent> <Leader>k <C-w>k
+"nnoremap <silent> <Leader>l <C-w>l
+"nnoremap <silent> <Leader>j <C-w>j
 " Move windows
-nnoremap <silent> <Leader>H <C-w>H
-nnoremap <silent> <Leader>K <C-w>K
-nnoremap <silent> <Leader>L <C-w>L
-nnoremap <silent> <Leader>J <C-w>J
+"nnoremap <silent> <Leader>H <C-w>H
+"nnoremap <silent> <Leader>K <C-w>K
+"nnoremap <silent> <Leader>L <C-w>L
+"nnoremap <silent> <Leader>J <C-w>J
 " Open MRU menu
-nnoremap <Leader>m :CtrlPMRUFiles<CR>
+"nnoremap <Leader>m :CtrlPMRUFiles<CR>
 " Create new file and set syntax
 nnoremap <Leader>n :enew<CR>:set syntax=
 " Open in browser

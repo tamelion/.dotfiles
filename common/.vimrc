@@ -18,16 +18,17 @@ Plugin 'bling/vim-airline'              " Status bar
 
 " Helpers
 Plugin 'kien/ctrlp.vim'                 " Quick file opener
-Plugin 'Lokaltog/vim-easymotion'        " move through vim
+Plugin 'sgur/ctrlp-extensions.vim'      " Yank, cmd, menu extensions for CtrlP
+Plugin 'Lokaltog/vim-easymotion'        " Move through vim
 Plugin 'mbbill/undotree'                " Undo tree
 Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
-Plugin 'scrooloose/syntastic'           " multi-language linting
+Plugin 'scrooloose/syntastic'           " Multi-language linting
 "Plugin 'tpope/vim-fugitive'             " Git wrapper
 Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
-"Plugin 'godlygeek/tabular'              " Line up text
 Plugin 'tpope/vim-unimpaired'           " Useful macros using [ and ]
+Plugin 'tpope/vim-repeat'               " Use . repeat for tpope plugins
 
 " Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
@@ -41,7 +42,7 @@ Plugin 'pangloss/vim-javascript'        " Better JS indentation
 " Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
 "Plugin 'mhinz/vim-startify'             " startup menu
-Plugin 'tomtom/tcomment_vim'            " quick commenting
+Plugin 'tpope/vim-commentary'           " quick commenting
 
 "}}}
 "  General {{{
@@ -173,7 +174,7 @@ let g:airline_right_sep = ''
 
 """"" Ctrl-P
 " Use last used mode
-let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_cmd = 'CtrlPLastMode'
 " Unlimited files
 let g:ctrlp_max_files = 0
 " Keep cache on exit
@@ -270,24 +271,26 @@ nnoremap <down>  :10wincmd -<CR>
 " Map Leader
 map <Space> <Leader>
 
+" CtrlP Buffers
+nnoremap <Leader>; :CtrlPCmdline<CR>
 " Easy splits
-nnoremap <Leader>\| <C-w>v
-nnoremap <Leader>_ <C-w>s
+"nnoremap <Leader>\| <C-w>v
+"nnoremap <Leader>_ <C-w>s
 " Toggle highlight
 "nnoremap <silent> <Leader>/ :set hlsearch! hlsearch?<CR>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
-"nnoremap <Leader><S-Space> :set buftype=<CR>:w<CR>
 nnoremap <Leader><S-Space> :w !sudo tee % > /dev/null<CR>
-" Switch buffer by name
-"nnoremap <Leader>b :CtrlPBuffer<CR>
+" CtrlP Buffers
+nnoremap <Leader>b :CtrlPBuffer<CR>
 " Close pane
 "nnoremap <Leader>d <C-w>c
 " Close buffer (and pane)
 "nnoremap <Leader>D :bd<CR>
 " Open operations
 "nnoremap <Leader>e :Explore<CR>
-"nnoremap <Leader>f :CtrlP<CR>
+" CtrlP Files
+nnoremap <Leader>f :CtrlP<CR>
 " Switch windows
 "nnoremap <silent> <Leader>h <C-w>h
 "nnoremap <silent> <Leader>k <C-w>k
@@ -309,19 +312,20 @@ else
 	nnoremap <Leader>o :!google-chrome-beta %<CR>
 endif
 " Paste clipboard indented, XML encoded, stripped of unicode and trailing space
-nmap <Leader>p "+[pmz`[v`][xgv@ugv@t`z
+nmap <Leader>p "+[pmz`[v`]@xgv@ugv@t`z
+" CtrlP MRU
+nnoremap <Leader>r :CtrlPMRUFiles<CR>
 " Session mappings
 nnoremap <Leader>ss :mks ~/.vim/session/
 nnoremap <Leader>so :so ~/.vim/session/
-"nnoremap <Leader>ss :SSave<CR>
-"nnoremap <Leader>so :SLoad<CR>
-"nnoremap <Leader>sd :SDelete<CR>
 " Toggle undo tree
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 " Fast open vimrc
 nnoremap <Leader>v :e $MYVIMRC<CR>
 " Reload .vimrc
 nnoremap <Leader>V :so $MYVIMRC<CR>
+" CtrlP Yanks
+nnoremap <Leader>y :CtrlPYankring<CR>
 
 " }}}
 " Mappings - macros {{{

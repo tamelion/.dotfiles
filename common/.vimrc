@@ -29,6 +29,7 @@ Plugin 'scrooloose/syntastic'           " Multi-language linting
 Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
 Plugin 'tpope/vim-unimpaired'           " Useful macros using [ and ]
 Plugin 'tpope/vim-repeat'               " Use . repeat for tpope plugins
+Plugin 'tpope/vim-commentary'           " quick commenting
 
 " Language specific
 Plugin 'tpope/vim-surround'             " changes tag surrounds
@@ -41,8 +42,6 @@ Plugin 'pangloss/vim-javascript'        " Better JS indentation
 
 " Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki
-"Plugin 'mhinz/vim-startify'             " startup menu
-Plugin 'tpope/vim-commentary'           " quick commenting
 
 "}}}
 "  General {{{
@@ -199,19 +198,6 @@ if has('conceal')
 	set conceallevel=2 concealcursor=i
 endif
 
-""""" Startify
-let g:startify_custom_header = [
-			\'     ____ _     _                   _ _           _ ',
-			\'    / ___( ) __| | __ _ _   _      | (_)_ __ ___ | |',
-			\'   | |  _|/ / _` |/ _` | | | |  _  | | | `_ ` _ \| |',
-			\'   | |_| | | (_| | (_| | |_| | | |_| | | | | | | |_|',
-			\'    \____|  \__,_|\__,_|\__, |  \___/|_|_| |_| |_(_)',
-			\'                        |___/                       ',
-			\ ]
-" Specify for Windows
-let g:startify_session_dir = '~/.vim/session'
-let g:startify_files_number = 10
-
 """""" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
 
@@ -238,6 +224,13 @@ autocmd FileType html,xhtml setlocal shiftwidth=2 tabstop=2
 
 " Easy on the pinky
 nnoremap ; :
+
+" Seamless file browser
+nnoremap - :Explore<CR>
+
+" For line wraps
+nnoremap j gj
+nnoremap k gk
 
 " Remove trailing space and re-indent file
 nnoremap <CR> mzggvG@tgv=`z
@@ -271,48 +264,30 @@ nnoremap <down>  :10wincmd -<CR>
 " Map Leader
 map <Space> <Leader>
 
+" Saved searches
+nnoremap <Leader>/u /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-unicode characters"<CR>
+
 " CtrlP Buffers
 nnoremap <Leader>; :CtrlPCmdline<CR>
-" Easy splits
-"nnoremap <Leader>\| <C-w>v
-"nnoremap <Leader>_ <C-w>s
-" Toggle highlight
-"nnoremap <silent> <Leader>/ :set hlsearch! hlsearch?<CR>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
 nnoremap <Leader><S-Space> :w !sudo tee % > /dev/null<CR>
 " CtrlP Buffers
 nnoremap <Leader>b :CtrlPBuffer<CR>
-" Close pane
-"nnoremap <Leader>d <C-w>c
-" Close buffer (and pane)
-"nnoremap <Leader>D :bd<CR>
-" Open operations
-"nnoremap <Leader>e :Explore<CR>
 " CtrlP Files
 nnoremap <Leader>f :CtrlP<CR>
-" Switch windows
-"nnoremap <silent> <Leader>h <C-w>h
-"nnoremap <silent> <Leader>k <C-w>k
-"nnoremap <silent> <Leader>l <C-w>l
-"nnoremap <silent> <Leader>j <C-w>j
-" Move windows
-"nnoremap <silent> <Leader>H <C-w>H
-"nnoremap <silent> <Leader>K <C-w>K
-"nnoremap <silent> <Leader>L <C-w>L
-"nnoremap <silent> <Leader>J <C-w>J
-" Open MRU menu
-"nnoremap <Leader>m :CtrlPMRUFiles<CR>
+" CtrlP MRU
+nnoremap <Leader>m :CtrlPMRUFiles<CR>
 " Create new file and set syntax
 nnoremap <Leader>n :enew<CR>:set syntax=
 " Open in browser
 if has("gui_win32")
-	nnoremap <Leader>o :!cmd /cstart chrome.exe %<CR>
+	nnoremap <Leader>o :silent !chrome "%"<CR>
 else
-	nnoremap <Leader>o :!google-chrome-beta %<CR>
+	nnoremap <Leader>o :silent !google-chrome-beta %<CR>
 endif
-" Paste clipboard indented, XML encoded, stripped of unicode and trailing space
-nmap <Leader>p "+[pmz`[v`]@xgv@ugv@t`z
+" Paste clipboard XML encoded (unimpaired), stripped of unicode and trailing space
+nmap <Leader>p "+[pmz`[v`][xgv@ugv@t`z
 " CtrlP MRU
 nnoremap <Leader>r :CtrlPMRUFiles<CR>
 " Session mappings

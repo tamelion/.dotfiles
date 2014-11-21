@@ -126,12 +126,7 @@ if has("gui_running")
 	endif
 endif
 " Characters to use in list
-if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
-	let &listchars = "tab:\u21e5\u00b7,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
-	let &fillchars = "vert:\u259a,fold:\u00b7"
-else
-	set listchars=tab:>\ ,trail:-,extends:>,precedes:<
-endif
+set listchars=trail:·,tab:»·
 
 " }}}
 " Built-in extensions {{{
@@ -221,6 +216,12 @@ autocmd FileType html,xhtml setlocal shiftwidth=2 tabstop=2
 
 " }}}
 " Mappings - overrides {{{
+
+" Ban ex mode
+nnoremap Q <Nop>
+
+" Fix Y
+nnoremap Y y$
 
 " Easy on the pinky
 nnoremap ; :

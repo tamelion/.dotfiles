@@ -1,47 +1,58 @@
-" we loViMprovement
-set nocompatible
-
 " Plugins {{{
 
-" turn off temporarily for vundle
-filetype off
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
 
-" add vundle to rtp and call
-set rtp+=~/.vim/bundle/vundle.vim/
-call vundle#rc()
+if has('vim_starting')
+	if &compatible
+		set nocompatible " because we loViMprovement
+	endif
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
-Plugin 'gmarik/vundle.vim'              " vundle
+call neobundle#begin()
+
+NeoBundleFetch 'Shougo/neobundle.vim'      " Neobundle
 
 " Vanity
-Plugin 'chriskempson/base16-vim'        " coding colour schemes
-Plugin 'bling/vim-airline'              " Status bar
+NeoBundle 'chriskempson/base16-vim'        " coding colour schemes
+NeoBundle 'bling/vim-airline'              " Status bar
 
 " Helpers
-Plugin 'kien/ctrlp.vim'                 " Quick file opener
-Plugin 'sgur/ctrlp-extensions.vim'      " Yank, cmd, menu extensions for CtrlP
-Plugin 'Lokaltog/vim-easymotion'        " Move through vim
-Plugin 'mbbill/undotree'                " Undo tree
-Plugin 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
-Plugin 'Shougo/neosnippet'              " Snippeting
-Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
-Plugin 'scrooloose/syntastic'           " Multi-language linting
-"Plugin 'tpope/vim-fugitive'             " Git wrapper
-Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
-Plugin 'tpope/vim-unimpaired'           " Useful macros using [ and ]
-Plugin 'tpope/vim-repeat'               " Use . repeat for tpope plugins
-Plugin 'tpope/vim-commentary'           " quick commenting
+NeoBundle 'kien/ctrlp.vim'                 " Quick file opener
+NeoBundle 'sgur/ctrlp-extensions.vim'      " Yank, cmd, menu extensions for CtrlP
+NeoBundle 'Lokaltog/vim-easymotion'        " Move through vim
+NeoBundle 'mbbill/undotree'                " Undo tree
+NeoBundle 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
+NeoBundle 'Shougo/neosnippet'              " Snippeting
+NeoBundle 'Shougo/neosnippet-snippets'     " Basic snippets
+NeoBundle 'scrooloose/syntastic'           " Multi-language linting
+"NeoBundle 'tpope/vim-fugitive'             " Git wrapper
+NeoBundle 'jiangmiao/auto-pairs'           " Auto close brackets
+NeoBundle 'tpope/vim-unimpaired'           " Useful macros using [ and ]
+NeoBundle 'tpope/vim-repeat'               " Use . repeat for tpope plugins
+NeoBundle 'tpope/vim-commentary'           " quick commenting
 
 " Language specific
-Plugin 'tpope/vim-surround'             " changes tag surrounds
-Plugin 'mattn/emmet-vim'                " Emmet
-Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
-Plugin 'groenewege/vim-less'            " LESS syntax highlighing
-Plugin 'othree/html5.vim'               " HTML5 recognition
-Plugin 'ap/vim-css-color'               " CSS colour of hex values
-Plugin 'pangloss/vim-javascript'        " Better JS indentation
+NeoBundle 'tpope/vim-surround'             " changes tag surrounds
+NeoBundle 'mattn/emmet-vim'                " Emmet
+NeoBundle 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
+NeoBundle 'groenewege/vim-less'            " LESS syntax highlighing
+NeoBundle 'othree/html5.vim'               " HTML5 recognition
+NeoBundle 'ap/vim-css-color'               " CSS colour of hex values
+NeoBundle 'jelera/vim-javascript-syntax'   " Better JS indentation
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 
 " Other crazy stuff
-Plugin 'vim-scripts/vimwiki'            " vimwiki
+NeoBundle 'vim-scripts/vimwiki'            " vimwiki
+
+call neobundle#end()
+
+" Enable plugin and indent filetypes
+filetype plugin indent on
+
+" Check for bundles which need installing
+NeoBundleCheck
 
 "}}}
 "  General {{{
@@ -195,6 +206,7 @@ endif
 
 """""" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_html_checkers = ['jshint', 'w3']
 
 """""" Undotree
 let g:undotree_SetFocusWhenToggle = 1
@@ -202,17 +214,10 @@ let g:undotree_SetFocusWhenToggle = 1
 " }}}
 "  Filetype specific {{{
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" Omnicompletion
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html,markdown,xhtml setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-
-" HTML indentation
-autocmd FileType html,xhtml setlocal shiftwidth=2 tabstop=2
+autocmd FileType vim setlocal foldmethod=marker
 
 " }}}
 " Mappings - overrides {{{
@@ -320,6 +325,3 @@ let @t = ':s/\s\+$//e'
 let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge'
 let @f = '^ivar f:as ='
 " }}}
-
-" Modeline to fold file:
-" vim:foldmethod=marker:foldlevel=0

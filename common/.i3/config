@@ -80,7 +80,7 @@ bindsym $mod+Shift+Tab floating toggle
 bindsym $mod+Tab focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+p focus parent
 
 # focus the child container
 bindsym $mod+z focus child

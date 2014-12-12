@@ -317,7 +317,7 @@ let @r = ':s/\r\+$//e'
 " Remove trailing space
 let @t = ':s/\s\+$//e'
 " Unicode replacements
-let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge'
+let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge'
 let @f = '^ivar f:as ='
 " }}}
 

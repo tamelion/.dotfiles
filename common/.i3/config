@@ -10,7 +10,9 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+# Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod 
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -23,14 +25,21 @@ font pango:Terminus 9
 new_window 1pixel
 new_float normal
 
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-# start a terminal
-bindsym $mod+Return exec urxvtc
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 in place (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
+
+# lock screen
+bindsym $mod+space exec --no-startup-id i3lock -i /home/jim/.i3/i3lock_screen.png -n
+
+# start a terminal
+bindsym $mod+Return exec termite
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+grave move scratchpad
@@ -83,7 +92,7 @@ bindsym $mod+Tab focus mode_toggle
 bindsym $mod+p focus parent
 
 # focus the child container
-bindsym $mod+z focus child
+bindsym $mod+c focus child
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -108,28 +117,6 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
-
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-# lock screen
-bindsym $mod+space exec --no-startup-id i3lock -i /home/jim/.i3/i3lock_screen.png -n
-
-# resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"
-mode "resize" {
-        bindsym Left resize shrink width 10 px or 10 ppt
-		bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
 
 # Resize without resize mode :)
 bindsym $mod+Left resize shrink width 10 px or 10 ppt
@@ -176,9 +163,16 @@ bar {
 }
 
 # Bind apps
-bindsym $mod+c exec google-chrome-beta
-bindsym $mod+g exec gvim
-bindsym $mod+F4 exec /home/jim/bin/hdmi
+bindsym $mod+a mode "launch app"
+mode "launch app" {
+        bindsym c exec google-chrome-beta; mode "default"
+        bindsym h exec /home/jim/bin/hdmi; mode "default"
+        bindsym r exec urxvt -e ranger; mode "default"
+        bindsym v exec gvim; mode "default"
+
+        # back to normal: Escape
+        bindsym Escape mode "default"
+}
 
 # Make Chrome pop-ups (hangouts etc.) float
 for_window [window_role="pop-up"] floating enable

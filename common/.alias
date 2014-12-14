@@ -13,3 +13,12 @@ alias gr='git rm'
 alias gc='git commit -m'
 alias gl='git log --oneline -5'
 alias gca='git commit --amend -m'
+
+# Pacman
+orphans() {
+  if [[ ! -n $(pacman -Qdt) ]]; then
+    echo "No orphans to remove."
+  else
+    sudo pacman -Rns $(pacman -Qdtq)
+  fi
+}

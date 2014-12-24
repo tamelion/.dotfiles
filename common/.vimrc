@@ -108,17 +108,15 @@ set undodir=$HOME/.vim/undo
 " }}}
 " Colours and fonts {{{
 
-set t_Co=256
-" Highlight column 81 to help keep lines of code 80 characters or less
-set colorcolumn=81
 " Enable syntax highlighting
 syntax enable
 " Colour scheme
 set background=dark
-let base16colorspace=256
 colorscheme base16-tomorrow
 " Highlight current line
 set cursorline
+" Highlight column 81 to help keep lines of code 80 characters or less
+set colorcolumn=81
 """ Set extra options when running in GUI
 if has("gui_running")
 	set guioptions-=m  "remove menu bar
@@ -129,7 +127,7 @@ if has("gui_running")
 	set mouse-=a
 	map <MiddleMouse> <nop>
 	if has("gui_gtk2")
-		set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
+		set guifont=Terminus\ 9
 	elseif has("gui_win32")
 		set guifont=Consolas:h10:cANSI
 		" For CJK

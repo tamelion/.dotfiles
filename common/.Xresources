@@ -48,7 +48,7 @@ URxvt*.shading: 10
 
 *.foreground:   base05
 *.background:   base00
-!*.cursorColor:  base05
+*.cursorColor:  base05
 
 *.color0:       base00
 *.color1:       base08
@@ -61,8 +61,8 @@ URxvt*.shading: 10
 
 *.color8:       base03
 *.color9:       base08
-*.color10:      base0B
-*.color11:      base0A
+*.color10:      base01
+*.color11:      base02
 *.color12:      base0D
 *.color13:      base0E
 *.color14:      base0C
@@ -76,4 +76,3 @@ URxvt*.shading: 10
 *.color19:      base02
 *.color20:      base04
 *.color21:      base06
-URxvt.intensityStyles: false

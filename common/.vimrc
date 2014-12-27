@@ -19,22 +19,21 @@ NeoBundle 'chriskempson/base16-vim'        " coding colour schemes
 NeoBundle 'bling/vim-airline'              " Status bar
 
 " Helpers
-NeoBundle 'kien/ctrlp.vim'                 " Quick file opener
-NeoBundle 'sgur/ctrlp-extensions.vim'      " Yank, cmd, menu extensions for CtrlP
-NeoBundle 'Lokaltog/vim-easymotion'        " Move through vim
-NeoBundle 'mbbill/undotree'                " Undo tree
 NeoBundle 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 NeoBundle 'Shougo/neosnippet'              " Snippeting
 NeoBundle 'Shougo/neosnippet-snippets'     " Basic snippets
-NeoBundle 'scrooloose/syntastic'           " Multi-language linting
-"NeoBundle 'tpope/vim-fugitive'             " Git wrapper
-NeoBundle 'jiangmiao/auto-pairs'           " Auto close brackets
+NeoBundle 'tpope/vim-fugitive'             " Git wrapper
 NeoBundle 'tpope/vim-unimpaired'           " Useful macros using [ and ]
 NeoBundle 'tpope/vim-repeat'               " Use . repeat for tpope plugins
 NeoBundle 'tpope/vim-commentary'           " quick commenting
+NeoBundle 'tpope/vim-surround'             " change surroundings
+NeoBundle 'kien/ctrlp.vim'                 " Quick file opener
+NeoBundle 'Lokaltog/vim-easymotion'        " Move through vim
+NeoBundle 'mbbill/undotree'                " Undo tree
+NeoBundle 'jiangmiao/auto-pairs'           " Auto close brackets
 
-" Language specific
-NeoBundle 'tpope/vim-surround'             " changes tag surrounds
+" Syntax
+NeoBundle 'scrooloose/syntastic'           " Multi-language linting
 NeoBundle 'mattn/emmet-vim'                " Emmet
 NeoBundle 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
 NeoBundle 'groenewege/vim-less'            " LESS syntax highlighing
@@ -108,6 +107,7 @@ set undodir=$HOME/.vim/undo
 " }}}
 " Colours and fonts {{{
 
+set t_Co=256
 " Enable syntax highlighting
 syntax enable
 " Colour scheme
@@ -117,7 +117,7 @@ colorscheme base16-tomorrow
 set cursorline
 " Highlight column 81 to help keep lines of code 80 characters or less
 set colorcolumn=81
-""" Set extra options when running in GUI
+" Set extra options when running in GUI
 if has("gui_running")
 	set guioptions-=m  "remove menu bar
 	set guioptions-=T  "remove toolbar
@@ -166,7 +166,7 @@ runtime macros/matchit.vim
 " }}}
 " Plugin settings {{{
 
-""""" Airline
+"" Airline
 let g:airline_theme='base16'
 "if !exists('g:airline_symbols')
 "    let g:airline_symbols = {}
@@ -175,7 +175,7 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 "let g:airline_section_b = '%{getcwd()}'
 
-""""" Ctrl-P
+"" Ctrl-P
 " Use last used mode
 let g:ctrlp_cmd = 'CtrlPLastMode'
 " Unlimited files
@@ -189,7 +189,7 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 " Lazy update
 let g:ctrlp_lazy_update = 1
 
-""""" Neocomplete
+"" Neocomplete
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
@@ -202,11 +202,11 @@ if has('conceal')
 	set conceallevel=2 concealcursor=i
 endif
 
-"""""" Syntastic
+"" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_html_checkers = ['jshint', 'w3']
 
-"""""" Undotree
+"" Undotree
 let g:undotree_SetFocusWhenToggle = 1
 
 " }}}
@@ -253,8 +253,10 @@ nmap f <Plug>(easymotion-s)
 " More convenient escape sequence
 inoremap jk <Esc>
 cnoremap jk <Esc>
+vnoremap jk <Esc>
 inoremap kj <Esc>
 cnoremap kj <Esc>
+vnoremap kj <Esc>
 
 " Resize windows
 nnoremap <Left>  :10wincmd <<CR>
@@ -271,17 +273,9 @@ map <Space> <Leader>
 " Saved searches
 nnoremap <Leader>/u /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-unicode characters"<CR>
 
-" CtrlP Buffers
-nnoremap <Leader>; :CtrlPCmdline<CR>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
 nnoremap <Leader><S-Space> :w !sudo tee % > /dev/null<CR>
-" CtrlP Buffers
-nnoremap <Leader>b :CtrlPBuffer<CR>
-" CtrlP Files
-nnoremap <Leader>f :CtrlP<CR>
-" CtrlP MRU
-nnoremap <Leader>m :CtrlPMRUFiles<CR>
 " Create new file and set syntax
 nnoremap <Leader>n :enew<CR>:set syntax=
 " Open in browser
@@ -292,8 +286,6 @@ else
 endif
 " Paste clipboard XML encoded (unimpaired), stripped of unicode and trailing space
 nmap <Leader>p "+[pmz`[v`][xgv@ugv@t`z
-" CtrlP MRU
-nnoremap <Leader>r :CtrlPMRUFiles<CR>
 " Session mappings
 nnoremap <Leader>ss :mks ~/.vim/session/
 nnoremap <Leader>so :so ~/.vim/session/
@@ -303,8 +295,6 @@ nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 nnoremap <Leader>v :e $MYVIMRC<CR>
 " Reload .vimrc
 nnoremap <Leader>V :so $MYVIMRC<CR>
-" CtrlP Yanks
-nnoremap <Leader>y :CtrlPYankring<CR>
 
 " }}}
 " Mappings - macros {{{

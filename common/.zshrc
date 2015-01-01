@@ -1,4 +1,12 @@
 #------------------------------
+# Keep $PATH unique and add to it.
+# This is here because /etc/profile
+# overrides the .zshenv file.
+#------------------------------
+typeset -U path
+path=(~/bin $path)
+
+#------------------------------
 # Includes
 #------------------------------
 # Aliases
@@ -55,4 +63,6 @@ zstyle ':completion:*:killall:*'   force-list always
 #------------------------------
 #autoload -U promptinit && promptinit
 #prompt fade blue
+
+# Simple one
 PS1='%n@%m:%4c%1v> '

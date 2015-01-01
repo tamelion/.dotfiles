@@ -1,10 +1,9 @@
-typeset -U path
-path=(~/bin $path)
-
+#------------------------------
+# Environment variables
+#------------------------------
+export TERMINAL=urxvtc
 export PAGER=more
 export LANG=en_AU.UTF-8
-export TERM=rxvt-unicode
-
 if [ -n "$DISPLAY" ]; then
 	export EDITOR=gvim
 	export VISUAL=gvim

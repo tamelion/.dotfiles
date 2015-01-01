@@ -14,13 +14,8 @@ set $mod Mod4
 floating_modifier $mod 
 
 # Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below. ISO 10646 = Unicode
-#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, if you need a lot of unicode glyphs or
-# right-to-left text rendering, you should instead use pango for rendering and
-# chose a FreeType font, such as:
-font pango:Terminus 9
+font -xos4-terminus-medium-r-*-*-14-*
+#font pango:Terminus 9
 
 new_window 1pixel
 new_float normal
@@ -46,8 +41,9 @@ bindsym $mod+Shift+grave move scratchpad
 # Show the first scratcHpad window
 bindsym $mod+grave scratchpad show
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+# start dmenu
+bindsym $mod+d exec dmenu_run -b -i -p dmenu -sb "#de935f" -sf "#1d1f21" -nb "#1d1f21" -nf "#b4b7b4" -fn "-xos4-terminus-medium-r-*-*-13-*"
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -132,7 +128,7 @@ set $purple #b294bb
 set $cyan   #8abeb7
 set $orange #de935f
 
-set $blue   #6394de
+set $blue   #81a2be
 
 set $black  #1d1f21
 set $dgrey  #373b41
@@ -155,8 +151,8 @@ bar {
             background          $dgrey
             statusline          $lgrey
             separator           $orange
-            focused_workspace   $blue       $blue       $white
-            active_workspace    $grey       $dgrey      $white
+            focused_workspace   $orange     $orange     $black
+            active_workspace    $orange     $dgrey      $white
             inactive_workspace  $dgrey      $dgrey      $white
             urgent_workspace    $red        $dgrey      $white
         }

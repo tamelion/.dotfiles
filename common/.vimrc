@@ -240,6 +240,9 @@ nnoremap Q <Nop>
 " Fix Y
 nnoremap Y y$
 
+" Select last pasted
+nnoremap gp `[v`]
+
 " Easy on the pinky
 nnoremap ; :
 

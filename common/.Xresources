@@ -20,6 +20,7 @@ URxvt*colorUL: yellow
 URxvt*underlineColor: yellow
 URxvt*font: xft:terminus:size=10:antialias=false
 URxvt*boldFont: xft:terminus:bold:size=10:antialias=false
+URxvt*intensityStyles: false
 URxvt*saveLines: 5120
 URxvt*buffered: true
 URxvt*hold: false
@@ -46,9 +47,9 @@ URxvt*.shading: 10
 #define base0E #b294bb
 #define base0F #a3685a
 
-*.foreground:   base05
+*.foreground:   base06
 *.background:   base00
-*.cursorColor:  base05
+*.cursorColor:  base06
 
 *.color0:       base00
 *.color1:       base08

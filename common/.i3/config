@@ -39,7 +39,7 @@ bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id i3lock -i /home/jim/.i3/i3lock_screen.png -n
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec urxvtc
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+grave move scratchpad

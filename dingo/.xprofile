@@ -1,6 +1,6 @@
 # Set up external mouse
 xinput --set-prop 12 'Device Accel Constant Deceleration' 3 &
-xset mouse 3 6 &
+xset mouse 6 1 &
 
 # Check state of HDMI
 /home/jim/bin/hdmi

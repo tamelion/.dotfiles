@@ -51,18 +51,8 @@ zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*'   force-list always
 
 #------------------------------
-# Colour scheme
-#------------------------------
-# Get base16-shell theme from https://github.com/chriskempson/base16-shell
-#BASE16_SCHEME="tomorrow"
-#BASE16_SHELL="$HOME/.dotfiles/scripts/base16-$BASE16_SCHEME.dark.sh"
-#[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
-# Coloured ls in Termite
-eval $(dircolors ~/.dircolors)
-
-#------------------------------
 # Prompt
 #------------------------------
-autoload -U promptinit && promptinit
-prompt fade blue
-
+#autoload -U promptinit && promptinit
+#prompt fade blue
+PS1='%n@%m:%4c%1v> '

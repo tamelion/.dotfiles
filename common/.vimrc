@@ -25,8 +25,9 @@ NeoBundle 'Shougo/neosnippet-snippets'     " Basic snippets
 NeoBundle 'tpope/vim-fugitive'             " Git wrapper
 NeoBundle 'tpope/vim-unimpaired'           " Useful macros using [ and ]
 NeoBundle 'tpope/vim-repeat'               " Use . repeat for tpope plugins
-NeoBundle 'tpope/vim-commentary'           " quick commenting
-NeoBundle 'tpope/vim-surround'             " change surroundings
+NeoBundle 'tpope/vim-commentary'           " Quick commenting
+NeoBundle 'tpope/vim-surround'             " Change surroundings
+NeoBundle 'vim-scripts/YankRing.vim'       " Cycle yanks
 NeoBundle 'kien/ctrlp.vim'                 " Quick file opener
 NeoBundle 'Lokaltog/vim-easymotion'        " Move through vim
 NeoBundle 'mbbill/undotree'                " Undo tree
@@ -176,6 +177,8 @@ let g:airline_right_sep = ''
 "let g:airline_section_b = '%{getcwd()}'
 
 "" Ctrl-P
+" Kill default map
+let g:ctrlp_map = '<nop>'
 " Use last used mode
 let g:ctrlp_cmd = 'CtrlPLastMode'
 " Unlimited files
@@ -202,12 +205,23 @@ if has('conceal')
 	set conceallevel=2 concealcursor=i
 endif
 
+"" Neosnippet
+let g:neosnippet#snippets_directory = '~/.vim/bundle/custom-snippets'
+
 "" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_html_checkers = ['jshint', 'w3']
 
 "" Undotree
 let g:undotree_SetFocusWhenToggle = 1
+
+"" Yankring
+" Fix Y to y$ remap
+function! YRRunAfterMaps()
+	nnoremap Y :<C-U>YRYankCount 'y$'<CR>
+endfunction
+" Ignore
+let g:yankring_ignore_operator = 'd/'
 
 " }}}
 "  Filetype specific {{{
@@ -272,10 +286,11 @@ map <Space> <Leader>
 
 " Saved searches
 nnoremap <Leader>/u /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-unicode characters"<CR>
-
 " Write operations
 nnoremap <Leader><Space> :w<CR>
 nnoremap <Leader><S-Space> :w !sudo tee % > /dev/null<CR>
+" CtrlP
+nnoremap <Leader>f :CtrlPLastMode<CR>
 " Create new file and set syntax
 nnoremap <Leader>n :enew<CR>:set syntax=
 " Open in browser
@@ -285,7 +300,9 @@ else
 	nnoremap <Leader>o :silent !google-chrome-beta %<CR>
 endif
 " Paste clipboard XML encoded (unimpaired), stripped of unicode and trailing space
-nmap <Leader>p "+[pmz`[v`][xgv@ugv@t`z
+"nmap <Leader>p "+[pmz`[v`][xgv@ugv@t`z
+" Yankring
+nnoremap <Leader>p :YRShow<CR>
 " Session mappings
 nnoremap <Leader>ss :mks ~/.vim/session/
 nnoremap <Leader>so :so ~/.vim/session/

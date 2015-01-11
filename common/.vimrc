@@ -114,6 +114,8 @@ syntax enable
 " Colour scheme
 set background=dark
 colorscheme base16-tomorrow
+" Transparency
+hi Normal ctermbg=NONE
 " Highlight current line
 set cursorline
 " Highlight column 81 to help keep lines of code 80 characters or less
@@ -128,7 +130,7 @@ if has("gui_running")
 	set mouse-=a
 	map <MiddleMouse> <nop>
 	if has("gui_gtk2")
-		set guifont=Terminus\ 9
+		set guifont=Terminus\ 10
 	elseif has("gui_win32")
 		set guifont=Consolas:h10:cANSI
 		" For CJK
@@ -222,6 +224,8 @@ function! YRRunAfterMaps()
 endfunction
 " Ignore
 let g:yankring_ignore_operator = 'd/'
+" History directory
+let g:yankring_history_dir = '$HOME/.cache/'
 
 " }}}
 "  Filetype specific {{{
@@ -233,6 +237,8 @@ autocmd FileType vim setlocal foldmethod=marker
 
 " }}}
 " Mappings - overrides {{{
+
+nnoremap <CR> :CtrlPLastMode<CR>
 
 " Ban ex mode
 nnoremap Q <Nop>
@@ -252,9 +258,6 @@ nnoremap - :Explore<CR>
 " For line wraps
 nnoremap j gj
 nnoremap k gk
-
-" Remove trailing space and re-indent file
-nnoremap <CR> mzggvG@tgv=`z
 
 " Neosnippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -291,9 +294,11 @@ map <Space> <Leader>
 nnoremap <Leader>/u /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-unicode characters"<CR>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
-nnoremap <Leader><S-Space> :w !sudo tee % > /dev/null<CR>
+nnoremap <Leader>S :w !sudo tee % > /dev/null<CR>
+" Remove trailing space and re-indent file
+nnoremap <Leader>= mzggvG@tgv=`z
 " CtrlP
-nnoremap <Leader>f :CtrlPLastMode<CR>
+"nnoremap <Leader>f :CtrlPLastMode<CR>
 " Create new file and set syntax
 nnoremap <Leader>n :enew<CR>:set syntax=
 " Open in browser

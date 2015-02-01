@@ -250,7 +250,7 @@ nnoremap Y y$
 nnoremap gp `[v`]
 
 " Easy on the pinky
-nnoremap ; :
+"nnoremap ; :
 
 " Seamless file browser
 nnoremap - :Explore<CR>
@@ -299,6 +299,8 @@ nnoremap <Leader>S :w !sudo tee % > /dev/null<CR>
 nnoremap <Leader>= mzggvG@tgv=`z
 " CtrlP
 "nnoremap <Leader>f :CtrlPLastMode<CR>
+" Git status
+nnoremap <Leader>g :Gstatus<CR>
 " Create new file and set syntax
 nnoremap <Leader>n :enew<CR>:set syntax=
 " Open in browser

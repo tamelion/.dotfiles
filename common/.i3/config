@@ -14,8 +14,8 @@ set $mod Mod4
 floating_modifier $mod 
 
 # Font for window titles. Will also be used by the bar unless a different font
-font -xos4-terminus-medium-r-*-*-14-*
-#font pango:Terminus 9
+#font -xos4-terminus-medium-r-*-*-14-*
+font pango:Dejavu Sans 8
 
 new_window 1pixel
 new_float normal
@@ -137,10 +137,10 @@ set $lgrey  #b4b7b4
 set $white  #e0e0e0
 
                           # border     background  text
-client.focused              $blue      $blue       $white
-client.unfocused            $grey      $dgrey      $white
-client.focused_inactive     $grey      $grey       $white
-client.urgent               $red       $red        $white
+client.focused              $blue      $blue       $black
+client.unfocused            $dgrey     $grey       $dgrey
+client.focused_inactive     $blue      $dgrey      $blue
+client.urgent               $purple    $purple     $white
 
 # Start i3bar
 bar {
@@ -148,12 +148,12 @@ bar {
         status_command i3status
         colors {              # border      background  text
             background          $dgrey
-            statusline          $lgrey
-            separator           $orange
-            focused_workspace   $orange     $orange     $black
-            active_workspace    $orange     $dgrey      $white
-            inactive_workspace  $dgrey      $dgrey      $white
-            urgent_workspace    $red        $dgrey      $white
+            statusline          $white
+            separator           $grey
+            focused_workspace   $blue       $blue       $black
+            inactive_workspace  $dgrey      $grey       $dgrey
+            active_workspace    $blue       $dgrey      $blue
+            urgent_workspace    $purple     $purple     $white
         }
 }
 

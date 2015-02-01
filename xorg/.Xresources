@@ -19,9 +19,13 @@ URxvt*mouseWheelScrollPage: false
 URxvt*colorUL: yellow
 URxvt*underlineColor: yellow
 !URxvt*font: xft:terminus:size=10:antialias=false
-URxvt*font: -xos4-terminus-medium-r-*-*-14-*
-URxvt*boldFont: xft:terminus:bold:size=10:antialias=false
-URxvt*intensityStyles: false
+!URxvt*font: -xos4-terminus-medium-r-*-*-14-*
+!URxvt*boldFont: xft:terminus:bold:size=10:antialias=false
+URxvt*font: xft:DejaVu Sans Mono:antialias=true:pixelsize=11
+URxvt*boldFont: xft:DejaVu Sans Mono:style=bold:antialias=true:pixelsize=11
+URxvt*italicFont: xft:DejaVu Sans Mono:style=italic:antialias=true:pixelsize=11
+URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=bolditalic:antialias=true:pixelsize=11
+!URxvt*intensityStyles: false
 URxvt*saveLines: 5120
 URxvt*buffered: true
 URxvt*hold: false

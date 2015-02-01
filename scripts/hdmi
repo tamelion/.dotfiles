@@ -8,3 +8,6 @@ if (xrandr | grep "$EXT disconnected"); then
 else
     xrandr --output $IN --auto --primary --output $EXT --auto --above $IN
 fi
+
+# Re-adjust wallpaper
+feh --bg-fil .i3/wallpaper.jpg

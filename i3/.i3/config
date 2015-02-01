@@ -173,4 +173,4 @@ bar {
 for_window [window_role="pop-up"] floating enable
 
 # Wallpaper
-exec --no-startup-id feh --bg-fill ~/.i3/wallpaper.jpg
+exec --no-startup-id feh --bg-fill ~/.wallpaper.jpg

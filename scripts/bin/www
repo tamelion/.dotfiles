@@ -1,0 +1,6 @@
+#!/bin/sh
+for browser in $BROWSER google-chrome-beta google-chrome chromium firefox; do
+    if which $browser > /dev/null 2>&1; then
+        exec $browser "$@"
+    fi
+done

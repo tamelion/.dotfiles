@@ -10,4 +10,4 @@ else
 fi
 
 # Re-adjust wallpaper
-feh --bg-fil .i3/wallpaper.jpg
+feh --bg-fil .wallpaper.jpg

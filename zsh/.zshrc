@@ -4,7 +4,7 @@
 # overrides the .zshenv file.
 #------------------------------
 typeset -U path
-path=(~/bin $path)
+path=(~/.bin $path)
 
 #------------------------------
 # Includes

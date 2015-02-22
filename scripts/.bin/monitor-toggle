@@ -1,0 +1,18 @@
+#!/bin/bash
+
+LAPTOP="LVDS1"
+HDMI="HDMI1"
+VGA="VGA1"
+
+if (xrandr | grep "$HDMI connected")
+then
+    xrandr --output $LAPTOP --auto --primary --output $HDMI --auto --above $LAPTOP
+elif (xrandr | grep "$VGA connected")
+then
+    xrandr --output $LAPTOP --auto --primary --output $VGA --auto --above $LAPTOP
+else
+    xrandr --output $LAPTOP --auto --output $HDMI --off --output $VGA --off
+fi
+
+# Re-adjust wallpaper
+set-wallpaper

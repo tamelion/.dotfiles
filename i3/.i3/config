@@ -146,6 +146,7 @@ client.urgent               $purple    $purple     $white
 bar {
         position top
         status_command i3status
+        #status_command conky-i3bar # custom script in ~/.bin
         colors {              # border      background  text
             background          $dgrey
             statusline          $white
@@ -158,10 +159,9 @@ bar {
 }
 
 # Bind apps
-#bindsym $mod+a mode "launch app"
+#bindsym $mod+Space mode "launch app"
 #mode "launch app" {
 #        bindsym c exec google-chrome-beta; mode "default"
-#        bindsym h exec /home/jim/bin/hdmi; mode "default"
 #        bindsym r exec urxvt -e ranger; mode "default"
 #        bindsym v exec gvim; mode "default"
 #
@@ -169,8 +169,13 @@ bar {
 #        bindsym Escape mode "default"
 #}
 
+# Bind monitor toggle
+bindsym $mod+m exec monitor-toggle
+# Bind HDMI sound toggle
+bindsym $mod+a exec hdmi-sound
+
 # Make Chrome pop-ups (hangouts etc.) float
 for_window [window_role="pop-up"] floating enable
 
 # Wallpaper
-exec --no-startup-id feh --bg-fill ~/.wallpaper.jpg
+exec --no-startup-id set-wallpaper

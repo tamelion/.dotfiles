@@ -60,7 +60,7 @@ NeoBundleCheck
 " Sets how many lines of history VIM has to remember
 set history=1000
 " Change directory to the current buffer when opening files.
-"set autochdir
+set autochdir
 " save changed files dialog
 set confirm
 " Backup and swap
@@ -103,7 +103,7 @@ set wrap
 set formatoptions+=j
 " Persistent undo
 set undofile
-set undodir=$HOME/.vim/undo
+set undodir=~/.vim/undo
 
 " }}}
 " Colours and fonts {{{
@@ -208,7 +208,7 @@ if has('conceal')
 endif
 
 "" Neosnippet
-let g:neosnippet#snippets_directory = '~/.vim/bundle/custom-snippets'
+let g:neosnippet#snippets_directory = '~/code/snippets'
 
 "" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
@@ -225,7 +225,7 @@ endfunction
 " Ignore
 let g:yankring_ignore_operator = 'd/'
 " History directory
-let g:yankring_history_dir = '$HOME/.cache/'
+let g:yankring_history_dir = '~/.cache/'
 
 " }}}
 "  Filetype specific {{{
@@ -238,7 +238,7 @@ autocmd FileType vim setlocal foldmethod=marker
 " }}}
 " Mappings - overrides {{{
 
-nnoremap <CR> :CtrlPLastMode<CR>
+nnoremap <CR> :CtrlP ~/code<CR>
 
 " Ban ex mode
 nnoremap Q <Nop>
@@ -297,8 +297,8 @@ nnoremap <Leader><Space> :w<CR>
 nnoremap <Leader>S :w !sudo tee % > /dev/null<CR>
 " Remove trailing space and re-indent file
 nnoremap <Leader>= mzggvG@tgv=`z
-" CtrlP
-"nnoremap <Leader>f :CtrlPLastMode<CR>
+" Buffers
+nnoremap <Leader>b :CtrlPBuffer<CR>
 " Git status
 nnoremap <Leader>g :Gstatus<CR>
 " Create new file and set syntax
@@ -314,8 +314,8 @@ endif
 " Yankring
 nnoremap <Leader>p :YRShow<CR>
 " Session mappings
-nnoremap <Leader>ss :mks ~/.vim/session/
-nnoremap <Leader>so :so ~/.vim/session/
+"nnoremap <Leader>ss :mks ~/.vim/session/
+"nnoremap <Leader>so :so ~/.vim/session/
 " Toggle undo tree
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 " Fast open vimrc

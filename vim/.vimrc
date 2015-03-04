@@ -28,10 +28,11 @@ NeoBundle 'tpope/vim-repeat'               " Use . repeat for tpope plugins
 NeoBundle 'tpope/vim-commentary'           " Quick commenting
 NeoBundle 'tpope/vim-surround'             " Change surroundings
 NeoBundle 'vim-scripts/YankRing.vim'       " Cycle yanks
-NeoBundle 'kien/ctrlp.vim'                 " Quick file opener
+"NeoBundle 'kien/ctrlp.vim'                 " Quick file opener
 NeoBundle 'Lokaltog/vim-easymotion'        " Move through vim
 NeoBundle 'mbbill/undotree'                " Undo tree
 NeoBundle 'jiangmiao/auto-pairs'           " Auto close brackets
+NeoBundle 'mhinz/vim-startify'     		   " Most recently used
 
 " Syntax
 NeoBundle 'scrooloose/syntastic'           " Multi-language linting
@@ -57,6 +58,8 @@ NeoBundleCheck
 "}}}
 "  General {{{
 
+" Start in ~/code
+:cd ~/code
 " Sets how many lines of history VIM has to remember
 set history=1000
 " Change directory to the current buffer when opening files.
@@ -180,19 +183,19 @@ let g:airline_right_sep = ''
 
 "" Ctrl-P
 " Kill default map
-let g:ctrlp_map = '<nop>'
-" Use last used mode
-let g:ctrlp_cmd = 'CtrlPLastMode'
-" Unlimited files
-let g:ctrlp_max_files = 0
-" Keep cache on exit
-let g:ctrlp_clear_cache_on_exit = 0
-" Ignore files
-let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
-" Position, order, heights
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
-" Lazy update
-let g:ctrlp_lazy_update = 1
+"let g:ctrlp_map = '<nop>'
+"" Use last used mode
+"let g:ctrlp_cmd = 'CtrlPLastMode'
+"" Unlimited files
+"let g:ctrlp_max_files = 0
+"" Keep cache on exit
+"let g:ctrlp_clear_cache_on_exit = 0
+"" Ignore files
+"let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
+"" Position, order, heights
+"let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
+"" Lazy update
+"let g:ctrlp_lazy_update = 1
 
 "" Neocomplete
 let g:neocomplete#enable_at_startup = 1
@@ -212,7 +215,7 @@ let g:neosnippet#snippets_directory = '~/code/snippets'
 
 "" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_html_checkers = ['jshint', 'w3']
+"let g:syntastic_html_checkers = ['jshint', 'w3']
 
 "" Undotree
 let g:undotree_SetFocusWhenToggle = 1
@@ -238,7 +241,11 @@ autocmd FileType vim setlocal foldmethod=marker
 " }}}
 " Mappings - overrides {{{
 
-nnoremap <CR> :CtrlP ~/code<CR>
+" Cycle buffers
+map <C-Tab> :bnext<cr>
+map <C-S-Tab> :bprevious<cr>
+
+nnoremap <CR> :Startify<CR>
 
 " Ban ex mode
 nnoremap Q <Nop>
@@ -325,6 +332,7 @@ nnoremap <Leader>V :so $MYVIMRC<CR>
 
 " }}}
 " Mappings - macros {{{
+let @p = '/{"postload_img/: "/"vi"y/src/"ci"0?classd/src'
 
 " Remove blank lines
 let @l = ':g/^\s*$/d'
@@ -336,7 +344,9 @@ let @e = 'a</a>gv"zyi<a href="mailto:z">'
 let @r = ':s/\r\+$//e'
 " Remove trailing space
 let @t = ':s/\s\+$//e'
-" Unicode replacements
-let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge'
+" Unicode replacements: quotes, hyphens, ellipses and spaces
+let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge:s/﻿/\&#160;/g'
+let @d = ':s/﻿/\&#160;/g'
+" MRO img src
 let @f = '^ivar f:as ='
 " }}}

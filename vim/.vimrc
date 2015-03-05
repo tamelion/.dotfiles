@@ -19,7 +19,6 @@ NeoBundle 'chriskempson/base16-vim'        " coding colour schemes
 NeoBundle 'bling/vim-airline'              " Status bar
 
 " Helpers
-NeoBundle 'Shougo/neocomplete.vim'         " Omnicompletion plus plus
 NeoBundle 'Shougo/neosnippet'              " Snippeting
 NeoBundle 'Shougo/neosnippet-snippets'     " Basic snippets
 NeoBundle 'tpope/vim-fugitive'             " Git wrapper
@@ -28,11 +27,11 @@ NeoBundle 'tpope/vim-repeat'               " Use . repeat for tpope plugins
 NeoBundle 'tpope/vim-commentary'           " Quick commenting
 NeoBundle 'tpope/vim-surround'             " Change surroundings
 NeoBundle 'vim-scripts/YankRing.vim'       " Cycle yanks
-"NeoBundle 'kien/ctrlp.vim'                 " Quick file opener
 NeoBundle 'Lokaltog/vim-easymotion'        " Move through vim
 NeoBundle 'mbbill/undotree'                " Undo tree
 NeoBundle 'jiangmiao/auto-pairs'           " Auto close brackets
 NeoBundle 'mhinz/vim-startify'     		   " Most recently used
+NeoBundle 'ervandew/supertab'              " Supertab
 
 " Syntax
 NeoBundle 'scrooloose/syntastic'           " Multi-language linting
@@ -177,41 +176,18 @@ let g:airline_theme='base16'
 "if !exists('g:airline_symbols')
 "    let g:airline_symbols = {}
 "endif
+let g:airline#extensions#tabline#enabled = 1
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 "let g:airline_section_b = '%{getcwd()}'
 
-"" Ctrl-P
-" Kill default map
-"let g:ctrlp_map = '<nop>'
-"" Use last used mode
-"let g:ctrlp_cmd = 'CtrlPLastMode'
-"" Unlimited files
-"let g:ctrlp_max_files = 0
-"" Keep cache on exit
-"let g:ctrlp_clear_cache_on_exit = 0
-"" Ignore files
-"let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
-"" Position, order, heights
-"let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
-"" Lazy update
-"let g:ctrlp_lazy_update = 1
-
-"" Neocomplete
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Insert / delimiter for filename completion
-let g:neocomplete#enable_auto_delimiter = 1
-" Characters before keywords complete
-let g:neocomplete#auto_completion_start_length = 1
-" For snippet_complete marker.
-if has('conceal')
-	set conceallevel=2 concealcursor=i
-endif
-
 "" Neosnippet
 let g:neosnippet#snippets_directory = '~/code/snippets'
+
+"" Supertab
+let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabLongestEnhanced = 1
+"let g:SuperTabLongestHighlight = 0
 
 "" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
@@ -305,7 +281,7 @@ nnoremap <Leader>S :w !sudo tee % > /dev/null<CR>
 " Remove trailing space and re-indent file
 nnoremap <Leader>= mzggvG@tgv=`z
 " Buffers
-nnoremap <Leader>b :CtrlPBuffer<CR>
+nnoremap <Leader>b :ls<CR>:e<Space>
 " Git status
 nnoremap <Leader>g :Gstatus<CR>
 " Create new file and set syntax
@@ -345,7 +321,7 @@ let @r = ':s/\r\+$//e'
 " Remove trailing space
 let @t = ':s/\s\+$//e'
 " Unicode replacements: quotes, hyphens, ellipses and spaces
-let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge:s/﻿/\&#160;/g'
+let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge:s/﻿/\&#xfeff;/g'
 let @d = ':s/﻿/\&#160;/g'
 " MRO img src
 let @f = '^ivar f:as ='

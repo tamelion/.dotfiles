@@ -1,40 +1,3 @@
-! URxvt
-URxvt*meta8:true
-URxvt*loginShell: true
-URxvt*scrollColor: #777777
-URxvt*scrollstyle: plain
-URxvt*scrollTtyKeypress: true
-URxvt*scrollTtyOutput: false
-URxvt*scrollWithBuffer: false
-URxvt*secondaryScreen: true
-URxvt*secondaryScroll: true
-URxvt*scrollBar: false
-URxvt*scrollBar_right: false
-URxvt*scrollBar_floating: false
-URxvt*fading: 30
-URxvt*urgentOnBell: false
-URxvt*visualBell: true
-URxvt*mapAlert: true
-URxvt*mouseWheelScrollPage: false
-URxvt*colorUL: yellow
-URxvt*underlineColor: yellow
-!URxvt*font: xft:terminus:size=10:antialias=false
-!URxvt*font: -xos4-terminus-medium-r-*-*-14-*
-!URxvt*boldFont: xft:terminus:bold:size=10:antialias=false
-URxvt*font: xft:DejaVu Sans Mono:antialias=true:pixelsize=11
-URxvt*boldFont: xft:DejaVu Sans Mono:style=bold:antialias=true:pixelsize=11
-URxvt*italicFont: xft:DejaVu Sans Mono:style=italic:antialias=true:pixelsize=11
-URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=bolditalic:antialias=true:pixelsize=11
-!URxvt*intensityStyles: false
-URxvt*saveLines: 5120
-URxvt*buffered: true
-URxvt*hold: false
-URxvt*internalBorder:
-URxvt*perl-ext-common:
-URxvt*perl-ext:
-URxvt*.transparent: true
-URxvt*.shading: 10
-
 #define base00 #1d1f21
 #define base01 #282a2e
 #define base02 #373b41
@@ -53,7 +16,7 @@ URxvt*.shading: 10
 #define base0F #a3685a
 
 *.foreground:   base06
-*.background:   base00
+*.background:   base02
 *.cursorColor:  base06
 
 *.color0:       base00
@@ -82,3 +45,45 @@ URxvt*.shading: 10
 *.color19:      base02
 *.color20:      base04
 *.color21:      base06
+
+*font: xft:DejaVu Sans Mono:antialias=true:pixelsize=11
+*boldFont: xft:DejaVu Sans Mono:style=bold:antialias=true:pixelsize=11
+*italicFont: xft:DejaVu Sans Mono:style=italic:antialias=true:pixelsize=11
+*boldItalicFont: xft:DejaVu Sans Mono:style=bolditalic:antialias=true:pixelsize=11
+
+! URxvt
+URxvt*meta8:true
+URxvt*loginShell: true
+URxvt*scrollColor: #777777
+URxvt*scrollstyle: plain
+URxvt*scrollTtyKeypress: true
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: false
+URxvt*secondaryScreen: true
+URxvt*secondaryScroll: true
+URxvt*scrollBar: false
+URxvt*scrollBar_right: false
+URxvt*scrollBar_floating: false
+URxvt*fading: 30
+URxvt*urgentOnBell: false
+URxvt*visualBell: true
+URxvt*mapAlert: true
+URxvt*mouseWheelScrollPage: false
+URxvt*colorUL: yellow
+URxvt*underlineColor: yellow
+!URxvt*font: xft:terminus:size=10:antialias=false
+!URxvt*font: -xos4-terminus-medium-r-*-*-14-*
+!URxvt*boldFont: xft:terminus:bold:size=10:antialias=false
+!URxvt*intensityStyles: false
+URxvt*saveLines: 5120
+URxvt*buffered: true
+URxvt*hold: false
+URxvt*internalBorder:
+URxvt*perl-ext-common:
+URxvt*perl-ext:
+URxvt*.transparent: true
+URxvt*.shading: 10
+
+!dzen2*.font: xft:DejaVu Sans Mono:antialias=true:pixelsize=11
+!dzen2.foreground: #22EE11
+!dzen2.background: black

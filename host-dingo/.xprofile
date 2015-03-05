@@ -3,4 +3,4 @@ xinput --set-prop 12 'Device Accel Constant Deceleration' 3 &
 xset mouse 6 1 &
 
 # Check state of external monitors
-toggle-monitors
+monitor-toggle

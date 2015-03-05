@@ -16,10 +16,13 @@ fi
 xrdb -merge ~/.Xresources
 
 # Set brightness to sensible level
-xbacklight -set 25
+xbacklight -set 33
 
 # Bind multimedia keys
 xbindkeys
+
+# Turn num lock on
+numlockx &
 
 # Include xprofile
 [ -f ~/.xprofile ] && source ~/.xprofile

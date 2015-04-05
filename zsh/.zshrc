@@ -4,7 +4,7 @@
 # overrides the .zshenv file.
 #------------------------------
 typeset -U path
-path=(~/.bin $path)
+path=(~/.bin $(ruby -e 'print Gem.user_dir')/bin $path)
 
 #------------------------------
 # Includes
@@ -13,6 +13,8 @@ path=(~/.bin $path)
 if [ -f ~/.alias ]; then
 	source ~/.alias
 fi
+# Show broken symlink colours
+eval $(dircolors -b)
 
 #------------------------------
 # History

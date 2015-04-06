@@ -15,8 +15,8 @@ fi
 # Sync Xresources
 xrdb -merge ~/.Xresources
 
-# Set brightness to sensible level
-xbacklight -set 33
+# Run local hardware options script
+local-hardware
 
 # Bind multimedia keys
 xbindkeys

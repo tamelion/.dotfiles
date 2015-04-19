@@ -221,7 +221,7 @@ autocmd FileType vim setlocal foldmethod=marker
 map <C-Tab> :bnext<cr>
 map <C-S-Tab> :bprevious<cr>
 
-nnoremap <CR> :Startify<CR>
+nnoremap <BS> :Startify<CR>
 
 " Ban ex mode
 nnoremap Q <Nop>
@@ -235,8 +235,8 @@ nnoremap gp `[v`]
 " Easy on the pinky
 "nnoremap ; :
 
-" Seamless file browser
-nnoremap - :Explore<CR>
+" File browser
+nnoremap <CR> :Explore<CR>
 
 " For line wraps
 nnoremap j gj
@@ -281,7 +281,7 @@ nnoremap <Leader>S :w !sudo tee % > /dev/null<CR>
 " Remove trailing space and re-indent file
 nnoremap <Leader>= mzggvG@tgv=`z
 " Buffers
-nnoremap <Leader>b :ls<CR>:e<Space>
+nnoremap <Leader>b :ls<CR>:b
 " Git status
 nnoremap <Leader>g :Gstatus<CR>
 " Create new file and set syntax
@@ -321,7 +321,7 @@ let @r = ':s/\r\+$//e'
 " Remove trailing space
 let @t = ':s/\s\+$//e'
 " Unicode replacements: quotes, hyphens, ellipses and spaces
-let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge:s/﻿/\&#xfeff;/g'
+let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge:s/﻿/\&#xfeff;/ge'
 let @d = ':s/﻿/\&#160;/g'
 " MRO img src
 let @f = '^ivar f:as ='

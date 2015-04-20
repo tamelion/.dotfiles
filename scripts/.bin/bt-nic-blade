@@ -1,0 +1,3 @@
+#!/bin/sh
+
+dbus-send --system --type=method_call --dest=org.bluez /org/bluez/hci0/dev_D0_15_4A_BD_93_86 org.bluez.Network1.Connect string:'nap'

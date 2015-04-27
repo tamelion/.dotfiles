@@ -55,7 +55,7 @@ URxvt*secondaryScroll: true
 URxvt*scrollBar: false
 URxvt*scrollBar_right: false
 URxvt*scrollBar_floating: false
-URxvt*fading: 30
+!URxvt*fading: 30
 URxvt*urgentOnBell: false
 URxvt*visualBell: true
 URxvt*mapAlert: true

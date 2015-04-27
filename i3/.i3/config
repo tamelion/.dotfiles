@@ -17,7 +17,7 @@ floating_modifier $mod
 #font -xos4-terminus-medium-r-*-*-14-*
 font pango:Dejavu Sans 8
 
-new_window 1pixel
+new_window pixel 2
 new_float normal
 
 # reload the configuration file
@@ -148,8 +148,8 @@ set $white  #e0e0e0
 
                           # border     background  text
 client.focused              $blue      $blue       $black
-client.unfocused            $dgrey     $grey       $dgrey
-client.focused_inactive     $blue      $dgrey      $blue
+client.unfocused            $black     $dgrey      $lgrey
+client.focused_inactive     $blue      $grey       $blue
 client.urgent               $purple    $purple     $white
 
 # Start i3bar
@@ -163,7 +163,7 @@ bar {
             statusline          $white
             separator           $grey
             focused_workspace   $blue       $blue       $black
-            inactive_workspace  $dgrey      $grey       $dgrey
+            inactive_workspace  $grey       $dgrey      $lgrey
             active_workspace    $blue       $dgrey      $blue
             urgent_workspace    $purple     $purple     $white
         }

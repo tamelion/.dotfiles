@@ -282,6 +282,8 @@ nnoremap <Leader>S :w !sudo tee % > /dev/null<CR>
 nnoremap <Leader>= mzggvG@tgv=`z
 " Buffers
 nnoremap <Leader>b :ls<CR>:b
+" Files
+nnoremap <Leader>f :call DmenuOpen("e")<CR>
 " Git status
 nnoremap <Leader>g :Gstatus<CR>
 " Create new file and set syntax
@@ -308,6 +310,7 @@ nnoremap <Leader>V :so $MYVIMRC<CR>
 
 " }}}
 " Mappings - macros {{{
+
 let @p = '/{"postload_img/: "/"vi"y/src/"ci"0?classd/src'
 
 " Remove blank lines
@@ -325,4 +328,22 @@ let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge:s/﻿
 let @d = ':s/﻿/\&#160;/g'
 " MRO img src
 let @f = '^ivar f:as ='
+
+" }}}
+" Functions {{{
+
+" Strip the newline from the end of a string
+function! Chomp(str)
+  return substitute(a:str, '\n$', '', '')
+endfunction
+
+" Find a file and pass it to cmd
+function! DmenuOpen(cmd)
+  let fname = Chomp(system("find . | dmenu `echo $DMENU_OPTIONS` -l 20 -p vim:" . a:cmd))
+  if empty(fname)
+    return
+  endif
+  execute a:cmd . " " . fname
+endfunction
+
 " }}}

@@ -12,3 +12,4 @@ else
 	export BROWSER=lynx
 	export EDITOR=vim
 fi
+export DMENU_OPTIONS='-i -h 18 -sb #de935f -sf #1d1f21 -nb #373b41 -nf #b4b7b4 -fn xft:DejaVuSansMono:antialias=true:pixelsize=11'

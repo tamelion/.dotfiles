@@ -57,8 +57,6 @@ NeoBundleCheck
 "}}}
 "  General {{{
 
-" Start in ~/code
-:cd ~/code
 " Sets how many lines of history VIM has to remember
 set history=1000
 " Change directory to the current buffer when opening files.

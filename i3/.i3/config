@@ -96,7 +96,7 @@ set $6 6
 set $7 7
 set $8 8
 set $9 9
-set $0 10
+set $0 10:vm
 
 # switch to workspace
 bindsym $mod+grave workspace $console

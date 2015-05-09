@@ -96,7 +96,8 @@ set $6 6
 set $7 7
 set $8 8
 set $9 9
-set $0 10:vm
+set $0 10
+set $virtual virtual
 
 # switch to workspace
 bindsym $mod+grave workspace $console
@@ -110,6 +111,7 @@ bindsym $mod+7 workspace $7
 bindsym $mod+8 workspace $8
 bindsym $mod+9 workspace $9
 bindsym $mod+0 workspace $0
+bindsym $mod+Escape workspace $virtual
 
 # move with focused container to workspace
 bindsym $mod+Shift+grave move container to workspace $console; workspace $console
@@ -123,6 +125,7 @@ bindsym $mod+Shift+7 move container to workspace $7; workspace $7
 bindsym $mod+Shift+8 move container to workspace $8; workspace $8
 bindsym $mod+Shift+9 move container to workspace $9; workspace $9
 bindsym $mod+Shift+0 move container to workspace $0; workspace $0
+bindsym $mod+Shift+Escape move container to workspace $virtual; workspace $virtual
 
 # resize
 bindsym $mod+Left resize shrink width 10 px or 10 ppt

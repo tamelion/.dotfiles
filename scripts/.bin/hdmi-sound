@@ -1,10 +1,8 @@
 #!/bin/bash
 
 if [ -L ~/.asoundrc ]
-# symlink exists, remove it
 then
-	rm ~/.asoundrc
+	mv ~/.asoundrc ~/.asoundrc.off
 else
-# link back up
-	ln -s ~/.dotfiles/scripts/.asoundrc ~
+	mv ~/.asoundrc.off ~/.asoundrc
 fi

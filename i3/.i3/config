@@ -34,7 +34,7 @@ bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id i3lock -n -c 000000
 
 # start a terminal
-bindsym $mod+Shift+Return exec urxvtc
+bindsym $mod+Return exec urxvtc
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+z move scratchpad
@@ -42,7 +42,7 @@ bindsym $mod+Shift+z move scratchpad
 bindsym $mod+z scratchpad show
 
 # start app launcher (dmenu-xft-height)
-bindsym $mod+Return exec dmenu_run $DMENU_OPTIONS -p launch
+bindsym $mod+Shift+Return exec dmenu_run $DMENU_OPTIONS -p launch
 
 # Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
@@ -86,18 +86,18 @@ bindsym $mod+p focus parent
 bindsym $mod+c focus child
 
 # workspace variables
-set $console 0:console
-set $1 1:web
-set $2 2:code
-set $3 3:cms
-set $4 4:docs
+set $console 0~shell
+set $1 1~web
+set $2 2~code
+set $3 3~cms
+set $4 4~docs
 set $5 5
 set $6 6
 set $7 7
 set $8 8
 set $9 9
 set $0 10
-set $virtual virtual
+set $virtual esc~virtual
 
 # switch to workspace
 bindsym $mod+grave workspace $console

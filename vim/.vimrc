@@ -1,58 +1,55 @@
 " Plugins {{{
 
-" Note: Skip initialization for vim-tiny or vim-small.
+" Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
 
 if has('vim_starting')
 	if &compatible
 		set nocompatible " because we loViMprovement
 	endif
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+	set runtimepath+=~/.vim/bundle/Vundle.vim/
 endif
 
-call neobundle#begin()
+call vundle#begin()
 
-NeoBundleFetch 'Shougo/neobundle.vim'      " Neobundle
+Plugin 'gmarik/Vundle.vim'
 
 " Vanity
-NeoBundle 'chriskempson/base16-vim'        " coding colour schemes
-NeoBundle 'bling/vim-airline'              " Status bar
+Plugin 'chriskempson/base16-vim'        " coding colour schemes
+Plugin 'bling/vim-airline'              " Status bar
 
 " Helpers
-NeoBundle 'Shougo/neosnippet'              " Snippeting
-NeoBundle 'Shougo/neosnippet-snippets'     " Basic snippets
-NeoBundle 'tpope/vim-fugitive'             " Git wrapper
-NeoBundle 'tpope/vim-unimpaired'           " Useful macros using [ and ]
-NeoBundle 'tpope/vim-repeat'               " Use . repeat for tpope plugins
-NeoBundle 'tpope/vim-commentary'           " Quick commenting
-NeoBundle 'tpope/vim-surround'             " Change surroundings
-NeoBundle 'vim-scripts/YankRing.vim'       " Cycle yanks
-NeoBundle 'Lokaltog/vim-easymotion'        " Move through vim
-NeoBundle 'mbbill/undotree'                " Undo tree
-NeoBundle 'jiangmiao/auto-pairs'           " Auto close brackets
-NeoBundle 'mhinz/vim-startify'     		   " Most recently used
-NeoBundle 'ervandew/supertab'              " Supertab
+Plugin 'Shougo/neosnippet'              " Snippeting
+Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
+Plugin 'tpope/vim-fugitive'             " Git wrapper
+Plugin 'tpope/vim-unimpaired'           " Useful macros using [ and ]
+Plugin 'tpope/vim-repeat'               " Use . repeat for tpope plugins
+Plugin 'tpope/vim-commentary'           " Quick commenting
+Plugin 'tpope/vim-surround'             " Change surroundings
+Plugin 'vim-scripts/YankRing.vim'       " Cycle yanks
+Plugin 'Lokaltog/vim-easymotion'        " Move through vim
+Plugin 'mbbill/undotree'                " Undo tree
+Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
+Plugin 'mhinz/vim-startify'     		" Most recently used
+Plugin 'ervandew/supertab'              " Supertab
 
 " Syntax
-NeoBundle 'scrooloose/syntastic'           " Multi-language linting
-NeoBundle 'mattn/emmet-vim'                " Emmet
-NeoBundle 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
-NeoBundle 'groenewege/vim-less'            " LESS syntax highlighing
-NeoBundle 'othree/html5.vim'               " HTML5 recognition
-NeoBundle 'ap/vim-css-color'               " CSS colour of hex values
-NeoBundle 'jelera/vim-javascript-syntax'   " Better JS indentation
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+Plugin 'scrooloose/syntastic'           " Multi-language linting
+Plugin 'mattn/emmet-vim'                " Emmet
+Plugin 'hail2u/vim-css3-syntax'         " CSS3 syntax highlighting
+Plugin 'groenewege/vim-less'            " LESS syntax highlighing
+Plugin 'othree/html5.vim'               " HTML5 recognition
+Plugin 'ap/vim-css-color'               " CSS colour of hex values
+Plugin 'jelera/vim-javascript-syntax'   " Better JS indentation
+Plugin 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 
 " Other crazy stuff
-NeoBundle 'vim-scripts/vimwiki'            " vimwiki
+Plugin 'vim-scripts/vimwiki'            " vimwiki
 
-call neobundle#end()
+call vundle#end()
 
 " Enable plugin and indent filetypes
 filetype plugin indent on
-
-" Check for bundles which need installing
-NeoBundleCheck
 
 "}}}
 "  General {{{
@@ -184,8 +181,9 @@ let g:neosnippet#snippets_directory = '~/code/snippets'
 
 "" Supertab
 let g:SuperTabDefaultCompletionType = "context"
-"let g:SuperTabLongestEnhanced = 1
-"let g:SuperTabLongestHighlight = 0
+let g:SuperTabLongestEnhanced = 1
+let g:SuperTabLongestHighlight = 1
+let g:SuperTabCrMapping = 1
 
 "" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']

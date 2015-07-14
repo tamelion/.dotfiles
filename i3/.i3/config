@@ -31,7 +31,7 @@ bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+q kill
 
 # lock screen
-bindsym $mod+space exec --no-startup-id i3lock -n -c 000000
+bindsym $mod+space exec --no-startup-id i3lock -n -c 000000 -i ~/.lockscreen.jpg
 
 # start a terminal
 bindsym $mod+Return exec urxvtc

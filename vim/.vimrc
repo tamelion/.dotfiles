@@ -41,7 +41,6 @@ Plugin 'groenewege/vim-less'            " LESS syntax highlighing
 Plugin 'othree/html5.vim'               " HTML5 recognition
 Plugin 'ap/vim-css-color'               " CSS colour of hex values
 Plugin 'jelera/vim-javascript-syntax'   " Better JS indentation
-Plugin 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 
 " Other crazy stuff
 Plugin 'vim-scripts/vimwiki'            " vimwiki

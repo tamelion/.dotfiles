@@ -23,3 +23,6 @@ orphans() {
     sudo pacman -Rns $(pacman -Qdtq)
   fi
 }
+
+# Wifi
+alias wifi='sudo netctl switch-to'

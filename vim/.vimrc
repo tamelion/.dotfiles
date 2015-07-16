@@ -15,12 +15,13 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Vanity
-Plugin 'chriskempson/base16-vim'        " coding colour schemes
+Plugin 'chriskempson/base16-vim'        " Coding colour schemes
 Plugin 'bling/vim-airline'              " Status bar
 
 " Helpers
 Plugin 'Shougo/neosnippet'              " Snippeting
 Plugin 'Shougo/neosnippet-snippets'     " Basic snippets
+Plugin 'Shougo/neocomplete.vim'     	" Autocompletion
 Plugin 'tpope/vim-fugitive'             " Git wrapper
 Plugin 'tpope/vim-unimpaired'           " Useful macros using [ and ]
 Plugin 'tpope/vim-repeat'               " Use . repeat for tpope plugins
@@ -31,7 +32,6 @@ Plugin 'Lokaltog/vim-easymotion'        " Move through vim
 Plugin 'mbbill/undotree'                " Undo tree
 Plugin 'jiangmiao/auto-pairs'           " Auto close brackets
 Plugin 'mhinz/vim-startify'     		" Most recently used
-Plugin 'ervandew/supertab'              " Supertab
 
 " Syntax
 Plugin 'scrooloose/syntastic'           " Multi-language linting
@@ -175,14 +175,15 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 "let g:airline_section_b = '%{getcwd()}'
 
+"" Neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#disable_auto_complete = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_fuzzy_completion = 0
+
 "" Neosnippet
 let g:neosnippet#snippets_directory = '~/code/snippets'
-
-"" Supertab
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabLongestEnhanced = 1
-let g:SuperTabLongestHighlight = 1
-let g:SuperTabCrMapping = 1
 
 "" Syntastic
 let g:syntastic_javascript_checkers = ['jshint']
@@ -212,9 +213,22 @@ autocmd FileType vim setlocal foldmethod=marker
 " }}}
 " Mappings - overrides {{{
 
+" Neocomplete
+function! s:check_back_space() "{{{
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ neocomplete#start_manual_complete()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "\<CR>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-g> neocomplete#undo_completion()
+
 " Cycle buffers
-map <C-Tab> :bnext<cr>
-map <C-S-Tab> :bprevious<cr>
+map <C-TAB> :bnext<cr>
+map <C-S-TAB> :bprevious<cr>
 
 nnoremap <BS> :Startify<CR>
 
@@ -329,16 +343,16 @@ let @f = '^ivar f:as ='
 
 " Strip the newline from the end of a string
 function! Chomp(str)
-  return substitute(a:str, '\n$', '', '')
+	return substitute(a:str, '\n$', '', '')
 endfunction
 
 " Find a file and pass it to cmd
 function! DmenuOpen(cmd)
-  let fname = Chomp(system("find . | dmenu `echo $DMENU_OPTIONS` -l 20 -p vim:" . a:cmd))
-  if empty(fname)
-    return
-  endif
-  execute a:cmd . " " . fname
+	let fname = Chomp(system("find . | dmenu `echo $DMENU_OPTIONS` -l 20 -p vim:" . a:cmd))
+	if empty(fname)
+		return
+	endif
+	execute a:cmd . " " . fname
 endfunction
 
 " }}}

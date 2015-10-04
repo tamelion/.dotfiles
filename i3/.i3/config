@@ -91,7 +91,7 @@ set $1 1~web
 set $2 2~code
 set $3 3~cms
 set $4 4~docs
-set $5 5
+set $5 5~graphics
 set $6 6
 set $7 7
 set $8 8

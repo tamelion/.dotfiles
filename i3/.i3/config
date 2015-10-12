@@ -41,8 +41,8 @@ bindsym $mod+Shift+z move scratchpad
 # Show the first scratcHpad window
 bindsym $mod+z scratchpad show
 
-# start app launcher (dmenu-xft-height)
-bindsym $mod+Shift+Return exec dmenu_run $DMENU_OPTIONS -p launch
+# start app launcher (use dmenu2 for height and fonts)
+bindsym $mod+Shift+Return exec dmenu_run -p launch
 
 # Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)

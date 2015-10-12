@@ -30,6 +30,9 @@ numlockx &
 # Start urxvt daemon
 urxvtd -q -o -f
 
+# Start clipmenu daemon
+clipmenud &
+
 # Export bin path for dmenu and other X apps
 export PATH=$PATH:~/.bin
 

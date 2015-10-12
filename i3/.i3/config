@@ -42,7 +42,10 @@ bindsym $mod+Shift+z move scratchpad
 bindsym $mod+z scratchpad show
 
 # start app launcher (use dmenu2 for height and fonts)
-bindsym $mod+Shift+Return exec dmenu_run -p launch
+bindsym $mod+Shift+Return exec dmenu_run -p "launch application:"
+
+# start clipmenu
+bindsym $mod+v exec clipmenu -p "search clipboard:"
 
 # Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)

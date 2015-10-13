@@ -187,7 +187,7 @@ bar {
 #}
 
 # Bind hardware setup
-bindsym $mod+m exec local-hardware
+bindsym $mod+m exec monitor-toggle
 
 # Bind HDMI sound toggle
 bindsym $mod+a exec hdmi-sound

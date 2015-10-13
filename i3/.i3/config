@@ -40,9 +40,17 @@ bindsym $mod+Return exec urxvtc
 bindsym $mod+Shift+z move scratchpad
 # Show the first scratcHpad window
 bindsym $mod+z scratchpad show
+# Show ranger scratchpad
+bindsym $mod+r [instance="ranger"] scratchpad show
 
-# start app launcher (dmenu-xft-height)
-bindsym $mod+Shift+Return exec dmenu_run $DMENU_OPTIONS -p launch
+# start app launcher (use dmenu2 for height and fonts)
+bindsym $mod+Shift+Return exec dmenu_run -p "launch application:"
+
+# dmenu menu
+bindsym $mod+d exec --no-startup-id dmenu_menu
+
+# start clipmenu
+bindsym $mod+v exec clipmenu -p "search clipboard:"
 
 # Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
@@ -172,27 +180,25 @@ bar {
         }
 }
 
-# Bind apps
-bindsym $mod+r mode "launch app"
-mode "launch app" {
-        bindsym c exec google-chrome-stable; mode "default"
-        bindsym r exec urxvt -e ranger; mode "default"
-        bindsym v exec gvim; mode "default"
-        bindsym f exec firefox; mode "default"
-
-        # back to normal: Escape
-        bindsym Escape mode "default"
-}
+#bindsym $mod+\ mode "example"
+#mode "example" {
+        #bindsym a exec something; mode "default"
+        #bindsym Escape mode "default"
+#}
 
 # Bind hardware setup
 bindsym $mod+m exec local-hardware
+
 # Bind HDMI sound toggle
 bindsym $mod+a exec hdmi-sound
+
 # Bind bluetooth tether
-bindsym $mod+b exec bt-nic-nexus4
+#bindsym $mod+b exec bt-nic-nexus4
 
 # Make Chrome pop-ups (hangouts etc.) float
 for_window [window_role="pop-up"] floating enable
+for_window [instance="ranger"] move scratchpad
 
-# Wallpaper
+# Autostart
 exec --no-startup-id set-wallpaper
+exec --no-startup-id urxvtc -name ranger -e ranger

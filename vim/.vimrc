@@ -109,7 +109,7 @@ set t_Co=256
 syntax enable
 " Colour scheme
 set background=dark
-colorscheme base16-tomorrow
+colorscheme darkblue
 " Transparency
 hi Normal ctermbg=NONE
 " Highlight current line
@@ -118,6 +118,7 @@ set cursorline
 set colorcolumn=81
 " Set extra options when running in GUI
 if has("gui_running")
+	colorscheme base16-tomorrow
 	set guioptions-=m  "remove menu bar
 	set guioptions-=T  "remove toolbar
 	set guioptions-=e  "remove GUI tabs
@@ -248,8 +249,8 @@ nnoremap gp `[v`]
 nnoremap <CR> :Explore<CR>
 
 " For line wraps
-nnoremap j gj
-nnoremap k gk
+"nnoremap j gj
+"nnoremap k gk
 
 " Neosnippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)

@@ -15,8 +15,9 @@ fi
 # Sync Xresources
 xrdb -merge ~/.Xresources
 
-# Run local hardware options script
-local-hardware
+# Set up external mouse
+xinput --set-prop 'Ar Touch BT Mouse' 'Device Accel Constant Deceleration' 4 &
+xset mouse 4 6 &
 
 # Bind multimedia keys
 xbindkeys
@@ -24,8 +25,14 @@ xbindkeys
 # Turn num lock on
 numlockx &
 
-# Include xprofile
-[ -f ~/.xprofile ] && source ~/.xprofile
+# Set brightness
+###xbacklight -set 33
+
+# Check state of external monitors
+monitor-toggle
+
+# Export bin path for dmenu and other X apps
+export PATH=$PATH:~/.bin
 
 # Start urxvt daemon
 urxvtd -q -o -f
@@ -33,8 +40,8 @@ urxvtd -q -o -f
 # Start clipmenu daemon
 clipmenud &
 
-# Export bin path for dmenu and other X apps
-export PATH=$PATH:~/.bin
+# Include xprofile
+###[ -f ~/.xprofile ] && source ~/.xprofile
 
 # Start WM
 exec i3

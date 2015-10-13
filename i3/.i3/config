@@ -44,13 +44,13 @@ bindsym $mod+z scratchpad show
 bindsym $mod+r [instance="ranger"] scratchpad show
 
 # start app launcher (use dmenu2 for height and fonts)
-bindsym $mod+Shift+Return exec dmenu_run -p "launch application:"
+bindsym $mod+Shift+Return --no-startup-id exec dmenu_run -p "launch application:"
 
 # dmenu menu
 bindsym $mod+d exec --no-startup-id dmenu_menu
 
 # start clipmenu
-bindsym $mod+v exec clipmenu -p "search clipboard:"
+bindsym $mod+v exec --no-startup-id clipmenu -p "search clipboard:"
 
 # Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
@@ -187,10 +187,10 @@ bar {
 #}
 
 # Bind hardware setup
-bindsym $mod+m exec monitor-toggle
+bindsym $mod+m exec --no-startup-id monitor-toggle
 
 # Bind HDMI sound toggle
-bindsym $mod+a exec hdmi-sound
+bindsym $mod+a exec --no-startup-id hdmi-sound
 
 # Bind bluetooth tether
 #bindsym $mod+b exec bt-nic-nexus4

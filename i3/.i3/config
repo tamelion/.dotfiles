@@ -44,7 +44,7 @@ bindsym $mod+z scratchpad show
 bindsym $mod+r [instance="ranger"] scratchpad show
 
 # start app launcher (use dmenu2 for height and fonts)
-bindsym $mod+Shift+Return --no-startup-id exec dmenu_run -p "launch application:"
+bindsym $mod+Shift+Return exec --no-startup-id dmenu_run -p "launch application:"
 
 # dmenu menu
 bindsym $mod+d exec --no-startup-id dmenu_menu

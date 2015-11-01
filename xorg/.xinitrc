@@ -16,7 +16,7 @@ fi
 xrdb -merge ~/.Xresources
 
 # Set up external mouse
-xinput --set-prop 'Ar Touch BT Mouse' 'Device Accel Constant Deceleration' 4 &
+xinput --set-prop 'Arc Touch BT Mouse' 'Device Accel Constant Deceleration' 4 &
 xset mouse 4 6 &
 
 # Bind multimedia keys

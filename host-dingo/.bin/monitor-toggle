@@ -3,7 +3,7 @@
 LAPTOP="LVDS1"
 HDMI="HDMI1"
 VGA="VGA1"
-GAMMA="1.0:0.8:0.9"
+GAMMA="0.8:0.6:0.7"
 
 if (xrandr | grep "$HDMI connected")
 then

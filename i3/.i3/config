@@ -186,8 +186,8 @@ bar {
         #bindsym Escape mode "default"
 #}
 
-# Bind hardware setup
-bindsym $mod+m exec --no-startup-id monitor-toggle
+# Bind re-run automatic scripts
+bindsym $mod+m exec --no-startup-id autorun-scripts
 
 # Bind HDMI sound toggle
 bindsym $mod+a exec --no-startup-id hdmi-sound

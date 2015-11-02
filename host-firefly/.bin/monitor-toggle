@@ -14,6 +14,3 @@ then
 else
     xrandr --output $LAPTOP  --gamma $GAMMA --auto --output $HDMI --off --output $VGA --off
 fi
-
-# Re-adjust wallpaper
-set-wallpaper

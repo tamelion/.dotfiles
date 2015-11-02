@@ -15,21 +15,14 @@ fi
 # Sync Xresources
 xrdb -merge ~/.Xresources
 
-# Set up external mouse
-xinput --set-prop 'Arc Touch BT Mouse' 'Device Accel Constant Deceleration' 4 &
-xset mouse 4 6 &
-
 # Bind multimedia keys
 xbindkeys
 
 # Turn num lock on
 numlockx &
 
-# Set brightness
-###xbacklight -set 33
-
-# Check state of external monitors
-monitor-toggle
+# Run local scripts
+autorun-scripts
 
 # Export bin path for dmenu and other X apps
 export PATH=$PATH:~/.bin

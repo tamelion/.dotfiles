@@ -2,14 +2,19 @@
 alias ls='ls -h --color=auto --group-directories-first'
 alias ll='ls -hl --color=auto --group-directories-first'
 alias la='ls -Ahl --color=auto --group-directories-first'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # Admin
-alias spam="sudo pacman"
+alias up='pacaur -Syu'
+alias f='find . -name $1'
 
 # Git
 alias gs='git status'
 alias ga='git add'
-alias gc='git commit -m'
+alias gc='git commit -vm'
 alias gd='git diff'
 alias gl='git log --oneline -5'
 alias gca='git commit --amend -m'

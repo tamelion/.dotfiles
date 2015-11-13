@@ -1,0 +1,17 @@
+'body':
+  'ctrl-j': 'core:move-down'
+  'ctrl-k': 'core:move-up'
+'atom-text-editor.autocomplete-active':
+  'ctrl-n': 'autocomplete-plus:move-down'
+  'ctrl-p': 'autocomplete-plus:move-up'
+  'ctrl-j': 'autocomplete-plus:move-down'
+  'ctrl-k': 'autocomplete-plus:move-up'
+'atom-text-editor.vim-mode':
+  'ctrl-=': 'atom-beautify:beautify-editor'
+'atom-text-editor.vim-mode.insert-mode':
+  'j k': 'vim-mode:activate-normal-mode'
+  'k j': 'vim-mode:activate-normal-mode'
+'atom-text-editor.vim-mode.normal-mode':
+  'space space': 'core:save'
+  'space b': 'fuzzy-finder:toggle-buffer-finder'
+  'space p': 'fuzzy-finder:toggle-file-finder'

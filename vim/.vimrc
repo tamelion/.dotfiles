@@ -127,7 +127,7 @@ if has("gui_running")
 	set mouse-=a
 	map <MiddleMouse> <nop>
 	if has("gui_gtk2")
-		set guifont=DejaVu\ Sans\ Mono\ 8
+		set guifont=DejaVu\ Sans\ Mono\ 10
 	elseif has("gui_win32")
 		set guifont=Consolas:h10:cANSI
 		" For CJK
@@ -278,7 +278,7 @@ nnoremap <up>    :10wincmd +<CR>
 nnoremap <down>  :10wincmd -<CR>
 
 " }}}
-" Mappings - leader {{{
+" Mappings - other {{{
 
 " Map Leader
 map <Space> <Leader>
@@ -287,7 +287,7 @@ map <Space> <Leader>
 nnoremap <Leader>/u /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-unicode characters"<CR>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
-nnoremap <Leader>S :w !sudo tee % > /dev/null<CR>
+nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
 " Remove trailing space and re-indent file
 nnoremap <Leader>= mzggvG@tgv=`z
 " Buffers
@@ -317,6 +317,8 @@ nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 nnoremap <Leader>v :e $MYVIMRC<CR>
 " Reload .vimrc
 nnoremap <Leader>V :so $MYVIMRC<CR>
+
+nnoremap <C-\> :Lexplore<CR>
 
 " }}}
 " Mappings - macros {{{
@@ -349,7 +351,7 @@ endfunction
 
 " Find a file and pass it to cmd
 function! DmenuOpen(cmd)
-	let fname = Chomp(system("find . | dmenu `echo $DMENU_OPTIONS` -l 20 -p vim:" . a:cmd))
+	let fname = Chomp(system("find . | dmenu -p vim :" . a:cmd))
 	if empty(fname)
 		return
 	endif

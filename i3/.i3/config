@@ -8,8 +8,9 @@
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
 set $mod Mod4
+set $mod2 Control
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod 
 
@@ -28,7 +29,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # kill focused window
-bindsym $mod+q kill
+bindsym $mod2+q kill
 
 # lock screen
 bindsym $mod+Escape exec --no-startup-id i3lock -n -c 000000 -i ~/.lockscreen.jpg
@@ -54,7 +55,7 @@ bindsym $mod+v exec --no-startup-id clipmenu -p "search clipboard:"
 
 # Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
-bindsym $mod+x move workspace to output up
+bindsym $mod+x move workspace to output right
 
 # change focus
 bindsym $mod+h focus left

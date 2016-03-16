@@ -1,1 +1,7 @@
+!Switch horizontal and vertical scroll
 pointer = 1 2 3 5 4 7 6 8 9 10 11 12 13
+!Clear control and alt functions
+clear Control
+clear Mod1
+!Bind control and alt keys to "control"
+add Control = Control_L Control_R Alt_L Alt_R

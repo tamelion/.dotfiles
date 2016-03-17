@@ -128,6 +128,9 @@ if has("gui_running")
 	map <MiddleMouse> <nop>
 	if has("gui_gtk2")
 		set guifont=DejaVu\ Sans\ Mono\ 10
+	elseif has("mac")
+		set guifont=Menlo:h12
+		set clipboard=unnamed
 	elseif has("gui_win32")
 		set guifont=Consolas:h10:cANSI
 		" For CJK

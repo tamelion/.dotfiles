@@ -183,12 +183,17 @@ autocmd FileType html,markdown,xhtml setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType vim setlocal foldmethod=marker
 
+" Start terminal in insert mode
+autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
+
 " }}}
 " Mappings - overrides {{{
 
 " Cycle buffers
-map <C-TAB> :bnext<cr>
-map <C-S-TAB> :bprevious<cr>
+map <C-l> :bnext<cr>
+tmap <C-l> <C-\><C-n>:bnext<cr>
+map <C-h> :bprevious<cr>
+tmap <C-h> <C-\><C-n>:bprevious<cr>
 
 nnoremap <BS> :Startify<CR>
 
@@ -203,9 +208,6 @@ nnoremap gp `[v`]
 
 " Easy on the pinky
 "nnoremap ; :
-
-" File browser
-"nnoremap <CR> :Explore<CR>
 
 " Neosnippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -228,6 +230,21 @@ vnoremap jk <Esc>
 inoremap kj <Esc>
 cnoremap kj <Esc>
 vnoremap kj <Esc>
+
+" Terminal start
+nnoremap <CR> :below 30new<CR>:terminal<CR>
+
+" Terminal escapes
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-w>h <C-\><C-n><C-w>h
+tnoremap <C-w><C-h> <C-\><C-n><C-w>h
+tnoremap <C-w>j <C-\><C-n><C-w>j
+tnoremap <C-w><C-j> <C-\><C-n><C-w>j
+tnoremap <C-w>k <C-\><C-n><C-w>k
+tnoremap <C-w><C-k> <C-\><C-n><C-w>k
+tnoremap <C-w>l <C-\><C-n><C-w>l
+tnoremap <C-w><C-l> <C-\><C-n><C-w>l
+tnoremap <C-w>c <C-\><C-n><C-w>c
 
 " Resize windows
 nnoremap <Left>  :10wincmd <<CR>

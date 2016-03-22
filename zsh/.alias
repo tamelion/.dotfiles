@@ -8,19 +8,24 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 # Admin
-alias up='pacaur -Syu'
 alias f='find . -name $1'
 
 # Git
-alias gs='git status'
 alias ga='git add'
+alias gb='git branch -vv'
 alias gc='git commit -vm'
-alias gd='git diff'
-alias gl='git log --oneline -5'
 alias gca='git commit --amend -m'
+alias gco='git checkout'
+alias gd='git diff'
+alias gf='git fetch'
+alias gl='git log --graph -5'
 alias gp='git push'
+alias gr='git reset'
+alias gs='git status'
 
 # Pacman
+alias up='pacaur -Syu'
+
 orphans() {
   if [[ ! -n $(pacman -Qdt) ]]; then
     echo "No orphans to remove."
@@ -29,5 +34,11 @@ orphans() {
   fi
 }
 
+# OSX update
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade'
+
 # Wifi
 alias wifi='sudo netctl switch-to'
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"

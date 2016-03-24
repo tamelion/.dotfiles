@@ -1,7 +1,5 @@
 " Plugins {{{
 
-" curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 call plug#begin()
 
 " To research:
@@ -31,7 +29,7 @@ Plug 'tpope/vim-commentary'
 " Change surroundings
 Plug 'tpope/vim-surround'
 " Cycle yanks
-Plug 'vim-scripts/YankRing.vim'
+"Plug 'vim-scripts/YankRing.vim'
 " Move through vim
 Plug 'Lokaltog/vim-easymotion'
 " Undo tree
@@ -54,6 +52,8 @@ Plug 'groenewege/vim-less'
 Plug 'othree/html5.vim'
 " CSS colour of hex values
 Plug 'ap/vim-css-color'
+" Silverstripe highlighting
+Plug 'phalkunz/vim-ss'
 " Better JS indentation
 Plug 'jelera/vim-javascript-syntax'
 " Other crazy stuff
@@ -98,7 +98,7 @@ set shiftwidth=4 tabstop=4
 " Indent further after brackets
 set smartindent
 " Line wrap
-set wrap
+"set wrap
 " Persistent undo
 set undofile
 set undodir=~/.config/nvim/undo
@@ -179,7 +179,7 @@ let g:undotree_SetFocusWhenToggle = 1
 "  Filetype specific {{{
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown,xhtml setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2
+autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType vim setlocal foldmethod=marker
 
@@ -190,12 +190,10 @@ autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
 " Mappings - overrides {{{
 
 " Cycle buffers
-map <C-l> :bnext<cr>
-tmap <C-l> <C-\><C-n>:bnext<cr>
-map <C-h> :bprevious<cr>
-tmap <C-h> <C-\><C-n>:bprevious<cr>
-
-nnoremap <BS> :Startify<CR>
+map <M-l> :bnext<CR>
+tmap <M-l> <C-\><C-n>:bnext<CR>
+map <M-h> :bprevious<CR>
+tmap <M-h> <C-\><C-n>:bprevious<CR>
 
 " Ban ex mode
 nnoremap Q <Nop>
@@ -205,6 +203,10 @@ nnoremap Y y$
 
 " Select last pasted
 nnoremap gp `[v`]
+
+" Grepper (motion and visual)
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
 
 " Easy on the pinky
 "nnoremap ; :
@@ -223,6 +225,9 @@ nmap f <Plug>(easymotion-s)
 " Fuzzy find
 nnoremap <C-p> :FZF<CR>
 
+" Find in project files
+nnoremap // :Grepper -tool git<CR>
+
 " More convenient escape sequence
 inoremap jk <Esc>
 cnoremap jk <Esc>
@@ -231,11 +236,9 @@ inoremap kj <Esc>
 cnoremap kj <Esc>
 vnoremap kj <Esc>
 
-" Terminal start
-nnoremap <CR> :below 30new<CR>:terminal<CR>
-
 " Terminal escapes
-tnoremap <Esc> <C-\><C-n>
+tnoremap jk <C-\><C-n>
+tnoremap kj <C-\><C-n>
 tnoremap <C-w>h <C-\><C-n><C-w>h
 tnoremap <C-w><C-h> <C-\><C-n><C-w>h
 tnoremap <C-w>j <C-\><C-n><C-w>j
@@ -275,9 +278,10 @@ nnoremap <Leader>n :enew<CR>:set syntax=
 nnoremap <Leader>o :silent !google-chrome-beta %<CR>
 " Yankring
 nnoremap <Leader>p :YRShow<CR>
-" Session mappings
-"nnoremap <Leader>ss :mks ~/.config/nvim/session/
-"nnoremap <Leader>so :so ~/.config/nvim/session/
+" Startify
+nnoremap <Leader>s :Startify<CR>
+" Terminal start
+nnoremap <Leader>t :below 30new<CR>:terminal<CR>
 " Toggle undo tree
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 " Fast open vimrc

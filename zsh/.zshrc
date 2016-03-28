@@ -10,4 +10,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# Source custom aliases
+if [[ -s "${ZDOTDIR:-$HOME}/.alias" ]]; then
+  source "${ZDOTDIR:-$HOME}/.alias"
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

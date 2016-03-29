@@ -107,6 +107,9 @@ set shiftwidth=4 tabstop=4
 set smartindent
 " Line wrap
 "set wrap
+" Splits in right direction
+set splitbelow
+set splitright
 " Persistent undo
 set undofile
 set undodir=~/.config/nvim/undo
@@ -351,6 +354,8 @@ nnoremap <Leader>c :Commits<CR>
 "nnoremap <Leader>f :Grepper -tool git -i<CR>
 nnoremap <Leader>f :Ag -i
 vnoremap <Leader>f "fy:Ag -i <C-r>f<CR>
+" Fugitive
+nnoremap <Leader>g :Gstatus<CR>
 " Window moves
 nnoremap <Leader>h <C-w>h
 nnoremap <Leader>H <C-w>H
@@ -371,7 +376,7 @@ nnoremap <Leader>t :below 30new<CR>:terminal<CR>
 " Toggle undo tree
 nnoremap <silent><Leader>u :UndotreeToggle<CR>
 " Fast open vimrc
-nnoremap <Leader>v :e $MYVIMRC<CR>
+nnoremap <Leader>v :e ~/.dotfiles/neovim/.config/nvim/init.vim<CR>
 " Reload .vimrc
 nnoremap <Leader>V :so $MYVIMRC<CR>
 " Window close

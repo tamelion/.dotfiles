@@ -133,6 +133,10 @@ bindsym $mod+Down resize grow height 10 px or 10 ppt
 bindsym $mod+Up resize shrink height 10 px or 10 ppt
 bindsym $mod+Right resize grow width 10 px or 10 ppt
 
+# quick switch workspace
+bindsym $mod+, workspace next_on_output
+bindsym $mod+. workspace prev_on_output
+
 # tomorrow colours (except blue)
 set $red    #cc6666
 set $green  #b5bd68

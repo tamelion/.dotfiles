@@ -92,9 +92,9 @@ bindsym $mod+p focus parent
 bindsym $mod+c focus child
 
 # workspace variables
-set $1 1~shell
-set $2 2~web
-set $3 3~comms
+set $1 1~comms
+set $2 2~dev
+set $3 3~web
 set $4 4~graphics
 set $5 5
 set $6 6

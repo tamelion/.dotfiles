@@ -7,10 +7,12 @@ GAMMA="0.9:0.8:0.7"
 
 if (xrandr | grep "$HDMI connected")
 then
-    xrandr --output $HDMI --gamma $GAMMA --auto --primary --output $LAPTOP --off
+    xrandr --output $LAPTOP --gamma $GAMMA --auto --primary --output $HDMI --auto --right-of $LAPTOP
+    #xrandr --output $HDMI --gamma $GAMMA --auto --primary --output $LAPTOP --off
 elif (xrandr | grep "^$VGA connected")
 then
-    xrandr --output $VGA  --gamma $GAMMA --auto --primary --output $LAPTOP --off
+    xrandr --output $LAPTOP  --gamma $GAMMA --auto --primary --output $VGA --auto --right-of $LAPTOP
+    #xrandr --output $VGA  --gamma $GAMMA --auto --primary --output $LAPTOP --off
 else
     xrandr --output $LAPTOP  --gamma $GAMMA --auto --output $HDMI --off --output $VGA --off
 fi

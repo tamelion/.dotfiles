@@ -8,6 +8,7 @@ call plug#begin()
 " Get font file and put in ~/.local/share/fonts (linux) or ~/Library/Fonts (Mac)
 " https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20for%20Powerline%20Nerd%20Font%20Complete.ttf
 
+Plug 'mhinz/neovim-remote'
 " Pretty icons
 Plug 'ryanoasis/vim-devicons'
 " Coding colour schemes

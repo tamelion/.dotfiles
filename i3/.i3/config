@@ -37,9 +37,9 @@ bindsym $mod+Escape exec --no-startup-id i3lock -n -c 000000 -i ~/.lockscreen.jp
 bindsym $mod+Return exec termite
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+z move scratchpad
+bindsym $mod+Shift+grave move scratchpad
 # Show the first scratcHpad window
-bindsym $mod+z scratchpad show
+bindsym $mod+grave scratchpad show
 
 # start app launcher (use dmenu2 for height and fonts)
 bindsym $mod+space exec --no-startup-id dmenu_run -p "launch application:"
@@ -92,10 +92,9 @@ bindsym $mod+p focus parent
 bindsym $mod+c focus child
 
 # workspace variables
-set $grave 0~music
-set $1 1~shell
-set $2 2~web
-set $3 3~comms
+set $1 1~comms
+set $2 2~dev
+set $3 3~web
 set $4 4~graphics
 set $5 5
 set $6 6
@@ -104,7 +103,6 @@ set $8 8
 set $9 9
 
 # switch to workspace
-bindsym $mod+grave workspace $grave
 bindsym $mod+1 workspace $1
 bindsym $mod+2 workspace $2
 bindsym $mod+3 workspace $3
@@ -116,7 +114,6 @@ bindsym $mod+8 workspace $8
 bindsym $mod+9 workspace $9
 
 # move with focused container to workspace
-bindsym $mod+Shift+grave move container to workspace $grave; workspace $grave
 bindsym $mod+Shift+1 move container to workspace $1; workspace $1
 bindsym $mod+Shift+2 move container to workspace $2; workspace $2
 bindsym $mod+Shift+3 move container to workspace $3; workspace $3
@@ -134,8 +131,8 @@ bindsym $mod+Up resize shrink height 10 px or 10 ppt
 bindsym $mod+Right resize grow width 10 px or 10 ppt
 
 # quick switch workspace
-bindsym $mod+, workspace next_on_output
-bindsym $mod+. workspace prev_on_output
+bindsym $mod+period workspace next_on_output
+bindsym $mod+comma workspace prev_on_output
 
 # tomorrow colours (except blue)
 set $red    #cc6666

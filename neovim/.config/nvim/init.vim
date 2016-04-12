@@ -1,13 +1,20 @@
 " Plugins {{{
 
+" Auto-install plug for new deploys
+if (!filereadable(expand("$HOME/.config/nvim/autoload/plug.vim")))
+	call system(expand("curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"))
+endif
+" Auto-install patched font (move to ~/Library/Fonts for Mac)
+if (!filereadable(expand("$HOME/.local/share/fonts/icon-mono.ttf")))
+	call system(expand("curl -fLo ~/.local/share/fonts/icon-mono.ttf --create-dirs https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20for%20Powerline%20Nerd%20Font%20Complete.ttf"))
+endif
+
 call plug#begin()
 
 " To research:
 "Plug 'tek/proteome.nvim'
 "Plug 'airodactyl/neovim-ranger'
 
-" Get font file and put in ~/.local/share/fonts (linux) or ~/Library/Fonts (Mac)
-" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20for%20Powerline%20Nerd%20Font%20Complete.ttf
 " Pretty icons
 Plug 'ryanoasis/vim-devicons'
 " Coding colour schemes

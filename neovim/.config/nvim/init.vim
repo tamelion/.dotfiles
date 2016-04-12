@@ -3,11 +3,11 @@
 call plug#begin()
 
 " To research:
-" tek/proteome.nvim
+"Plug 'tek/proteome.nvim'
+"Plug 'airodactyl/neovim-ranger'
 
 " Get font file and put in ~/.local/share/fonts (linux) or ~/Library/Fonts (Mac)
 " https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20for%20Powerline%20Nerd%20Font%20Complete.ttf
-
 " Pretty icons
 Plug 'ryanoasis/vim-devicons'
 " Coding colour schemes
@@ -43,7 +43,7 @@ Plug 'Lokaltog/vim-easymotion'
 " Undo tree
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " Auto close brackets
-"Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 " Most recently used
 Plug 'mhinz/vim-startify'
 " Fuzzy find
@@ -85,7 +85,7 @@ set nobackup noswapfile
 set ffs=unix,dos,mac
 " Background without write
 set hidden
-" Search - ignore case, unless capital typed, don't hilight
+" Search - ignore case, unless capital typed, don't highlight
 set ignorecase smartcase nohlsearch
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -95,24 +95,24 @@ set magic
 set noerrorbells novisualbell tm=500
 " Display line numbers
 set number
-" Give terminal vim a title
-set title
 " Scrolloff
 set so=999
 " Show matching brackets when text indicator is over them
 set showmatch
 " tab and manual indent sizes
 set shiftwidth=4 tabstop=4
-" Indent further after brackets
+" Set tabs not spaces
+set noexpandtab
+" Autoindent
 set smartindent
-" Line wrap
-"set wrap
 " Splits in right direction
 set splitbelow
 set splitright
 " Persistent undo
 set undofile
 set undodir=~/.config/nvim/undo
+" Treat underscore as word break
+set iskeyword-=_ 
 
 " }}}
 " Colours and fonts {{{
@@ -352,7 +352,7 @@ nnoremap <Leader>b :Gblame<CR>
 nnoremap <Leader>c :Commits<CR>
 " Find in project files
 "nnoremap <Leader>f :Grepper -tool git -i<CR>
-nnoremap <Leader>f :Ag -i
+nnoremap <Leader>f :Ag 
 vnoremap <Leader>f "fy:Ag -i <C-r>f<CR>
 " Fugitive
 nnoremap <Leader>g :Gstatus<CR>

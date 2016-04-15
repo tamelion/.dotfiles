@@ -193,11 +193,13 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
+"" Use deoplete.
+"let g:deoplete#enable_at_startup = 1
 
-" FZF
+"" FZF
 let g:fzf_layout = { 'down': '~33%' }
+" Jump to open buffer if matched
+let g:fzf_buffers_jump = 1
 
 "" Neosnippet
 let g:neosnippet#snippets_directory = '~/code/snippets'
@@ -206,14 +208,12 @@ let g:neosnippet#snippets_directory = '~/code/snippets'
 let g:NERDTreeMouseMode = 3
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeAutoDeleteBuffer = 1
-
-" NERDTree file extension highlighting
+" File extension highlighting
 function! HighlightFileExtension(ex, fg, bg)
 	exec 'autocmd FileType netrw,nerdtree,startify highlight '. a:ex .' guibg='. a:bg .' guifg='. a:fg
 	" match extension, possibly with 'executable' asterisk on end
 	exec 'autocmd FileType netrw,nerdtree,startify syn match '. a:ex .' #^.*\.'. a:ex .'\*\=$#'
 endfunction
-
 call HighlightFileExtension('php', '#b294bb', 'none')
 call HighlightFileExtension('js', '#f0c674', 'none')
 call HighlightFileExtension('json', '#f0c674', 'none')

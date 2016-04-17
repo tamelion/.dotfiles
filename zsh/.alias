@@ -1,11 +1,23 @@
 # Use nvim by default
 alias vi='nvim'
 alias vim='nvim'
-alias n='nvim'
+#alias n='nvim'
+
+# neovim handle running from inside neovim terminal
+# (need to install neovim-remote)
+n() {
+	if [[ -z $NVIM_LISTEN_ADDRESS ]]; then
+		# not running inside nvim
+		nvim "$@"
+	else
+		nvr "$@"
+	fi
+}
 
 # IP address
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
+# Arch only
 if [[ `uname` == 'Linux' ]]; then
 	# Pacman
 	alias update='pacaur -Syu'
@@ -22,7 +34,9 @@ if [[ `uname` == 'Linux' ]]; then
 	alias wifi='sudo netctl switch-to'
 fi
 
+# OSX only
 if [[ `uname` == 'Darwin' ]]; then
 	# OSX update
 	alias update='sudo softwareupdate -i -a; brew update; brew upgrade'
 fi
+

@@ -10,7 +10,7 @@
 #
 
 if [ -n "$DISPLAY" ]; then
-	export BROWSER=google-chrome-beta
+	export BROWSER=google-chrome
 else
 	export BROWSER=lynx
 fi
@@ -23,8 +23,8 @@ fi
 # Editors
 #
 
-export EDITOR='nvim'
-export VISUAL='nvim'
+export EDITOR='nvr'
+export VISUAL='nvr'
 export PAGER='less'
 
 #

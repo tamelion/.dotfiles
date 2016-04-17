@@ -12,7 +12,8 @@ endif
 call plug#begin()
 
 " To research:
-" tek/proteome.nvim
+"Plug 'tek/proteome.nvim'
+"Plug 'airodactyl/neovim-ranger'
 
 " Remote
 Plug 'mhinz/neovim-remote'
@@ -53,7 +54,7 @@ Plug 'Lokaltog/vim-easymotion'
 " Undo tree
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " Auto close brackets
-"Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 " Most recently used
 Plug 'mhinz/vim-startify'
 " Fuzzy find
@@ -95,7 +96,7 @@ set nobackup noswapfile
 set ffs=unix,dos,mac
 " Background without write
 set hidden
-" Search - ignore case, unless capital typed, don't hilight
+" Search - ignore case, unless capital typed, don't highlight
 set ignorecase smartcase nohlsearch
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -105,24 +106,24 @@ set magic
 set noerrorbells novisualbell tm=500
 " Display line numbers
 set number
-" Give terminal vim a title
-set title
 " Scrolloff
 set so=999
 " Show matching brackets when text indicator is over them
 set showmatch
 " tab and manual indent sizes
 set shiftwidth=4 tabstop=4
-" Indent further after brackets
+" Set tabs not spaces
+set noexpandtab
+" Autoindent
 set smartindent
-" Line wrap
-"set wrap
 " Splits in right direction
 set splitbelow
 set splitright
 " Persistent undo
 set undofile
 set undodir=~/.config/nvim/undo
+" Treat underscore as word break
+set iskeyword-=_ 
 
 " }}}
 " Colours and fonts {{{
@@ -196,11 +197,13 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
+"" Use deoplete.
+"let g:deoplete#enable_at_startup = 1
 
-" FZF
+"" FZF
 let g:fzf_layout = { 'down': '~33%' }
+" Jump to open buffer if matched
+let g:fzf_buffers_jump = 1
 
 "" Neosnippet
 let g:neosnippet#snippets_directory = '~/code/snippets'
@@ -209,14 +212,12 @@ let g:neosnippet#snippets_directory = '~/code/snippets'
 let g:NERDTreeMouseMode = 3
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeAutoDeleteBuffer = 1
-
-" NERDTree file extension highlighting
+" File extension highlighting
 function! HighlightFileExtension(ex, fg, bg)
 	exec 'autocmd FileType netrw,nerdtree,startify highlight '. a:ex .' guibg='. a:bg .' guifg='. a:fg
 	" match extension, possibly with 'executable' asterisk on end
 	exec 'autocmd FileType netrw,nerdtree,startify syn match '. a:ex .' #^.*\.'. a:ex .'\*\=$#'
 endfunction
-
 call HighlightFileExtension('php', '#b294bb', 'none')
 call HighlightFileExtension('js', '#f0c674', 'none')
 call HighlightFileExtension('json', '#f0c674', 'none')

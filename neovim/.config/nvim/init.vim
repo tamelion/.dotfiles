@@ -14,12 +14,16 @@ call plug#begin()
 " To research:
 " tek/proteome.nvim
 
+" Remote
+Plug 'mhinz/neovim-remote'
 " Pretty icons
 Plug 'ryanoasis/vim-devicons'
 " Coding colour schemes
 Plug 'chriskempson/base16-vim'
 " Slightly better than netrw
-Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdtree'
+" Ranger
+Plug 'Mizuchi/vim-ranger'
 " Keep working directory at git base
 Plug 'airblade/vim-rooter'
 " Status bar and themes
@@ -261,11 +265,58 @@ autocmd FileType vim setlocal foldmethod=marker
 " }}}
 " Mappings - overrides {{{
 
+function! ChooseTerm(termname)
+	let pane = bufwinnr(a:termname)
+	let buf = bufexists(a:termname)
+	if pane > 0
+		:exe pane . "wincmd w"
+	elseif buf > 0
+		:exe "buffer " . a:termname
+	else
+		:terminal
+		:exe "f " a:termname
+	endif
+endfunction
+
+nnoremap <M-g> :call ChooseTerm("gulp")<CR>
+
 " Easy on the pinky
 nnoremap ; :
 
+" Pane open
+nnoremap <M--> <C-w>s<CR>
+nnoremap <M-\> <C-w>v<CR>
+" Pane move
+nnoremap <M-h> <C-w>h
+nnoremap <M-H> <C-w>H
+nnoremap <M-j> <C-w>j
+nnoremap <M-J> <C-w>J
+nnoremap <M-k> <C-w>k
+nnoremap <M-K> <C-w>K
+nnoremap <M-l> <C-w>l
+nnoremap <M-L> <C-w>L
+" Pane close
+nnoremap <M-w> <C-w>c
+
+" Tab open
+nnoremap <M-t> :tabnew<CR>
+" Tab move
+nmap <M-,> <Plug>AirlineSelectPrevTab
+nmap <M-.> <Plug>AirlineSelectNextTab
+" Tab by ID
+nmap <M-1> <Plug>AirlineSelectTab1
+nmap <M-2> <Plug>AirlineSelectTab2
+nmap <M-3> <Plug>AirlineSelectTab3
+nmap <M-4> <Plug>AirlineSelectTab4
+nmap <M-5> <Plug>AirlineSelectTab5
+nmap <M-6> <Plug>AirlineSelectTab6
+nmap <M-7> <Plug>AirlineSelectTab7
+nmap <M-8> <Plug>AirlineSelectTab8
+nmap <M-9> <Plug>AirlineSelectTab9
+
 " File explorer pane
-nnoremap <C-\> :NERDTreeFind<CR>
+"nnoremap <C-\> :NERDTreeFind<CR>
+nnoremap <C-\> :e %:p:h<CR>
 
 " Home row friendly navigation
 nnoremap H ^
@@ -325,28 +376,12 @@ nnoremap <down>  :10wincmd -<CR>
 " Map Leader
 map <Space> <Leader>
 
-" Splits
-nnoremap <Leader>- <C-w>s<CR>
-nnoremap <Leader>\ <C-w>v<CR>
 " Buffers (from places where <CR> is not good enough)
 nnoremap <Leader><CR> :Buffers<CR>
 " Blurred lines
 nnoremap <Leader>/ :Lines<CR>
 " Saved searches
 nnoremap <Leader>@ /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-unicode characters"<CR>
-" Move tabs
-nmap <leader>, <Plug>AirlineSelectPrevTab
-nmap <leader>. <Plug>AirlineSelectNextTab
-" Tab IDs
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
 " Write operations
 nnoremap <Leader><Space> :w<CR>
 nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
@@ -358,19 +393,10 @@ nnoremap <Leader>b :Gblame<CR>
 nnoremap <Leader>c :Commits<CR>
 " Find in project files
 "nnoremap <Leader>f :Grepper -tool git -i<CR>
-nnoremap <Leader>f :Ag -i
-vnoremap <Leader>f "fy:Ag -i <C-r>f<CR>
+nnoremap <Leader>f :Ag
+vnoremap <Leader>f "fy:Ag <C-r>f<CR>
 " Fugitive
 nnoremap <Leader>g :Gstatus<CR>
-" Window moves
-nnoremap <Leader>h <C-w>h
-nnoremap <Leader>H <C-w>H
-nnoremap <Leader>j <C-w>j
-nnoremap <Leader>J <C-w>J
-nnoremap <Leader>k <C-w>k
-nnoremap <Leader>K <C-w>K
-nnoremap <Leader>l <C-w>l
-nnoremap <Leader>L <C-w>L
 " Create new file and set syntax
 nnoremap <Leader>n :enew<CR>:set syntax=
 " Open in browser

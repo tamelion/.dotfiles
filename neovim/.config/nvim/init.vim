@@ -270,16 +270,22 @@ function! ChooseTerm(termname)
 	let pane = bufwinnr(a:termname)
 	let buf = bufexists(a:termname)
 	if pane > 0
-		:exe pane . "wincmd w"
+		" buffer is visible, close
+		:exe pane . "wincmd c"
 	elseif buf > 0
+		" buffer is not in pane, show
+		:exe "topleft split"
 		:exe "buffer " . a:termname
 	else
+		" buffer is not loaded, create
+		:exe "topleft split"
 		:terminal
 		:exe "f " a:termname
 	endif
 endfunction
 
-nnoremap <M-g> :call ChooseTerm("gulp")<CR>
+" Open 'default' terminal
+nnoremap <M-CR> :call ChooseTerm("default")<CR>
 
 " Easy on the pinky
 nnoremap ; :
@@ -300,20 +306,20 @@ nnoremap <M-L> <C-w>L
 nnoremap <M-w> <C-w>c
 
 " Tab open
-nnoremap <M-t> :tabnew<CR>
+"nnoremap <M-t> :tabnew<CR>
 " Tab move
-nmap <M-,> <Plug>AirlineSelectPrevTab
-nmap <M-.> <Plug>AirlineSelectNextTab
+"nmap <M-,> <Plug>AirlineSelectPrevTab
+"nmap <M-.> <Plug>AirlineSelectNextTab
 " Tab by ID
-nmap <M-1> <Plug>AirlineSelectTab1
-nmap <M-2> <Plug>AirlineSelectTab2
-nmap <M-3> <Plug>AirlineSelectTab3
-nmap <M-4> <Plug>AirlineSelectTab4
-nmap <M-5> <Plug>AirlineSelectTab5
-nmap <M-6> <Plug>AirlineSelectTab6
-nmap <M-7> <Plug>AirlineSelectTab7
-nmap <M-8> <Plug>AirlineSelectTab8
-nmap <M-9> <Plug>AirlineSelectTab9
+"nmap <M-1> <Plug>AirlineSelectTab1
+"nmap <M-2> <Plug>AirlineSelectTab2
+"nmap <M-3> <Plug>AirlineSelectTab3
+"nmap <M-4> <Plug>AirlineSelectTab4
+"nmap <M-5> <Plug>AirlineSelectTab5
+"nmap <M-6> <Plug>AirlineSelectTab6
+"nmap <M-7> <Plug>AirlineSelectTab7
+"nmap <M-8> <Plug>AirlineSelectTab8
+"nmap <M-9> <Plug>AirlineSelectTab9
 
 " File explorer pane
 "nnoremap <C-\> :NERDTreeFind<CR>
@@ -394,7 +400,7 @@ nnoremap <Leader>b :Gblame<CR>
 nnoremap <Leader>c :Commits<CR>
 " Find in project files
 "nnoremap <Leader>f :Grepper -tool git -i<CR>
-nnoremap <Leader>f :Ag
+nnoremap <Leader>f :Ag 
 vnoremap <Leader>f "fy:Ag <C-r>f<CR>
 " Fugitive
 nnoremap <Leader>g :Gstatus<CR>
@@ -418,20 +424,23 @@ nnoremap <Leader>x <C-w>c
 " }}}
 " Mappings - macros {{{
 
-" Remove blank lines
-let @l = ':g/^\s*$/d'
 " Append a line break
 let @b = 'A<br />'
+" CSS one per line
+let @c = ':s/;\s/;\r/ge'
+" HTML nbsp
+let @d = ':s/﻿/\&#160;/g'
 " Make e-mail link from visual selection
 let @e = 'a</a>gv"zyi<a href="mailto:z">'
+" MRO img src
+let @f = '^ivar f:as ='
+" Remove blank lines
+let @l = ':g/^\s*$/d'
 " Translate carriage returns
 let @r = ':s/\r\+$//e'
 " Remove trailing space
 let @t = ':s/\s\+$//e'
 " Unicode replacements: quotes, hyphens, ellipses and spaces
 let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge:s/﻿/\&#xfeff;/ge'
-let @d = ':s/﻿/\&#160;/g'
-" MRO img src
-let @f = '^ivar f:as ='
 
 " }}}

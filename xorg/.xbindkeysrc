@@ -11,6 +11,14 @@
 #keystate_capslock = enable
 #keystate_scrolllock= enable
 
+# Play/Pause
+sh -c "sp play"
+  XF86AudioPlay
+
+# Skip
+sh -c "sp next"
+  XF86Calculator
+
 # Mute
 #"amixer -q sset Master toggle"
 sh -c "pactl -- set-sink-mute 1 toggle"

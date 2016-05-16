@@ -55,8 +55,6 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " Auto close brackets
 Plug 'jiangmiao/auto-pairs'
-" Most recently used
-Plug 'mhinz/vim-startify'
 " Fuzzy find
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 " Multi-language linting
@@ -198,7 +196,7 @@ let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 
 "" Use deoplete.
-"let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 
 "" FZF
 let g:fzf_layout = { 'down': '~33%' }
@@ -214,9 +212,9 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeAutoDeleteBuffer = 1
 " File extension highlighting
 function! HighlightFileExtension(ex, fg, bg)
-	exec 'autocmd FileType netrw,nerdtree,startify highlight '. a:ex .' guibg='. a:bg .' guifg='. a:fg
+	exec 'autocmd FileType netrw,nerdtree highlight '. a:ex .' guibg='. a:bg .' guifg='. a:fg
 	" match extension, possibly with 'executable' asterisk on end
-	exec 'autocmd FileType netrw,nerdtree,startify syn match '. a:ex .' #^.*\.'. a:ex .'\*\=$#'
+	exec 'autocmd FileType netrw,nerdtree syn match '. a:ex .' #^.*\.'. a:ex .'\*\=$#'
 endfunction
 call HighlightFileExtension('php', '#b294bb', 'none')
 call HighlightFileExtension('js', '#f0c674', 'none')
@@ -231,12 +229,6 @@ call HighlightFileExtension('config', '#969896', 'none')
 call HighlightFileExtension('conf', '#969896', 'none')
 call HighlightFileExtension('gitconfig', '#969896', 'none')
 call HighlightFileExtension('gitignore', '#969896', 'none')
-
-"" Startify
-" When opening a file, don't change to its directory
-let g:startify_change_to_dir = 0
-" When opening file, change to its git root
-"let g:startify_change_to_vcs_root = 1
 
 "" Undotree
 let g:undotree_SetFocusWhenToggle = 1
@@ -408,8 +400,6 @@ nnoremap <Leader>g :Gstatus<CR>
 nnoremap <Leader>n :enew<CR>:set syntax=
 " Open in browser
 nnoremap <Leader>o :silent !google-chrome-beta %<CR>
-" Startify
-nnoremap <Leader>s :Startify<CR>
 " Terminal start
 nnoremap <Leader>t :below 30new<CR>:terminal<CR>
 " Toggle undo tree

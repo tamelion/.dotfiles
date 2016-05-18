@@ -9,22 +9,22 @@
 # Browser
 #
 
-if [ -n "$DISPLAY" ]; then
-	export BROWSER=google-chrome
-else
-	export BROWSER=lynx
-fi
-
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
+fi
+
+if [ -n "$DISPLAY" ]; then
+	export BROWSER=google-chrome-stable
+else
+	export BROWSER=lynx
 fi
 
 #
 # Editors
 #
 
-export EDITOR='nvr'
-export VISUAL='nvr'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export PAGER='less'
 
 #

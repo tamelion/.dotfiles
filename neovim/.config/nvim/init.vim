@@ -277,7 +277,7 @@ function! ChooseTerm(termname)
 endfunction
 
 " Open 'default' terminal
-nnoremap <M-CR> :call ChooseTerm("default")<CR>
+nnoremap <M-CR> :call ChooseTerm("term-default")<CR>
 
 " Easy on the pinky
 nnoremap ; :

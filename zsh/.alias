@@ -1,10 +1,9 @@
 # Use nvim by default
 alias vi='nvim'
 alias vim='nvim'
-#alias n='nvim'
 
 # neovim handle running from inside neovim terminal
-# (need to install neovim-remote)
+# (needs vim plugin neovim-remote)
 n() {
 	if [[ -z $NVIM_LISTEN_ADDRESS ]]; then
 		# not running inside nvim
@@ -13,6 +12,9 @@ n() {
 		nvr "$@"
 	fi
 }
+
+# Ranger
+alias r='ranger'
 
 # IP address
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"

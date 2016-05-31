@@ -121,7 +121,7 @@ set splitright
 set undofile
 set undodir=~/.config/nvim/undo
 " Treat underscore as word break
-set iskeyword-=_ 
+set iskeyword-=_
 
 " }}}
 " Colours and fonts {{{
@@ -392,7 +392,7 @@ nnoremap <Leader>b :Gblame<CR>
 nnoremap <Leader>c :Commits<CR>
 " Find in project files
 "nnoremap <Leader>f :Grepper -tool git -i<CR>
-nnoremap <Leader>f :Ag 
+nnoremap <Leader>f :Ag
 vnoremap <Leader>f "fy:Ag <C-r>f<CR>
 " Fugitive
 nnoremap <Leader>g :Gstatus<CR>
@@ -434,3 +434,5 @@ let @t = ':s/\s\+$//e'
 let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge:s/﻿/\&#xfeff;/ge'
 
 " }}}
+" Make :Rag take flags for Ag
+command! -nargs=+ -complete=file Rag call fzf#vim#ag_raw(<q-args>)

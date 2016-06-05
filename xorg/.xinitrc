@@ -27,7 +27,7 @@ numlockx &
 autorun-scripts
 
 # Export bin path for dmenu and other X apps
-export PATH=$PATH:~/.bin
+export PATH=$PATH:~/.local/bin
 
 # Start clipmenu daemon
 clipmenud &

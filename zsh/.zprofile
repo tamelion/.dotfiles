@@ -35,7 +35,7 @@ export VBOX_USER_HOME=~/vm
 # install to user dir for gem/bundler
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 # install to user dir for npm
-export NPM_CONFIG_PREFIX=~/.node_modules
+export NPM_CONFIG_PREFIX=~/.local
 
 #
 # Language
@@ -62,7 +62,6 @@ path=(
   $HOME/.local/{bin,sbin}
   /usr/local/{bin,sbin}
   $(ruby -e 'print Gem.user_dir')/bin
-  $HOME/.node_modules/bin
   $path
 )
 

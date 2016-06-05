@@ -56,7 +56,7 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " Auto close brackets
 Plug 'jiangmiao/auto-pairs'
 " Fuzzy find
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 " Multi-language linting
 Plug 'benekastah/neomake'
 " Emmet

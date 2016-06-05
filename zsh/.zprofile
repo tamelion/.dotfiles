@@ -59,7 +59,7 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-  $HOME/.bin
+  $HOME/.local/{bin,sbin}
   /usr/local/{bin,sbin}
   $(ruby -e 'print Gem.user_dir')/bin
   $HOME/.node_modules/bin

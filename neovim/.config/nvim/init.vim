@@ -26,7 +26,7 @@ Plug 'chriskempson/base16-vim'
 " Ranger
 Plug 'Mizuchi/vim-ranger'
 " Keep working directory at git base
-Plug 'airblade/vim-rooter'
+"Plug 'airblade/vim-rooter'
 " Status bar and themes
 Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 " Snippeting

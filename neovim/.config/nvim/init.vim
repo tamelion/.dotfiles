@@ -298,20 +298,20 @@ nnoremap <M-L> <C-w>L
 nnoremap <M-w> <C-w>c
 
 " Tab open
-"nnoremap <M-t> :tabnew<CR>
+nnoremap <M-t> :tabnew<CR>
 " Tab move
-"nmap <M-,> <Plug>AirlineSelectPrevTab
-"nmap <M-.> <Plug>AirlineSelectNextTab
+nmap <M-,> <Plug>AirlineSelectPrevTab
+nmap <M-.> <Plug>AirlineSelectNextTab
 " Tab by ID
-"nmap <M-1> <Plug>AirlineSelectTab1
-"nmap <M-2> <Plug>AirlineSelectTab2
-"nmap <M-3> <Plug>AirlineSelectTab3
-"nmap <M-4> <Plug>AirlineSelectTab4
-"nmap <M-5> <Plug>AirlineSelectTab5
-"nmap <M-6> <Plug>AirlineSelectTab6
-"nmap <M-7> <Plug>AirlineSelectTab7
-"nmap <M-8> <Plug>AirlineSelectTab8
-"nmap <M-9> <Plug>AirlineSelectTab9
+nmap <M-1> <Plug>AirlineSelectTab1
+nmap <M-2> <Plug>AirlineSelectTab2
+nmap <M-3> <Plug>AirlineSelectTab3
+nmap <M-4> <Plug>AirlineSelectTab4
+nmap <M-5> <Plug>AirlineSelectTab5
+nmap <M-6> <Plug>AirlineSelectTab6
+nmap <M-7> <Plug>AirlineSelectTab7
+nmap <M-8> <Plug>AirlineSelectTab8
+nmap <M-9> <Plug>AirlineSelectTab9
 
 " File explorer pane
 "nnoremap <C-\> :NERDTreeFind<CR>

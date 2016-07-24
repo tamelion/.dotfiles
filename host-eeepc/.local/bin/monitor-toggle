@@ -1,0 +1,12 @@
+#!/bin/bash
+
+LAPTOP="LVDS1"
+VGA="VGA1"
+GAMMA="0.9:0.8:0.7"
+
+if (xrandr | grep "^$VGA connected")
+then
+    xrandr --output $VGA --auto --primary --output $LAPTOP --off
+else
+    xrandr --output $LAPTOP --gamma $GAMMA --auto --output $VGA --off
+fi

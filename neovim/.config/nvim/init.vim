@@ -21,18 +21,12 @@ Plug 'mhinz/neovim-remote'
 Plug 'ryanoasis/vim-devicons'
 " Coding colour schemes
 Plug 'chriskempson/base16-vim'
-" Slightly better than netrw
-"Plug 'scrooloose/nerdtree'
 " Ranger
 Plug 'Mizuchi/vim-ranger'
-" Keep working directory at git base
-"Plug 'airblade/vim-rooter'
 " Status bar and themes
 Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 " Snippeting
 Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
-" Find in files
-Plug 'mhinz/vim-grepper'
 " Autocompletion
 Plug 'Shougo/deoplete.nvim'
 " Git wrapper
@@ -47,8 +41,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 " Change surroundings
 Plug 'tpope/vim-surround'
-" Cycle yanks
-"Plug 'vim-scripts/YankRing.vim'
 " Move through vim
 Plug 'Lokaltog/vim-easymotion'
 " Undo tree
@@ -59,8 +51,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 " Multi-language linting
 Plug 'benekastah/neomake'
-" Emmet
-Plug 'mattn/emmet-vim', { 'for': ['html', 'ss'] }
 " CSS3 syntax highlighting
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'less', 'sass', 'scss'] }
 " LESS syntax highlighing
@@ -78,73 +68,57 @@ Plug 'vim-scripts/vimwiki'
 
 call plug#end()
 
-" Enable plugin and indent filetypes
-filetype plugin indent on
-
 "}}}
 "  General {{{
 
-" Change directory to the current buffer when opening files.
-"set autochdir
-" save changed files dialog
-set confirm
-" Backup and swap
-set nobackup noswapfile
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-" Background without write
-set hidden
-" Search - ignore case, unless capital typed, don't highlight
-set ignorecase smartcase nohlsearch
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-" For regular expressions turn magic on
-set magic
-" No annoying sound on errors
-set noerrorbells novisualbell tm=500
-" Display line numbers
-set number
-" Scrolloff
-set so=999
-" Show matching brackets when text indicator is over them
-set showmatch
-" tab and manual indent sizes
-set shiftwidth=4 tabstop=4
-" Set tabs not spaces
-set noexpandtab
-" Autoindent
-set smartindent
-" Splits in right direction
-set splitbelow
-set splitright
-" Persistent undo
-set undofile
-set undodir=~/.config/nvim/undo
-" Treat underscore as word break
-set iskeyword-=_
+set confirm " Save changed files prompt
+set ffs=unix,dos,mac " Use Unix as the standard file type
+set hidden " Allow background buffers without writing
+set ignorecase smartcase nohlsearch " Search - ignore case, unless capital typed, don't highlight
+set iskeyword-=_ " Treat extra characters as word break for movements
+set lazyredraw " Don't redraw while executing macros (good performance config)
+set magic " For regular expressions turn magic on
+set nobackup noswapfile " No backup or swap files
+set noerrorbells novisualbell tm=500 " No sound or flash on errors
+set number " Display line numbers
+set showmatch " Show matching brackets when text indicator is over them
+set noshowmode " Mode already displayed in airline
+set so=999 " Scrolloff - keep cursor centred
+set splitbelow splitright " Window split direction
+set undofile undodir=~/.config/nvim/undo " Persistent undo
 
-" }}}
-" Colours and fonts {{{
+"" Indentation
+set tabstop=4 " Width of existing tabs to display on file open
+set shiftwidth=4 " Width of new indentation (multiplies tabstop if necessary)
+set noexpandtab " New indentation with tabs, not spaces
+set shiftround " Within text, indent is calculated from col 1, not from cursor position
+set softtabstop=-1 " Within text, backspace removes same number of spaces as shiftwidth
+set list " Show indentation characters
+set listchars=tab:▸—,precedes:«,extends:» " Set symbols used with list
+"
 
-" 24 bit colour
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-" Cursor shape
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-" Enable syntax highlighting
-syntax enable
-" Colour scheme
+""  Filetype specific
+filetype plugin indent on " Enable filetype detection and filetype plugin/indent scripts
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS expandtab shiftwidth=2 tabstop=2
+autocmd FileType vim setlocal foldmethod=marker
+
+"" Colours and fonts
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " 24 bit colour
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1 " Allow insert cursor shape
+syntax enable " Enable syntax highlighting
 set background=dark
-colorscheme base16-tomorrow
-" Highlight current line
-set cursorline
-" Highlight column 81 to help keep lines of code 80 characters or less
-set colorcolumn=81
-" Neovim terminal colours
+set cursorline " Highlight current line
+set cursorcolumn " Highlight current column
+set colorcolumn=81 " Highlight column 81
+colorscheme base16-tomorrow-night
+hi SpecialKey guifg=#444444 " Override colour for list characters
+" Set neovim's build-in terminal colours
 let g:terminal_color_0 = '#1d1f21'
 let g:terminal_color_1 = '#912226'
 let g:terminal_color_2 = '#778900'
 let g:terminal_color_3 = '#ae7b00'
-"let g:terminal_color_4 = '#1d2594'
 let g:terminal_color_4 = '#81a2be'
 let g:terminal_color_5 = '#682a9b'
 let g:terminal_color_6 = '#2b6651'
@@ -161,17 +135,13 @@ let g:terminal_color_15 = '#ecebec'
 " }}}
 " Built-in extensions {{{
 
-""""" Netrw
-" Netrw banner info off
-let g:netrw_banner=0
-" Netrw default to tree
-let g:netrw_liststyle=3
-" Netrw keep working dir (don't change to browsing dir)
-let g:netrw_keepdir = 1
+"" Netrw
+let g:netrw_banner=0 " Netrw banner info off
+let g:netrw_liststyle=3 " Netrw default to tree
+let g:netrw_keepdir = 1 " Netrw don't cd to current browsed dir
 
-""""" Wildmenu
-" Turn on the WiLd menu and add shell-style completion
-set wildmode=list:longest
+"" Wildmenu
+set wildmode=list:longest " WiLd menu with shell-style completion
 " Ignore files
 set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
 set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
@@ -180,9 +150,8 @@ set wildignore+=*.eot,*.ttf,*.woff,*.ico
 set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.svg,*.gif,*.tiff,*.eps,*.psd
 set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls
 
-""""" Macros
-"Enable extended % matching
-runtime macros/matchit.vim
+"" Macros
+runtime macros/matchit.vim "Enable extended % matching
 
 " }}}
 " Plugin settings {{{
@@ -194,127 +163,36 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline_extensions = ['branch', 'tabline']
+
+function! AirlineCustomInit()
+	let g:airline_section_a = airline#section#create(['%{getcwd()}'])
+	let g:airline_section_c = airline#section#create(['%t'])
+	let g:airline_section_x = airline#section#create([''])
+	let g:airline_section_z = airline#section#create(['mode', 'crypt', 'paste', 'spell', 'iminsert'])
+endfunction
+autocmd User AirlineAfterInit call AirlineCustomInit()
 
 "" Use deoplete.
 let g:deoplete#enable_at_startup = 1
 
 "" FZF
 let g:fzf_layout = { 'down': '~33%' }
-" Jump to open buffer if matched
-let g:fzf_buffers_jump = 1
+let g:fzf_buffers_jump = 1 " Jump to open buffer if matched
 
 "" Neosnippet
 let g:neosnippet#snippets_directory = '~/code/snippets'
 
-"" NERDTree
-let g:NERDTreeMouseMode = 3
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeAutoDeleteBuffer = 1
-" File extension highlighting
-function! HighlightFileExtension(ex, fg, bg)
-	exec 'autocmd FileType netrw,nerdtree highlight '. a:ex .' guibg='. a:bg .' guifg='. a:fg
-	" match extension, possibly with 'executable' asterisk on end
-	exec 'autocmd FileType netrw,nerdtree syn match '. a:ex .' #^.*\.'. a:ex .'\*\=$#'
-endfunction
-call HighlightFileExtension('php', '#b294bb', 'none')
-call HighlightFileExtension('js', '#f0c674', 'none')
-call HighlightFileExtension('json', '#f0c674', 'none')
-call HighlightFileExtension('html', '#cc6666', 'none')
-call HighlightFileExtension('ss', '#cc6666', 'none')
-call HighlightFileExtension('yml', '#cc6666', 'none')
-call HighlightFileExtension('css', '#b5bd68', 'none')
-call HighlightFileExtension('scss', '#8abeb7', 'none')
-call HighlightFileExtension('less', '#8abeb7', 'none')
-call HighlightFileExtension('config', '#969896', 'none')
-call HighlightFileExtension('conf', '#969896', 'none')
-call HighlightFileExtension('gitconfig', '#969896', 'none')
-call HighlightFileExtension('gitignore', '#969896', 'none')
-
 "" Undotree
 let g:undotree_SetFocusWhenToggle = 1
-
-"" Vim rooter
-" Don't echo
-let g:rooter_silent_chdir = 1
-
-"" Yankring
-" Fix Y to y$ remap
-"function! YRRunAfterMaps()
-"	nnoremap Y :<C-U>YRYankCount 'y$'<CR>
-"endfunction
-"" Ignore
-"let g:yankring_ignore_operator = 'd/'
-"" History directory
-"let g:yankring_history_dir = '~/.cache/'
-
-" }}}
-"  Filetype specific {{{
-
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType vim setlocal foldmethod=marker
 
 " }}}
 " Mappings - overrides {{{
 
-function! ChooseTerm(termname)
-	let pane = bufwinnr(a:termname)
-	let buf = bufexists(a:termname)
-	if pane > 0
-		" buffer is visible, close
-		:exe pane . "wincmd c"
-	elseif buf > 0
-		" buffer is not in pane, show
-		:exe "topleft split"
-		:exe "buffer " . a:termname
-	else
-		" buffer is not loaded, create
-		:exe "topleft split"
-		:terminal
-		:exe "f " a:termname
-	endif
-endfunction
-
-" Open 'default' terminal
-nnoremap <M-CR> :call ChooseTerm("term-default")<CR>
-
 " Easy on the pinky
 nnoremap ; :
 
-" Pane open
-nnoremap <M--> <C-w>s<CR>
-nnoremap <M-\> <C-w>v<CR>
-" Pane move
-nnoremap <M-h> <C-w>h
-nnoremap <M-H> <C-w>H
-nnoremap <M-j> <C-w>j
-nnoremap <M-J> <C-w>J
-nnoremap <M-k> <C-w>k
-nnoremap <M-K> <C-w>K
-nnoremap <M-l> <C-w>l
-nnoremap <M-L> <C-w>L
-" Pane close
-nnoremap <M-w> <C-w>c
-
-" Tab open
-nnoremap <M-t> :tabnew<CR>
-" Tab move
-nmap <M-,> <Plug>AirlineSelectPrevTab
-nmap <M-.> <Plug>AirlineSelectNextTab
-" Tab by ID
-nmap <M-1> <Plug>AirlineSelectTab1
-nmap <M-2> <Plug>AirlineSelectTab2
-nmap <M-3> <Plug>AirlineSelectTab3
-nmap <M-4> <Plug>AirlineSelectTab4
-nmap <M-5> <Plug>AirlineSelectTab5
-nmap <M-6> <Plug>AirlineSelectTab6
-nmap <M-7> <Plug>AirlineSelectTab7
-nmap <M-8> <Plug>AirlineSelectTab8
-nmap <M-9> <Plug>AirlineSelectTab9
-
-" File explorer pane
-"nnoremap <C-\> :NERDTreeFind<CR>
+" Edit from current directory
 nnoremap <C-\> :e %:p:h<CR>
 
 " Home row friendly navigation
@@ -356,60 +234,98 @@ nnoremap cd :cd %:p:h<CR>:pwd<CR>
 nmap f <Plug>(easymotion-s)
 
 " More convenient escape sequence
-" (using jk causes delays in last line of visual selection)
 inoremap ,j <Esc>
 cnoremap ,j <Esc>
 vnoremap ,j <Esc>
 tnoremap ,j <C-\><C-n>
 nnoremap ,j <Nop>
 
-" Resize windows
-nnoremap <Left>  :10wincmd <<CR>
-nnoremap <right> :10wincmd ><CR>
-nnoremap <up>    :10wincmd +<CR>
-nnoremap <down>  :10wincmd -<CR>
+" }}}
+" Mappings - meta {{{
 
+"" Tabs
+" Tab open
+nnoremap <M-t> :tabnew<CR>
+" Tab move
+nmap <M-,> <Plug>AirlineSelectPrevTab
+nmap <M-.> <Plug>AirlineSelectNextTab
+" Tab by ID
+nmap <M-1> <Plug>AirlineSelectTab1
+nmap <M-2> <Plug>AirlineSelectTab2
+nmap <M-3> <Plug>AirlineSelectTab3
+nmap <M-4> <Plug>AirlineSelectTab4
+nmap <M-5> <Plug>AirlineSelectTab5
+nmap <M-6> <Plug>AirlineSelectTab6
+nmap <M-7> <Plug>AirlineSelectTab7
+nmap <M-8> <Plug>AirlineSelectTab8
+nmap <M-9> <Plug>AirlineSelectTab9
+
+"" Panes
+" Pane open
+nnoremap <M--> <C-w>s<CR>
+nnoremap <M-\> <C-w>v<CR>
+" Pane move
+nnoremap <M-h> <C-w>h
+nnoremap <M-H> <C-w>H
+nnoremap <M-j> <C-w>j
+nnoremap <M-J> <C-w>J
+nnoremap <M-k> <C-w>k
+nnoremap <M-K> <C-w>K
+nnoremap <M-l> <C-w>l
+nnoremap <M-L> <C-w>L
+" Pane resize
+nnoremap <M-Left>  :10wincmd <<CR>
+nnoremap <M-right> :10wincmd ><CR>
+nnoremap <M-up>    :10wincmd +<CR>
+nnoremap <M-down>  :10wincmd -<CR>
+" Pane close
+nnoremap <M-w> <C-w>c
+
+"" Special panes
+" Toggle 'default' terminal
+nnoremap <M-CR> :call ChooseTerm("term-default")<CR>
+" Git blame panel
+nnoremap <M-b> :Gblame<CR>
+" Fugitive git status panel
+nnoremap <M-g> :Gstatus<CR>
+" Create new file and set syntax
+nnoremap <M-n> :enew<CR>:set syntax=
+" Toggle undo tree
+nnoremap <M-u> :UndotreeToggle<CR>
 " }}}
 " Mappings - leader {{{
 
 " Map Leader
 map <Space> <Leader>
-
 " Buffers (from places where <CR> is not good enough)
 nnoremap <Leader><CR> :Buffers<CR>
+" Change all existing tabs to spaces (specified by shiftwidth)
+nnoremap <Leader><Tab> :retab<CR>
+" Marks
+nnoremap <Leader>' :Marks<CR>
 " Blurred lines
 nnoremap <Leader>/ :Lines<CR>
-" Saved searches
+" Find next non-unicode character
 nnoremap <Leader>@ /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-unicode characters"<CR>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
 nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
 " Remove trailing space and re-indent file
 nnoremap <Leader>= mzggvG@tgv=`z
-" Git blame panel
-nnoremap <Leader>b :Gblame<CR>
-" Fuzzy find stuff
+" Fuzzy find git commits
 nnoremap <Leader>c :Commits<CR>
 " Find in project files
-"nnoremap <Leader>f :Grepper -tool git -i<CR>
 nnoremap <Leader>f :Ag
 vnoremap <Leader>f "fy:Ag <C-r>f<CR>
-" Fugitive
-nnoremap <Leader>g :Gstatus<CR>
-" Create new file and set syntax
-nnoremap <Leader>n :enew<CR>:set syntax=
-" Open in browser
-nnoremap <Leader>o :silent !google-chrome-beta %<CR>
-" Terminal start
-nnoremap <Leader>t :below 30new<CR>:terminal<CR>
-" Toggle undo tree
-nnoremap <silent><Leader>u :UndotreeToggle<CR>
+" Change tab options
+nnoremap <Leader>t :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
+nnoremap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>
+nnoremap <Leader>4 :set tabstop=4<CR>:set shiftwidth=4<CR>
+nnoremap <Leader>8 :set tabstop=8<CR>:set shiftwidth=8<CR>
 " Fast open vimrc
 nnoremap <Leader>v :e ~/.dotfiles/neovim/.config/nvim/init.vim<CR>
 " Reload .vimrc
 nnoremap <Leader>V :so $MYVIMRC<CR>
-" Window close
-nnoremap <Leader>x <C-w>c
 
 " }}}
 " Mappings - macros {{{
@@ -431,8 +347,29 @@ let @r = ':s/\r\+$//e'
 " Remove trailing space
 let @t = ':s/\s\+$//e'
 " Unicode replacements: quotes, hyphens, ellipses and spaces
-let @u = ':s/“\|”/"/ge:s/‘\|’\|`/''/ge:s/–/-/ge:s/…/.../ge:s/﻿/\&#xfeff;/ge'
+let @u = ':s/“\|”/"/ge:s/‘\|’\|`/\&rsquo;/ge:s/–/-/ge:s/…/.../ge:s/﻿/\&#xfeff;/ge'
 
 " }}}
+"  Functions and commands {{{
+
+function! ChooseTerm(termname)
+	let pane = bufwinnr(a:termname)
+	let buf = bufexists(a:termname)
+	if pane > 0
+		" buffer is visible, close
+		:exe pane . "wincmd c"
+	elseif buf > 0
+		" buffer is not in pane, show
+		:exe "topleft split"
+		:exe "buffer " . a:termname
+	else
+		" buffer is not loaded, create
+		:exe "topleft split"
+		:terminal
+		:exe "f " a:termname
+	endif
+endfunction
+
 " Make :Rag take flags for Ag
 command! -nargs=+ -complete=file Rag call fzf#vim#ag_raw(<q-args>)
+"  }}}

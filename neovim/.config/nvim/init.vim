@@ -15,7 +15,7 @@ call plug#begin()
 "Plug 'tek/proteome.nvim'
 "Plug 'airodactyl/neovim-ranger'
 
-" Remote
+" Connect to already running neovim
 Plug 'mhinz/neovim-remote'
 " Pretty icons
 Plug 'ryanoasis/vim-devicons'
@@ -53,18 +53,18 @@ Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' } | Pl
 Plug 'benekastah/neomake'
 " CSS3 syntax highlighting
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'less', 'sass', 'scss'] }
-" LESS syntax highlighing
-Plug 'groenewege/vim-less', { 'for': 'less' }
-" HTML5 recognition
-Plug 'othree/html5.vim', { 'for' : 'html' }
 " CSS colour of hex values
 Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss'] }
+" LESS syntax highlighing
+Plug 'groenewege/vim-less', { 'for': 'less' }
+" HTML5 omnicompletion and syntax highlighting
+Plug 'othree/html5.vim', { 'for' : 'html' }
 " Silverstripe highlighting
 Plug 'phalkunz/vim-ss'
 " Better JS indentation
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'js' }
-" Other crazy stuff
-Plug 'vim-scripts/vimwiki'
+" PHP improved omnicompletion
+Plug 'shawncplus/phpcomplete.vim', { 'for' : 'php' }
 
 call plug#end()
 
@@ -95,14 +95,14 @@ set shiftround " Within text, indent is calculated from col 1, not from cursor p
 set softtabstop=-1 " Within text, backspace removes same number of spaces as shiftwidth
 set list " Show indentation characters
 set listchars=tab:▸—,precedes:«,extends:» " Set symbols used with list
-"
 
 ""  Filetype specific
 filetype plugin indent on " Enable filetype detection and filetype plugin/indent scripts
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS expandtab shiftwidth=2 tabstop=2
 autocmd FileType vim setlocal foldmethod=marker
+autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS expandtab shiftwidth=2 tabstop=2
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP noexpandtab shiftwidth=4 tabstop=4
 
 "" Colours and fonts
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " 24 bit colour

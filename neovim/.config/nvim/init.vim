@@ -65,6 +65,9 @@ Plug 'phalkunz/vim-ss'
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'js' }
 " PHP improved omnicompletion
 Plug 'shawncplus/phpcomplete.vim', { 'for' : 'php' }
+" PHP standards
+Plug 'beanworks/vim-phpfmt'
+
 
 call plug#end()
 
@@ -99,7 +102,7 @@ set listchars=tab:▸—,precedes:«,extends:» " Set symbols used with list
 ""  Filetype specific
 filetype plugin indent on " Enable filetype detection and filetype plugin/indent scripts
 autocmd FileType vim setlocal foldmethod=marker
-autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=2 tabstop=2
+autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=4 tabstop=4
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS expandtab shiftwidth=2 tabstop=2
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP noexpandtab shiftwidth=4 tabstop=4
@@ -173,7 +176,11 @@ function! AirlineCustomInit()
 endfunction
 autocmd User AirlineAfterInit call AirlineCustomInit()
 
-"" Use deoplete.
+"" PHPfmt
+let g:phpfmt_standard = 'PSR2'
+let g:phpfmt_autosave = 0
+
+"" Deoplete
 let g:deoplete#enable_at_startup = 1
 
 "" FZF

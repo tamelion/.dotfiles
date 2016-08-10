@@ -78,7 +78,7 @@ set confirm " Save changed files prompt
 set ffs=unix,dos,mac " Use Unix as the standard file type
 set hidden " Allow background buffers without writing
 set ignorecase smartcase nohlsearch " Search - ignore case, unless capital typed, don't highlight
-set iskeyword-=_ " Treat extra characters as word break for movements
+"set iskeyword-=_ " Treat extra characters as word break for movements
 set lazyredraw " Don't redraw while executing macros (good performance config)
 set magic " For regular expressions turn magic on
 set nobackup noswapfile " No backup or swap files
@@ -169,7 +169,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline_extensions = ['branch', 'tabline']
 
 function! AirlineCustomInit()
-	let g:airline_section_a = airline#section#create(['%{getcwd()}'])
+	let g:airline_section_a = airline#section#create(['%{expand("%:h")}'])
 	let g:airline_section_c = airline#section#create(['%t'])
 	let g:airline_section_x = airline#section#create([''])
 	let g:airline_section_z = airline#section#create(['mode', 'crypt', 'paste', 'spell', 'iminsert'])
@@ -322,8 +322,8 @@ nnoremap <Leader>= mzggvG@tgv=`z
 " Fuzzy find git commits
 nnoremap <Leader>c :Commits<CR>
 " Find in project files
-nnoremap <Leader>f :Ag
-vnoremap <Leader>f "fy:Ag <C-r>f<CR>
+nnoremap <Leader>f :Rag -u 
+vnoremap <Leader>f "fy:Rag -u <C-r>f<CR>
 " Change tab options
 nnoremap <Leader>t :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
 nnoremap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>

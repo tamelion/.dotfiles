@@ -106,6 +106,7 @@ autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#Comp
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS expandtab shiftwidth=2 tabstop=2
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP noexpandtab shiftwidth=4 tabstop=4
+autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
 
 "" Colours and fonts
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " 24 bit colour
@@ -281,10 +282,10 @@ nnoremap <M-K> <C-w>K
 nnoremap <M-l> <C-w>l
 nnoremap <M-L> <C-w>L
 " Pane resize
-nnoremap <M-Left>  :10wincmd <<CR>
-nnoremap <M-right> :10wincmd ><CR>
-nnoremap <M-up>    :10wincmd +<CR>
-nnoremap <M-down>  :10wincmd -<CR>
+nnoremap <Left>  :10wincmd <<CR>
+nnoremap <Right> :10wincmd ><CR>
+nnoremap <Up>    :10wincmd +<CR>
+nnoremap <Down>  :10wincmd -<CR>
 " Pane close
 nnoremap <M-w> <C-w>c
 

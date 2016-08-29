@@ -64,7 +64,7 @@ Plug 'phalkunz/vim-ss'
 " Better JS indentation
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'js' }
 " PHP improved omnicompletion
-Plug 'shawncplus/phpcomplete.vim', { 'for' : 'php' }
+"Plug 'shawncplus/phpcomplete.vim', { 'for' : 'php' }
 " PHP standards
 Plug 'beanworks/vim-phpfmt'
 
@@ -105,7 +105,8 @@ autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=4 tabstop=4
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS expandtab shiftwidth=2 tabstop=2
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP noexpandtab shiftwidth=4 tabstop=4
+"autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP noexpandtab shiftwidth=4 tabstop=4
+autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4
 autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
 
 "" Colours and fonts
@@ -114,8 +115,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1 " Allow insert cursor shape
 syntax enable " Enable syntax highlighting
 set background=dark
 set cursorline " Highlight current line
-set cursorcolumn " Highlight current column
-set colorcolumn=81 " Highlight column 81
+set colorcolumn=80,100,120 " Highlight columns for target max length
 colorscheme base16-tomorrow-night
 hi SpecialKey guifg=#444444 " Override colour for list characters
 " Set neovim's build-in terminal colours
@@ -307,8 +307,6 @@ nnoremap <M-u> :UndotreeToggle<CR>
 map <Space> <Leader>
 " Buffers (from places where <CR> is not good enough)
 nnoremap <Leader><CR> :Buffers<CR>
-" Change all existing tabs to spaces (specified by shiftwidth)
-nnoremap <Leader><Tab> :retab<CR>
 " Marks
 nnoremap <Leader>' :Marks<CR>
 " Blurred lines
@@ -318,15 +316,15 @@ nnoremap <Leader>@ /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-u
 " Write operations
 nnoremap <Leader><Space> :w<CR>
 nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
-" Remove trailing space and re-indent file
-nnoremap <Leader>= mzggvG@tgv=`z
+" Move to current tab format, remove trailing space and re-indent file
+nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
 " Fuzzy find git commits
 nnoremap <Leader>c :Commits<CR>
 " Find in project files
 nnoremap <Leader>f :Rag -u 
 vnoremap <Leader>f "fy:Rag -u <C-r>f<CR>
-" Change tab options
-nnoremap <Leader>t :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
+" Change tab type
+nnoremap <Leader><Tab> :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
 nnoremap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>
 nnoremap <Leader>4 :set tabstop=4<CR>:set shiftwidth=4<CR>
 nnoremap <Leader>8 :set tabstop=8<CR>:set shiftwidth=8<CR>

@@ -28,7 +28,7 @@ Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 " Snippeting
 Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
 " Autocompletion
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim' | Plug 'mhartington/deoplete-typescript'
 " Git wrapper
 Plug 'tpope/vim-fugitive'
 " Git markers
@@ -50,7 +50,7 @@ Plug 'jiangmiao/auto-pairs'
 " Fuzzy find
 Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 " Multi-language linting
-Plug 'benekastah/neomake'
+Plug 'neomake/neomake'
 " CSS3 syntax highlighting
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'less', 'sass', 'scss'] }
 " CSS colour of hex values
@@ -61,12 +61,12 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'othree/html5.vim', { 'for' : 'html' }
 " Silverstripe highlighting
 Plug 'phalkunz/vim-ss'
-" Better JS indentation
-Plug 'jelera/vim-javascript-syntax', { 'for' : 'js' }
+" JS and TS syntax highlighting
+Plug 'HerringtonDarkholme/yats.vim'
 " PHP improved omnicompletion
 "Plug 'shawncplus/phpcomplete.vim', { 'for' : 'php' }
 " PHP standards
-Plug 'beanworks/vim-phpfmt'
+"Plug 'beanworks/vim-phpfmt'
 
 
 call plug#end()
@@ -104,10 +104,10 @@ filetype plugin indent on " Enable filetype detection and filetype plugin/indent
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=4 tabstop=4
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS expandtab shiftwidth=2 tabstop=2
-"autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP noexpandtab shiftwidth=4 tabstop=4
+autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS expandtab shiftwidth=2 tabstop=2
 autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4
 autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
+autocmd! BufWritePost * Neomake
 
 "" Colours and fonts
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " 24 bit colour
@@ -175,7 +175,7 @@ function! AirlineCustomInit()
 	let g:airline_section_x = airline#section#create([''])
 	let g:airline_section_z = airline#section#create(['mode', 'crypt', 'paste', 'spell', 'iminsert'])
 endfunction
-autocmd User AirlineAfterInit call AirlineCustomInit()
+"autocmd User AirlineAfterInit call AirlineCustomInit()
 
 "" PHPfmt
 let g:phpfmt_standard = 'PSR2'
@@ -183,6 +183,7 @@ let g:phpfmt_autosave = 0
 
 "" Deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#tss#javascript_support = 1
 
 "" FZF
 let g:fzf_layout = { 'down': '~33%' }

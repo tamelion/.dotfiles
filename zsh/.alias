@@ -44,3 +44,6 @@ if [[ `uname` == 'Darwin' ]]; then
 	alias update='sudo softwareupdate -i -a; brew update; brew upgrade'
 fi
 
+# Docker
+# Delete all containers
+alias dc='sudo docker rm $(sudo docker ps -a -q)'

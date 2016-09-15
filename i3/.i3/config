@@ -91,6 +91,9 @@ bindsym $mod+p focus parent
 # focus the child container
 bindsym $mod+c focus child
 
+# screenshot
+bindsym --release Print exec --no-startup-id scrot -s
+
 # workspace variables
 set $0 0~laptop
 set $1 1~web

@@ -1,3 +1,0 @@
-#!/usr/bin/bash
-
-/opt/google/chrome/google-chrome --disk-cache-dir="/tmp/chrome-cache/"

@@ -96,7 +96,6 @@ set list " Show indentation characters
 set listchars=tab:▸—,precedes:«,extends:» " Set symbols used with list
 
 ""  Filetype specific
-filetype plugin indent on " Enable filetype detection and filetype plugin/indent scripts
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=4 tabstop=4
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -106,7 +105,7 @@ autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
 autocmd! BufWritePost * Neomake
 
 "" Colours and fonts
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " 24 bit colour
+set termguicolors " 24 bit colour
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1 " Allow insert cursor shape
 syntax enable " Enable syntax highlighting
 set background=dark

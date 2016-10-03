@@ -15,7 +15,7 @@ floating_modifier $mod
 
 # Font for window titles. Will also be used by the bar unless a different font
 #font -xos4-terminus-medium-r-*-*-14-*
-font pango:Dejavu Sans 8
+font pango:Dejavu Sans 9
 
 new_window pixel 2
 new_float normal
@@ -159,7 +159,7 @@ set $white  #e0e0e0
                           # border     background  text
 client.focused              $blue      $blue       $black
 client.unfocused            $black     $dgrey      $lgrey
-client.focused_inactive     $blue      $grey       $blue
+client.focused_inactive     $grey      $grey       $black
 client.urgent               $purple    $purple     $white
 
 # Start i3bar

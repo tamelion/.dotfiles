@@ -59,6 +59,8 @@ Plug 'othree/html5.vim', { 'for' : 'html' }
 Plug 'phalkunz/vim-ss'
 " JS and TS syntax highlighting
 Plug 'HerringtonDarkholme/yats.vim'
+" JS and TS doc
+Plug 'heavenshell/vim-jsdoc'
 " PHP improved omnicompletion
 "Plug 'shawncplus/phpcomplete.vim', { 'for' : 'php' }
 " PHP standards
@@ -99,9 +101,9 @@ set listchars=tab:▸—,precedes:«,extends:» " Set symbols used with list
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=4 tabstop=4
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS expandtab shiftwidth=2 tabstop=2
+autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4
-autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
+autocmd FileType yaml,python setlocal expandtab shiftwidth=2 tabstop=2
 autocmd! BufWritePost * Neomake
 
 "" Colours and fonts
@@ -172,6 +174,10 @@ function! AirlineCustomInit()
 endfunction
 "autocmd User AirlineAfterInit call AirlineCustomInit()
 
+"" JSDoc
+let g:jsdoc_enable_es6 = 1
+let g:jsdoc_input_description = 1
+
 "" PHPfmt
 let g:phpfmt_standard = 'PSR2'
 let g:phpfmt_autosave = 0
@@ -211,7 +217,7 @@ vnoremap > >gv
 nnoremap gp `[v`]
 
 " Buffers
-nnoremap <CR> :Buffers<CR>
+nnoremap <CR> :Buffers<CR>!term 
 
 " Ban ex mode
 nnoremap Q <Nop>
@@ -248,21 +254,34 @@ nnoremap ,j <Nop>
 " Mappings - meta {{{
 
 "" Tabs
-" Tab open
+" Tab new
 nnoremap <M-t> :tabnew<CR>
+" Edit current pane in new tab
+nnoremap <M-e> :tabedit %<CR>
 " Tab move
-nmap <M-,> <Plug>AirlineSelectPrevTab
-nmap <M-.> <Plug>AirlineSelectNextTab
+nmap <M-,> gT
+nmap <M-.> gt
 " Tab by ID
-nmap <M-1> <Plug>AirlineSelectTab1
-nmap <M-2> <Plug>AirlineSelectTab2
-nmap <M-3> <Plug>AirlineSelectTab3
-nmap <M-4> <Plug>AirlineSelectTab4
-nmap <M-5> <Plug>AirlineSelectTab5
-nmap <M-6> <Plug>AirlineSelectTab6
-nmap <M-7> <Plug>AirlineSelectTab7
-nmap <M-8> <Plug>AirlineSelectTab8
-nmap <M-9> <Plug>AirlineSelectTab9
+nmap <M-1> 1gt
+nmap <M-2> 2gt
+nmap <M-3> 3gt
+nmap <M-4> 4gt
+nmap <M-5> 5gt
+nmap <M-6> 6gt
+nmap <M-7> 7gt
+nmap <M-8> 8gt
+nmap <M-9> 9gt
+" Move to tab by ID (index in command is for tab before)
+nmap <M-!> :tabm0<CR>
+nmap <M-@> :tabm1<CR>
+nmap <M-#> :tabm2<CR>
+nmap <M-$> :tabm3<CR>
+nmap <M-$> :tabm3<CR>
+nmap <M-%> :tabm4<CR>
+nmap <M-^> :tabm5<CR>
+nmap <M-&> :tabm6<CR>
+nmap <M-*> :tabm7<CR>
+nmap <M-(> :tabm8<CR>
 
 "" Panes
 " Pane open

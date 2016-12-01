@@ -343,6 +343,8 @@ nnoremap <Leader><Tab> :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<
 nnoremap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>
 nnoremap <Leader>4 :set tabstop=4<CR>:set shiftwidth=4<CR>
 nnoremap <Leader>8 :set tabstop=8<CR>:set shiftwidth=8<CR>
+" Search non-UTF8 characters
+nnoremap <Leader>u /[^\x00-\x7F]<CR>
 " Fast open vimrc
 nnoremap <Leader>v :e ~/.dotfiles/neovim/.config/nvim/init.vim<CR>
 " Reload .vimrc
@@ -369,6 +371,8 @@ let @r = ':s/\r\+$//e'
 let @t = ':s/\s\+$//e'
 " Unicode replacements: quotes, hyphens, ellipses and spaces
 let @u = ':s/“\|”/"/ge:s/‘\|’\|`/\&rsquo;/ge:s/–/-/ge:s/…/.../ge:s/﻿/\&#xfeff;/ge'
+" Turn Hex into proper unicode character
+let @v = ':%s/ / /ge:%s//‘/ge:%s//’/ge:%s//“/ge:%s//”/ge:%s//–/ge:%s//—/ge:%s//…/ge'
 
 " }}}
 "  Functions and commands {{{

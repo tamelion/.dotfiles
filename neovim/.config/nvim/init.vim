@@ -193,6 +193,9 @@ let g:fzf_buffers_jump = 1 " Jump to open buffer if matched
 "" Neosnippet
 let g:neosnippet#snippets_directory = '~/code/snippets'
 
+"" Neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
+
 "" Undotree
 let g:undotree_SetFocusWhenToggle = 1
 

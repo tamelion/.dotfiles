@@ -12,6 +12,10 @@ vim() {
 	fi
 }
 
+# Listing
+alias ls='ls -G'
+alias la='ls -Ahl'
+
 # Ranger
 alias r='ranger'
 
@@ -47,3 +51,6 @@ fi
 # Docker
 # Delete all containers
 alias dc='sudo docker rm $(sudo docker ps -a -q)'
+
+# Git
+alias g='git'

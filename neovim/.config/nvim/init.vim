@@ -103,7 +103,7 @@ autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#Comp
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4
-autocmd FileType yaml,python setlocal expandtab shiftwidth=2 tabstop=2
+autocmd FileType zsh,yaml,python setlocal expandtab shiftwidth=2 tabstop=2
 autocmd! BufWritePost * Neomake
 
 "" Colours and fonts

@@ -19,6 +19,9 @@ alias la='ls -Ahl'
 # Ranger
 alias r='ranger'
 
+# Bookmarks
+alias j='jump'
+
 # Silverstripe
 alias ssb='sake dev/build "flush=1"'
 

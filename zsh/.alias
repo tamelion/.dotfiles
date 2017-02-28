@@ -13,8 +13,8 @@ vim() {
 }
 
 # Listing
-alias ls='ls -G'
-alias la='ls -Ahl'
+alias ls='ls -G --color'
+alias la='ls -Ahl --color'
 
 # Ranger
 alias r='ranger'

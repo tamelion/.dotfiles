@@ -38,6 +38,7 @@
   cf = commit --amend --reuse-message HEAD
   cF = commit --verbose --amend
   d = diff
+  g = grep -n
   l = "log --topo-order --pretty=format:'%C(auto)%h %s%n%C(cyan)(%ar by %an)%C(auto)%d%n'"
   lg = "log --topo-order --all --graph --simplify-by-decoration --pretty=format:'%C(auto)%h %s%d'"
   m = merge
@@ -47,25 +48,32 @@
   sl = status
   standup = shortlog --since=yesterday
 
-[color "decorate"]
-  branch = blue
-  HEAD = blue bold
-  stash = magenta
-  remoteBranch = green
-  tag = red bold
-
 [color "branch"]
-  current = blue bold
-  local = blue
+  current = magenta bold
+  local = magenta
   remote = green
+  upstream = green reverse
+
+[color "diff"]
+  commit = blue
+  meta = cyan bold
+  frag = magenta
+  old = red
+  new = green
+
+[color "decorate"]
+  branch = magenta
+  HEAD = yellow
+  stash = magenta reverse
+  remoteBranch = green
+  tag = red
+
+[color "grep"]
+  filename = cyan
+  linenumber = blue
+  match = red
 
 [color "status"]
   added = green
   changed = yellow
   untracked = red
-
-[color "diff"]
-  meta = yellow
-  frag = magenta bold
-  old = red bold
-  new = green bold

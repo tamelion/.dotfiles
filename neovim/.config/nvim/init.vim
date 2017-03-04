@@ -115,22 +115,26 @@ set cursorline " Highlight current line
 set colorcolumn=80,100,120 " Highlight columns for target max length
 colorscheme base16-tomorrow-night
 hi SpecialKey guifg=#444444 " Override colour for list characters
-" Set neovim's build-in terminal colours
-let g:terminal_color_0 = '#1d1f21'
-let g:terminal_color_1 = '#cc6666'
-let g:terminal_color_2 = '#b5bd68'
-let g:terminal_color_3 = '#f0c674"'
-let g:terminal_color_4 = '#81a2be'
-let g:terminal_color_5 = '#b294bb'
-let g:terminal_color_6 = '#8abeb7'
-let g:terminal_color_7 = '#c5c8c6'
-let g:terminal_color_8 = '#1d1f21'
-let g:terminal_color_9 = '#cc6666'
-let g:terminal_color_10 = '#b5bd68'
-let g:terminal_color_11 = '#f0c674"'
-let g:terminal_color_12 = '#81a2be'
-let g:terminal_color_13 = '#b294bb'
-let g:terminal_color_14 = '#8abeb7'
+
+" Terminal: 8 normal colors 
+let g:terminal_color_0 = '#1d1f21' "black
+let g:terminal_color_1 = '#cc6666' "red
+let g:terminal_color_2 = '#b5bd68' "green
+let g:terminal_color_3 = '#f0c674' "yellow
+let g:terminal_color_4 = '#81a2be' "blue
+let g:terminal_color_5 = '#b294bb' "magenta
+let g:terminal_color_6 = '#8abeb7' "cyan
+let g:terminal_color_7 = '#c5c8c6' "white
+
+" Terminal: 8 bright colors
+let g:terminal_color_8 = '#969896' "black
+let g:terminal_color_9 = '#cc6666' "red
+let g:terminal_color_10 = '#b5bd68' "green
+let g:terminal_color_11 = '#f0c674' "yellow
+let g:terminal_color_12 = '#81a2be' "blue
+let g:terminal_color_13 = '#b294bb' "magenta
+let g:terminal_color_14 = '#8abeb7' "cyan
+let g:terminal_color_15 = '#ffffff' "white
 
 " }}}
 " Built-in extensions {{{

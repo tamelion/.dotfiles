@@ -44,6 +44,7 @@
   m = merge
   mt = mergetool
   p = push
+  pf = push --force-with-lease
   s = status -s
   sl = status
   standup = shortlog --since=yesterday

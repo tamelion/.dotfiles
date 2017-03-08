@@ -312,7 +312,7 @@ nnoremap <M-w> <C-w>c
 
 "" Special panes
 " Toggle 'default' terminal
-nnoremap <M-CR> :call ChooseTerm("term-default")<CR>
+nnoremap <M-`> :call ChooseTerm("term-default")<CR>
 " Git blame panel
 nnoremap <M-b> :Gblame<CR>
 " Fugitive git status panel

@@ -1,3 +1,38 @@
+#########################
+# Linux only
+#########################
+if [[ `uname` == 'Linux' ]]; then
+	# Listing colours
+	alias ls='ls --color'
+
+	# Update
+	alias update='pacaur -Syu'
+
+	orphans() {
+	  if [[ ! -n $(pacman -Qdt) ]]; then
+		echo "No orphans to remove."
+	  else
+		sudo pacman -Rns $(pacman -Qdtq)
+	  fi
+	}
+
+	# Wifi
+	alias wifi='sudo netctl switch-to'
+fi
+
+#########################
+# BSD/Darwin only
+#########################
+if [[ `uname` == 'Darwin' ]]; then
+	# Listing colours
+	alias ls='ls -G'
+
+	# Update
+	alias update='sudo softwareupdate -i -a; brew update; brew upgrade'
+fi
+#########################
+# General
+#########################
 # Use nvim by default
 alias vi='nvim'
 
@@ -11,14 +46,6 @@ vim() {
 		nvr "$@"
 	fi
 }
-
-# Coloured listing for BSD/Darwin and GNU
-if [[ `uname` == 'Darwin' ]]; then
-	alias ls='ls -G'
-fi
-if [[ `uname` == 'Linux' ]]; then
-	alias ls='ls --color'
-fi
 
 # Listing shorhand
 alias ll='ls -hl'
@@ -36,32 +63,5 @@ alias ssb='sake dev/build "flush=1"'
 # IP address
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
-# Arch only
-if [[ `uname` == 'Linux' ]]; then
-	# Pacman
-	alias update='pacaur -Syu'
-
-	orphans() {
-	  if [[ ! -n $(pacman -Qdt) ]]; then
-		echo "No orphans to remove."
-	  else
-		sudo pacman -Rns $(pacman -Qdtq)
-	  fi
-	}
-
-	# Wifi
-	alias wifi='sudo netctl switch-to'
-fi
-
-# OSX only
-if [[ `uname` == 'Darwin' ]]; then
-	# OSX update
-	alias update='sudo softwareupdate -i -a; brew update; brew upgrade'
-fi
-
-# Docker
-# Delete all containers
+# Delete all docker containers
 alias dc='sudo docker rm $(sudo docker ps -a -q)'
-
-# Git
-alias g='git'

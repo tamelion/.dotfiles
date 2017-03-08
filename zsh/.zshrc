@@ -1,6 +1,6 @@
-#########
+#########################
 # General
-#########
+#########################
 
 # We have colours
 export TERM="xterm-256color"
@@ -16,9 +16,9 @@ zstyle ':completion:*' menu select
 
 
 
-#########
+#########################
 # Zplug
-#########
+#########################
 
 # check zplug is installed
 if [[ ! -d ~/.zplug ]]; then

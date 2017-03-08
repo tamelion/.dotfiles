@@ -12,9 +12,17 @@ vim() {
 	fi
 }
 
-# Listing
-alias ls='ls -G --color'
-alias la='ls -Ahl --color'
+# Coloured listing for BSD/Darwin and GNU
+if [[ `uname` == 'Darwin' ]]; then
+	alias ls='ls -G'
+fi
+if [[ `uname` == 'Linux' ]]; then
+	alias ls='ls --color'
+fi
+
+# Listing shorhand
+alias ll='ls -hl'
+alias la='ls -Ahl'
 
 # Ranger
 alias r='ranger'

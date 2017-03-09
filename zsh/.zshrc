@@ -14,8 +14,6 @@ zstyle ':completion:*' menu select
 # fuzzy find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
-
 #########################
 # Zplug
 #########################
@@ -41,9 +39,6 @@ zplug "urbainvaes/fzf-marks"
 
 # bd to go back up to a dir
 zplug "Tarrasch/zsh-bd"
-
-# nvm
-zplug "lukechilds/zsh-nvm"
 
 # syntax highlighting and history come last
 zplug "zsh-users/zsh-syntax-highlighting", defer:2

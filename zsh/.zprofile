@@ -18,7 +18,6 @@ export PAGER='less'
 # Other env vars
 #
 
-export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 export VBOX_USER_HOME=$HOME/vm
 
 #
@@ -41,7 +40,6 @@ path=(
   $HOME/.local/bin
   $HOME/.asdf/bin
   $HOME/.asdf/shims
-  $(ruby -e 'print Gem.user_dir')/bin
   /usr/local/bin
   $path
 )

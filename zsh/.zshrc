@@ -4,8 +4,13 @@
 
 # We have colours
 export TERM="xterm-256color"
-# Share history file amongst all Zsh sessions, ignoring dupes
-setopt append_history share_history histignorealldups
+
+# Write history when term exits, remove duplicates
+setopt append_history hist_ignore_all_dups
+HISTFILE=~/.zhistory
+HISTSIZE=1000
+SAVEHIST=1000
+
 # Complete with menu
 zstyle ':completion:*' menu select
 

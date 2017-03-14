@@ -14,23 +14,17 @@ fi
 
 # Sync Xresources
 if [ -s ~/.Xresources ]; then
-	xrdb -merge ~/.Xresources
+	xrdb -merge "$XDG_CONFIG_HOME/xorg/Xresources"
 fi
 
 # Bind multimedia keys
-xbindkeys
+xbindkeys -f "$XDG_CONFIG_HOME/xorg/xbindkeysrc"
 
 # Turn num lock on
 numlockx &
 
 # Run local scripts
 autorun-scripts
-
-# Export bin path for dmenu and other X apps
-#export PATH=$PATH:~/.local/bin
-
-# Start clipmenu daemon
-clipmenud &
 
 # Start WM
 exec i3

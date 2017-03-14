@@ -21,17 +21,17 @@ sh -c "sp next"
 
 # Mute
 #"amixer -q sset Master toggle"
-sh -c "pactl -- set-sink-mute 1 toggle"
+sh -c "pactl -- set-sink-mute @DEFAULT_SINK@ toggle"
   XF86AudioMute 
 
 # Increase volume
 #"amixer -q sset Master 3%+"
-sh -c "pactl -- set-sink-volume 1 +5%"
+sh -c "pactl -- set-sink-volume @DEFAULT_SINK@  +5%"
   XF86AudioRaiseVolume
 
 # Decrease volume
 #"amixer -q sset Master 3%-"
-sh -c "pactl -- set-sink-volume 1 -5%"
+sh -c "pactl -- set-sink-volume @DEFAULT_SINK@  -5%"
   XF86AudioLowerVolume
 
 # Increase brightness

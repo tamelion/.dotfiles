@@ -24,41 +24,44 @@ zstyle ':completion:*' menu select
 # Zplug
 #
 
-# check zplug is installed
-if [[ ! -d ~/.zplug ]]; then
-  git clone https://github.com/zplug/zplug ~/.zplug
+# If not installed
+if [[ ! -d "$ZPLUG_HOME" ]]; then
+  git clone https://github.com/zplug/zplug $ZPLUG_HOME
 fi
 
-# init
-source ~/.zplug/init.zsh
+# If installed
+if [[ -s "$ZPLUG_HOME" ]]; then
+  # init
+  source $ZPLUG_HOME/init.zsh
 
-# theme
-zplug "denysdovhan/spaceship-zsh-theme", as:theme
-SPACESHIP_PROMPT_SYMBOL='➔'
-SPACESHIP_VI_MODE_SHOW=false
+  # theme
+  zplug "denysdovhan/spaceship-zsh-theme", as:theme
+  SPACESHIP_PROMPT_SYMBOL='➔'
+  SPACESHIP_VI_MODE_SHOW=false
 
-# more commands for git
-zplug "unixorn/git-extra-commands"
+  # more commands for git
+  zplug "unixorn/git-extra-commands"
 
-# bookmarks
-zplug "urbainvaes/fzf-marks"
+  # bookmarks
+  zplug "urbainvaes/fzf-marks"
 
-# bd to go back up to a dir
-zplug "Tarrasch/zsh-bd"
+  # bd to go back up to a dir
+  zplug "Tarrasch/zsh-bd"
 
-# syntax highlighting and history come last
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-history-substring-search", defer:3
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+  # syntax highlighting and history come last
+  zplug "zsh-users/zsh-syntax-highlighting", defer:2
+  zplug "zsh-users/zsh-history-substring-search", defer:3
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
 
-# Check for plugins which need installing
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
+  # Check for plugins which need installing
+  if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+      echo; zplug install
+    fi
   fi
-fi
 
-# Source plugins and add commands to $PATH
-zplug load
+  # Source plugins and add commands to $PATH
+  zplug load
+fi

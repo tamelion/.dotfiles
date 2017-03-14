@@ -1,13 +1,13 @@
-#########################
+#
 # General
-#########################
+#
 
 # We have colours
 export TERM="xterm-256color"
 
 # Write history when term exits, remove duplicates
 setopt append_history hist_ignore_all_dups
-HISTFILE=~/.zhistory
+HISTFILE="$XDG_DATA_HOME"/zsh/history
 HISTSIZE=1000
 SAVEHIST=1000
 
@@ -15,13 +15,14 @@ SAVEHIST=1000
 zstyle ':completion:*' menu select
 
 # custom aliases
-[ -f ~/.alias ] && source ~/.alias
+[[ -f "$XDG_CONFIG_HOME/zsh/.alias" ]] && source "$XDG_CONFIG_HOME/zsh/.alias"
 # fuzzy find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#########################
+
+#
 # Zplug
-#########################
+#
 
 # check zplug is installed
 if [[ ! -d ~/.zplug ]]; then

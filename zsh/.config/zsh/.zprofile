@@ -1,10 +1,23 @@
 #
+# Temporary Files
+#
+
+if [[ ! -d "$TMPDIR" ]]; then
+  export TMPDIR="/tmp/$LOGNAME"
+  mkdir -p -m 700 "$TMPDIR"
+fi
+
+
+TMPPREFIX="${TMPDIR%/}/zsh"
+
+#
 # Browser
 #
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
 fi
+
 
 #
 # Editors
@@ -14,11 +27,13 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export PAGER='less'
 
+
 #
 # Other env vars
 #
 
 export VBOX_USER_HOME=$HOME/vm
+
 
 #
 # Language
@@ -27,6 +42,7 @@ export VBOX_USER_HOME=$HOME/vm
 if [[ -z "$LANG" ]]; then
   export LANG='en_NZ.UTF-8'
 fi
+
 
 #
 # Paths
@@ -43,14 +59,3 @@ path=(
   /usr/local/bin
   $path
 )
-
-#
-# Temporary Files
-#
-
-if [[ ! -d "$TMPDIR" ]]; then
-  export TMPDIR="/tmp/$LOGNAME"
-  mkdir -p -m 700 "$TMPDIR"
-fi
-
-TMPPREFIX="${TMPDIR%/}/zsh"

@@ -35,17 +35,7 @@ fi
 #########################
 # Use nvim by default
 alias vi='nvim'
-
-# neovim handle running from inside neovim terminal
-# (needs vim plugin neovim-remote)
-vim() {
-	if [[ -z $NVIM_LISTEN_ADDRESS ]]; then
-		# not running inside nvim
-		nvim "$@"
-	else
-		nvr "$@"
-	fi
-}
+alias vim='nvim'
 
 # Listing shorhand
 alias ll='ls -hl'

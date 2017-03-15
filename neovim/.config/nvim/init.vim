@@ -11,8 +11,6 @@ call plug#begin()
 "Plug 'tek/proteome.nvim'
 "Plug 'airodactyl/neovim-ranger'
 
-" Connect to already running neovim
-Plug 'mhinz/neovim-remote'
 " Pretty icons
 Plug 'ryanoasis/vim-devicons'
 " Coding colour schemes

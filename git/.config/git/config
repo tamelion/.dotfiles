@@ -39,7 +39,8 @@
   cF = commit --verbose --amend
   d = diff
   g = grep -n
-  l = "log --topo-order --pretty=format:'%C(auto)%h %s%n%C(cyan)(%ar by %an)%C(auto)%d%n'"
+  l = "log -10 --topo-order --pretty=format:'%C(auto)%h %s%n%C(cyan)(%ar by %an)%C(auto)%d%n'"
+  ll = "log --topo-order"
   lg = "log --topo-order --all --graph --simplify-by-decoration --pretty=format:'%C(auto)%h %s%d'"
   m = merge
   mt = mergetool

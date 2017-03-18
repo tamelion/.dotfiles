@@ -29,10 +29,6 @@ export PAGER='less'
 export PAGER='less'
 export LESSHISTFILE=-
 
-# xorg
-export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
-export XINITRC="$XDG_CONFIG_HOME"/xorg/xinitrc
-
 # Virtual machines
 export VBOX_USER_HOME=$HOME/vm
 

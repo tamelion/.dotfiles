@@ -32,6 +32,10 @@ export LESSHISTFILE=-
 # Virtual machines
 export VBOX_USER_HOME=$HOME/vm
 
+# Composer
+export COMPOSER_HOME="$XDG_CONFIG_HOME"/composer
+export COMPOSER_CACHE_DIR="$XDG_CACHE_HOME"/composer
+
 # Browser
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
@@ -42,11 +46,11 @@ fi
 # Paths
 #
 path=(
-  $HOME/.local/bin
-  $HOME/.asdf/bin
-  $HOME/.asdf/shims
-  /usr/local/bin
-  $path
+$HOME/.local/bin
+$HOME/.asdf/bin
+$HOME/.asdf/shims
+/usr/local/bin
+$path
 )
 
 # Ensure unique paths in array

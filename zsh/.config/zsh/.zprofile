@@ -19,8 +19,6 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 export ZPLUG_HOME="$XDG_CACHE_HOME/zplug"
 
 # Editors
-#
-
 export EDITOR='nvim'
 export VISUAL='nvim'
 export PAGER='less'
@@ -41,6 +39,8 @@ if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
 fi
 
+# Development
+export NODE_ENV=dev
 
 #
 # Paths

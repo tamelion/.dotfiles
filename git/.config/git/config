@@ -46,6 +46,7 @@
   mt = mergetool
   p = push
   pf = push --force-with-lease
+  r = "!f() { git fetch; git rebase origin/$1; }; f"
   s = status -s
   sl = status
   standup = shortlog --since=yesterday

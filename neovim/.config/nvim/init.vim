@@ -223,7 +223,7 @@ let g:undotree_SetFocusWhenToggle = 1
 nnoremap ; :
 
 " Edit from current directory
-nnoremap <C-\> :e %:p:h<CR>
+nnoremap \ :e %:p:h<CR>
 
 " Home row friendly navigation
 nnoremap H ^
@@ -237,7 +237,7 @@ vnoremap > >gv
 nnoremap gp `[v`]
 
 " Files
-nnoremap <CR> :GFiles!<CR>
+nnoremap <CR> :GFiles<CR>
 
 " Ban ex mode
 nnoremap Q <Nop>
@@ -311,7 +311,9 @@ nnoremap <M-w> <C-w>c
 
 "" Special panes
 " Toggle 'default' terminal
-nnoremap <M-`> :call ChooseTerm("term-default")<CR>
+nnoremap <M-`> :call ChooseTerm("term-slider", 1)<CR>
+" Start terminal in pane
+nnoremap <M-CR> :call ChooseTerm("term-pane", 0)<CR>
 " Git blame panel
 nnoremap <M-b> :Gblame<CR>
 " Fugitive git status panel
@@ -355,7 +357,7 @@ nnoremap <Leader>F :Ag! -U
 " git changes (status)
 nnoremap <Leader>s :GFiles?<CR>
 " Open from all files in CWD
-nnoremap <Leader>o :Files!<CR>
+nnoremap <Leader>o :Files<CR>
 " Recently opened files
 nnoremap <Leader>r :History<CR>!term: 
 " Search non-UTF8 characters
@@ -392,19 +394,27 @@ let @v = ':%s/ / /ge:%s//‘/ge:%s//’/ge:%s//“/ge:%s//”/ge:%
 " }}}
 "  Functions and commands {{{
 
-function! ChooseTerm(termname)
+function! ChooseTerm(termname, slider)
 	let pane = bufwinnr(a:termname)
 	let buf = bufexists(a:termname)
 	if pane > 0
-		" buffer is visible, close
-		:exe pane . "wincmd c"
+		" pane is visible
+		if a:slider > 0
+			:exe pane . "wincmd c"
+		else
+			:exe "e #" 
+		endif
 	elseif buf > 0
-		" buffer is not in pane, show
-		:exe "topleft split"
+		" buffer is not in pane
+		if a:slider
+			:exe "topleft split"
+		endif
 		:exe "buffer " . a:termname
 	else
 		" buffer is not loaded, create
-		:exe "topleft split"
+		if a:slider
+			:exe "topleft split"
+		endif
 		:terminal
 		:exe "f " a:termname
 	endif

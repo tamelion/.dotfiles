@@ -22,6 +22,9 @@ if [ -s "$XDG_CONFIG_HOME/X11/xbindkeysrc" ]; then
 	xbindkeys -f "$XDG_CONFIG_HOME/X11/xbindkeysrc"
 fi
 
+# Caps lock has control
+setxkbmap -option ctrl:nocaps
+
 # Turn num lock on
 numlockx &
 

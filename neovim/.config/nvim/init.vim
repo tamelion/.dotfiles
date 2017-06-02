@@ -11,6 +11,8 @@ call plug#begin()
 "Plug 'tek/proteome.nvim'
 "Plug 'airodactyl/neovim-ranger'
 
+" Preview yanks when pasting
+Plug 'junegunn/vim-peekaboo'
 " Pretty icons
 Plug 'ryanoasis/vim-devicons'
 " Coding colour schemes
@@ -27,6 +29,8 @@ Plug 'Shougo/deoplete.nvim' | Plug 'mhartington/deoplete-typescript'
 Plug 'tpope/vim-fugitive'
 " Git markers
 Plug 'airblade/vim-gitgutter'
+" Github gists
+Plug 'mattn/gist-vim'
 " Useful macros using [ and ]
 Plug 'tpope/vim-unimpaired'
 " Use . repeat for tpope plugins
@@ -60,7 +64,7 @@ Plug 'HerringtonDarkholme/yats.vim'
 " JS and TS doc
 Plug 'heavenshell/vim-jsdoc'
 " PHP improved omnicompletion
-"Plug 'shawncplus/phpcomplete.vim', { 'for' : 'php' }
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 " PHP standards
 "Plug 'beanworks/vim-phpfmt'
 
@@ -101,12 +105,11 @@ autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#Comp
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4
-autocmd FileType zsh,yaml,python,json setlocal expandtab shiftwidth=2 tabstop=2
+autocmd FileType zsh,yaml,python,json,coffee setlocal expandtab shiftwidth=2 tabstop=2
 autocmd! BufWritePost * Neomake
 
 "" Colours and fonts
 set termguicolors " 24 bit colour
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1 " Allow insert cursor shape
 syntax enable " Enable syntax highlighting
 set background=dark
 set cursorline " Highlight current line
@@ -175,9 +178,15 @@ function! AirlineCustomInit()
 endfunction
 "autocmd User AirlineAfterInit call AirlineCustomInit()
 
+"" Auto pairs
+let g:AutoPairsMultilineClose = 0
+
 "" JSDoc
 let g:jsdoc_enable_es6 = 1
 let g:jsdoc_input_description = 1
+
+"" Peekaboo
+let g:peekaboo_window = 'vert bo 50new'
 
 "" PHPfmt
 let g:phpfmt_standard = 'PSR2'
@@ -186,10 +195,17 @@ let g:phpfmt_autosave = 0
 "" Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#tss#javascript_support = 1
+" Ignore omni in favour of phpcd
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = ['omni']
 
 "" FZF
 let g:fzf_layout = { 'down': '~33%' }
 let g:fzf_buffers_jump = 1 " Jump to open buffer if matched
+let g:fzf_action = {
+  \ 'alt-t': 'tab split',
+  \ 'alt-x': 'split',
+  \ 'alt-v': 'vsplit' }
 
 "" Neosnippet
 let g:neosnippet#snippets_directory = '~/code/snippets'
@@ -220,18 +236,14 @@ vnoremap > >gv
 " Select last pasted
 nnoremap gp `[v`]
 
-" Buffers
-nnoremap <CR> :Buffers<CR>!term 
+" Files
+nnoremap <CR> :GFiles!<CR>
 
 " Ban ex mode
 nnoremap Q <Nop>
 
 " Fix Y
 nnoremap Y y$
-
-" Grepper (motion and visual)
-nmap gs <plug>(GrepperOperator)
-xmap gs <plug>(GrepperOperator)
 
 " Fuzzy find files
 nnoremap <C-p> :Files<CR>
@@ -260,8 +272,8 @@ nnoremap ,j <Nop>
 "" Tabs
 " Tab new
 nnoremap <M-t> :tabnew<CR>
-" Edit current pane in new tab
-nnoremap <M-e> :tabedit %<CR>
+" Move current pane to new tab
+nnoremap <M-f> :tabedit %<CR>gT<C-w>cgt
 " Tab move
 nmap <M-,> gT
 nmap <M-.> gt
@@ -275,17 +287,6 @@ nmap <M-6> 6gt
 nmap <M-7> 7gt
 nmap <M-8> 8gt
 nmap <M-9> 9gt
-" Move to tab by ID (index in command is for tab before)
-nmap <M-!> :tabm0<CR>
-nmap <M-@> :tabm1<CR>
-nmap <M-#> :tabm2<CR>
-nmap <M-$> :tabm3<CR>
-nmap <M-$> :tabm3<CR>
-nmap <M-%> :tabm4<CR>
-nmap <M-^> :tabm5<CR>
-nmap <M-&> :tabm6<CR>
-nmap <M-*> :tabm7<CR>
-nmap <M-(> :tabm8<CR>
 
 "" Panes
 " Pane open
@@ -324,29 +325,39 @@ nnoremap <M-u> :UndotreeToggle<CR>
 
 " Map Leader
 map <Space> <Leader>
-" Buffers (from places where <CR> is not good enough)
-nnoremap <Leader><CR> :Buffers<CR>
-" Marks
-nnoremap <Leader>' :Marks<CR>
-" Blurred lines
-nnoremap <Leader>/ :Lines<CR>
-" Find next non-unicode character
-nnoremap <Leader>@ /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-unicode characters"<CR>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
-nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
-" Move to current tab format, remove trailing space and re-indent file
-nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
-" Fuzzy find git commits
-nnoremap <Leader>c :Commits<CR>
-" Find in project files
-nnoremap <Leader>f :Rag -u 
-vnoremap <Leader>f "fy:Rag -u <C-r>f<CR>
-" Change tab type
+" Buffers
+nnoremap <Leader><CR> :Buffers<CR>!term: 
+" Change tab type and width
 nnoremap <Leader><Tab> :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
 nnoremap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>
 nnoremap <Leader>4 :set tabstop=4<CR>:set shiftwidth=4<CR>
 nnoremap <Leader>8 :set tabstop=8<CR>:set shiftwidth=8<CR>
+" Marks
+nnoremap <Leader>' :Marks<CR>
+" Commands
+nnoremap <Leader>; :Commands<CR>
+" Blurred lines
+nnoremap <Leader>/ :Lines<CR>
+" Find next non-unicode character
+nnoremap <Leader>@ /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-unicode characters"<CR>
+nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
+" Move to current tab format, remove trailing space and re-indent file
+nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
+" git commits in buffer
+nnoremap <Leader>b :BCommits<CR>
+" git commits in repo
+nnoremap <Leader>c :Commits<CR>
+" Find in project files (or in all modules)
+nnoremap <Leader>f :Ag! 
+nnoremap <Leader>F :Ag! -U 
+" git changes (status)
+nnoremap <Leader>s :GFiles?<CR>
+" Open from all files in CWD
+nnoremap <Leader>o :Files!<CR>
+" Recently opened files
+nnoremap <Leader>r :History<CR>!term: 
 " Search non-UTF8 characters
 nnoremap <Leader>u /[^\x00-\x7F]<CR>
 " Fast open vimrc
@@ -399,6 +410,11 @@ function! ChooseTerm(termname)
 	endif
 endfunction
 
-" Make :Rag take flags for Ag
-command! -nargs=+ -complete=file Rag call fzf#vim#ag_raw(<q-args>)
+" Override FZF commands to include preview windows
+command! -bang -nargs=? -complete=dir GFiles
+  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag_raw(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
 "  }}}

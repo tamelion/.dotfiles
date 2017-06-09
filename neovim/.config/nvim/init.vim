@@ -13,6 +13,8 @@ call plug#begin()
 
 " Preview yanks when pasting
 Plug 'junegunn/vim-peekaboo'
+" Replace by yanking to black hole
+Plug 'vim-scripts/ReplaceWithRegister'
 " Pretty icons
 Plug 'ryanoasis/vim-devicons'
 " Coding colour schemes
@@ -329,8 +331,8 @@ nnoremap <M-u> :UndotreeToggle<CR>
 map <Space> <Leader>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
-" Buffers
-nnoremap <Leader><CR> :Buffers<CR>!term: 
+" Open from all files (including those not in git repo)
+nnoremap <Leader><CR> :Files<CR>
 " Change tab type and width
 nnoremap <Leader><Tab> :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
 nnoremap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>
@@ -354,10 +356,16 @@ nnoremap <Leader>c :Commits<CR>
 " Find in project files (or in all modules)
 nnoremap <Leader>f :Ag! 
 nnoremap <Leader>F :Ag! -U 
+" git add
+nnoremap <Leader>ga :Gwrite<CR>
+" git checkout
+nnoremap <Leader>gco :Gread<CR>
+" git move
+nnoremap <Leader>gmv :Gmove 
 " git changes (status)
-nnoremap <Leader>s :GFiles?<CR>
-" Open from all files in CWD
-nnoremap <Leader>o :Files<CR>
+nnoremap <Leader>gs :GFiles?<CR>
+" git remove
+nnoremap <Leader>grm :Gremove<CR>
 " Recently opened files
 nnoremap <Leader>r :History<CR>!term: 
 " Search non-UTF8 characters

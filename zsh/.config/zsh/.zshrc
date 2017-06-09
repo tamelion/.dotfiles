@@ -2,9 +2,6 @@
 # General
 #
 
-# We have colours
-export TERM="xterm-256color"
-
 # Write history when term exits, remove duplicates
 setopt append_history hist_ignore_all_dups
 HISTFILE="$XDG_DATA_HOME"/zsh/history

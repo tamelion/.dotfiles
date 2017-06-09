@@ -239,16 +239,13 @@ vnoremap > >gv
 nnoremap gp `[v`]
 
 " Files
-nnoremap <CR> :GFiles<CR>
+nnoremap <CR> :FilesGit<CR>
 
 " Ban ex mode
 nnoremap Q <Nop>
 
 " Fix Y
 nnoremap Y y$
-
-" Fuzzy find files
-nnoremap <C-p> :Files<CR>
 
 " Neosnippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -275,10 +272,10 @@ nnoremap ,j <Nop>
 " Tab new
 nnoremap <M-t> :tabnew<CR>
 " Move current pane to new tab
-nnoremap <M-f> :tabedit %<CR>gT<C-w>cgt
+nnoremap <M-T> :tabedit %<CR>gT<C-w>cgt
 " Tab move
-nmap <M-,> gT
-nmap <M-.> gt
+nmap <M-o> gt
+nmap <M-i> gT
 " Tab by ID
 nmap <M-1> 1gt
 nmap <M-2> 2gt
@@ -316,10 +313,6 @@ nnoremap <M-w> <C-w>c
 nnoremap <M-`> :call ChooseTerm("term-slider", 1)<CR>
 " Start terminal in pane
 nnoremap <M-CR> :call ChooseTerm("term-pane", 0)<CR>
-" Git blame panel
-nnoremap <M-b> :Gblame<CR>
-" Fugitive git status panel
-nnoremap <M-g> :Gstatus<CR>
 " Create new file and set syntax
 nnoremap <M-n> :enew<CR>:set syntax=
 " Toggle undo tree
@@ -331,8 +324,8 @@ nnoremap <M-u> :UndotreeToggle<CR>
 map <Space> <Leader>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
-" Open from all files (including those not in git repo)
-nnoremap <Leader><CR> :Files<CR>
+" Open from all files in pwd
+nnoremap <Leader><CR> :FilesAll<CR>
 " Change tab type and width
 nnoremap <Leader><Tab> :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
 nnoremap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>
@@ -349,23 +342,32 @@ nnoremap <Leader>@ /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-u
 nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
 " Move to current tab format, remove trailing space and re-indent file
 nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
-" git commits in buffer
-nnoremap <Leader>b :BCommits<CR>
-" git commits in repo
-nnoremap <Leader>c :Commits<CR>
-" Find in project files (or in all modules)
-nnoremap <Leader>f :Ag! 
-nnoremap <Leader>F :Ag! -U 
+" Find (respect .gitignore, include hidden files, ignore .git dir)
+nnoremap <Leader>f :Find --hidden --ignore .git 
+" Find (disregard .gitignore, include hidden files, ignore .git dir)
+nnoremap <Leader>F :Find -U --hidden --ignore .git 
+" cd to git repo which contains current file
+nnoremap <Leader>g. :Gcd<CR>:pwd<CR>
 " git add
 nnoremap <Leader>ga :Gwrite<CR>
-" git checkout
-nnoremap <Leader>gco :Gread<CR>
+" git add
+nnoremap <Leader>gb :Gblame<CR>
+" git commit
+nnoremap <Leader>gc :Gwrite<CR>
+" git checkout (edit)
+nnoremap <Leader>ge :Gread<CR>
+" git status find
+nnoremap <Leader>gf :GFiles?<CR>
+" git log (buffer history)
+nnoremap <Leader>gh :BCommits<CR>
+" git log (repo)
+nnoremap <Leader>gl :Commits<CR>
 " git move
-nnoremap <Leader>gmv :Gmove 
-" git changes (status)
-nnoremap <Leader>gs :GFiles?<CR>
+nnoremap <Leader>gm :Gmove 
+" git status
+nnoremap <Leader>gs :Gstatus<CR>
 " git remove
-nnoremap <Leader>grm :Gremove<CR>
+nnoremap <Leader>gd :Gremove<CR>
 " Recently opened files
 nnoremap <Leader>r :History<CR>!term: 
 " Search non-UTF8 characters
@@ -429,10 +431,10 @@ function! ChooseTerm(termname, slider)
 endfunction
 
 " Override FZF commands to include preview windows
-command! -bang -nargs=? -complete=dir GFiles
-  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag_raw(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
+command! -bang -nargs=? -complete=dir FilesGit
+  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview({'source': 'ag --hidden --ignore .git -g ""'}), <bang>0)
+command! -bang -nargs=? -complete=dir FilesAll
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'source': 'ag -U --hidden --ignore .git -g ""'}), <bang>0)
+command! -bang -nargs=* Find
+  \ call fzf#vim#ag_raw(<q-args>, fzf#vim#with_preview(), <bang>1)
 "  }}}

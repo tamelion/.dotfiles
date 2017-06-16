@@ -37,7 +37,7 @@ bindsym $mod+Escape exec --no-startup-id i3lock -n -c 000000 -i ~/.lockscreen.jp
 bindsym $mod+space exec --no-startup-id rofi -show combi
 
 # start a terminal command
-bindsym $mod+Return exec --no-startup-id rofi -show run -sidebar-mode
+bindsym $mod+Return exec --no-startup-id termite
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+semicolon move scratchpad
@@ -91,41 +91,29 @@ bindsym $mod+c focus child
 # screenshot
 bindsym --release Print exec --no-startup-id scrot -s
 
-# workspace variables
-set $0 0~laptop
-set $1 1~web
-set $2 2~dev
-set $3 3~docs
-set $4 4~graphics
-set $5 5
-set $6 6
-set $7 7
-set $8 8
-set $9 9
-
 # switch to workspace
-bindsym $mod+grave workspace $0
-bindsym $mod+1 workspace $1
-bindsym $mod+2 workspace $2
-bindsym $mod+3 workspace $3
-bindsym $mod+4 workspace $4
-bindsym $mod+5 workspace $5
-bindsym $mod+6 workspace $6
-bindsym $mod+7 workspace $7
-bindsym $mod+8 workspace $8
-bindsym $mod+9 workspace $9
+bindsym $mod+grave workspace 0
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
 
 # move with focused container to workspace
-bindsym $mod+Shift+grave move container to workspace $0; workspace $0
-bindsym $mod+Shift+1 move container to workspace $1; workspace $1
-bindsym $mod+Shift+2 move container to workspace $2; workspace $2
-bindsym $mod+Shift+3 move container to workspace $3; workspace $3
-bindsym $mod+Shift+4 move container to workspace $4; workspace $4
-bindsym $mod+Shift+5 move container to workspace $5; workspace $5
-bindsym $mod+Shift+6 move container to workspace $6; workspace $6
-bindsym $mod+Shift+7 move container to workspace $7; workspace $7
-bindsym $mod+Shift+8 move container to workspace $8; workspace $8
-bindsym $mod+Shift+9 move container to workspace $9; workspace $9
+bindsym $mod+Shift+grave move container to workspace 0; workspace 0
+bindsym $mod+Shift+1 move container to workspace 1; workspace 1
+bindsym $mod+Shift+2 move container to workspace 2; workspace 2
+bindsym $mod+Shift+3 move container to workspace 3; workspace 3
+bindsym $mod+Shift+4 move container to workspace 4; workspace 4
+bindsym $mod+Shift+5 move container to workspace 5; workspace 5
+bindsym $mod+Shift+6 move container to workspace 6; workspace 6
+bindsym $mod+Shift+7 move container to workspace 7; workspace 7
+bindsym $mod+Shift+8 move container to workspace 8; workspace 8
+bindsym $mod+Shift+9 move container to workspace 9; workspace 9
 
 # resize
 bindsym $mod+Left resize shrink width 10 px or 10 ppt
@@ -134,8 +122,8 @@ bindsym $mod+Up resize shrink height 10 px or 10 ppt
 bindsym $mod+Right resize grow width 10 px or 10 ppt
 
 # quick switch workspace
-bindsym $mod+period workspace next_on_output
-bindsym $mod+comma workspace prev_on_output
+bindsym $mod+o workspace next_on_output
+bindsym $mod+i workspace prev_on_output
 
 # tomorrow colours (except blue)
 set $red    #cc6666
@@ -159,22 +147,8 @@ client.unfocused            $black     $dgrey      $lgrey
 client.focused_inactive     $grey      $grey       $black
 client.urgent               $purple    $purple     $white
 
-# Start i3bar
-bar {
-        position top
-		tray_output primary
-        status_command i3status
-        #status_command conky-i3bar # custom script in ~/.bin
-        colors {              # border      background  text
-            background          $dgrey
-            statusline          $white
-            separator           $grey
-            focused_workspace   $blue       $blue       $black
-            inactive_workspace  $grey       $dgrey      $lgrey
-            active_workspace    $blue       $dgrey      $blue
-            urgent_workspace    $purple     $purple     $white
-        }
-}
+# Start polybar
+exec_always --no-startup-id polybar-reload
 
 #bindsym $mod+\ mode "example"
 #mode "example" {

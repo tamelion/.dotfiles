@@ -16,8 +16,10 @@ sh -c "sp play"
   XF86AudioPlay
 
 # Skip
+sh -c "sp prev"
+  XF86AudioPrev
 sh -c "sp next"
-  XF86Calculator
+  XF86AudioNext
 
 # Mute
 #"amixer -q sset Master toggle"

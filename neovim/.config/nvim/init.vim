@@ -91,6 +91,7 @@ set noshowmode " Mode already displayed in airline
 set so=999 " Scrolloff - keep cursor centred
 set splitbelow splitright " Window split direction
 set undofile undodir=~/.config/nvim/undo " Persistent undo
+set synmaxcol=500
 
 "" Indentation
 set tabstop=4 " Width of existing tabs to display on file open
@@ -154,7 +155,7 @@ set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
 set wildignore+=*\\node_modules\\*,*\\bower_components\\* " Windows
 set wildignore+=*.zip,*.exe,*.ini,*.db,*.ics,*.db,*.ics
 set wildignore+=*.eot,*.ttf,*.woff,*.ico
-set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.svg,*.gif,*.tiff,*.eps,*.psd
+set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.gif,*.tiff,*.eps,*.psd
 set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls
 
 "" Macros

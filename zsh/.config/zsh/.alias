@@ -51,7 +51,7 @@ alias j='jump'
 alias ssb='sake dev/build "flush=1"'
 
 # IP address
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 # Delete all docker containers
 alias dc='sudo docker rm $(sudo docker ps -a -q)'

@@ -9,10 +9,9 @@ exec --no-startup-id set-wallpaper
 # aliases
 set $alt Mod1
 set $cmd Mod4
-set $mod Mod3
 
 # mouse drags floating windows with this
-floating_modifier $mod 
+floating_modifier $cmd 
 
 # window design
 new_window pixel 2
@@ -49,88 +48,90 @@ client.urgent               $purple    $purple     $white
 ## General keybindings
 #########################
 
-# reload config file
-bindsym $mod+r reload
-
-# restart i3
-bindsym $mod+shift+r restart
-
-# exit i3
-bindsym $mod+shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
 # lock screen
 bindsym ctrl+$alt+l exec --no-startup-id i3lock -n -c 000000 -i ~/.lockscreen.jpg
-
-# start a terminal command
-bindsym $mod+Return exec --no-startup-id termite
-
-# make currently focused window a scratchpad
-bindsym $mod+Shift+semicolon move scratchpad
-
-# show first scratchpad window
-bindsym $mod+semicolon scratchpad show
-
-# change window focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
-# move window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# move current workspace to next output
-bindsym $mod+x move workspace to output right
-
-# vertical split (i3 calls this h)
-bindsym $mod+bar split h
-
-# horizontal split (i3 calls this v)
-bindsym $mod+minus split v
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
-
-# change container layout
-bindsym $mod+t layout tabbed
-bindsym $mod+s layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+Tab floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+Tab focus mode_toggle
-
-# focus the parent container
-bindsym $mod+p focus parent
-
-# focus the child container
-bindsym $mod+c focus child
-
-# resize
-bindsym $mod+Left resize shrink width 10 px or 10 ppt
-bindsym $mod+Down resize grow height 10 px or 10 ppt
-bindsym $mod+Up resize shrink height 10 px or 10 ppt
-bindsym $mod+Right resize grow width 10 px or 10 ppt
-
-#bindsym $mod+\ mode "example"
-#mode "example" {
-        #bindsym a exec something; mode "default"
-        #bindsym Escape mode "default"
-#}
 
 # screenshot
 bindsym --release Print exec --no-startup-id scrot -s
 
-# re-run automatic scripts
-bindsym $mod+m exec --no-startup-id autorun-scripts
+# WM mode
+bindsym ctrl+space mode "WM"
 
-# HDMI sound toggle
-bindsym $mod+a exec --no-startup-id hdmi-sound
+mode "WM" {
 
+	bindsym Escape mode "default"
+
+	# vertical split (i3 calls this h)
+	bindsym bar split h
+
+	# horizontal split (i3 calls this v)
+	bindsym minus split v
+
+	# focus the parent container
+	bindsym p focus parent
+
+	# focus the child container
+	bindsym c focus child
+
+	# resize
+	bindsym Left resize shrink width 10 px or 10 ppt
+	bindsym Down resize grow height 10 px or 10 ppt
+	bindsym Up resize shrink height 10 px or 10 ppt
+	bindsym Right resize grow width 10 px or 10 ppt
+
+	# reload config file
+	bindsym r reload; mode "default"
+
+	# restart i3
+	bindsym shift+r restart; mode "default"
+
+	# exit i3
+	bindsym q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"; mode "default"
+
+	# start a terminal command
+	bindsym Return exec --no-startup-id termite; mode "default"
+
+	# make currently focused window a scratchpad
+	bindsym Shift+semicolon move scratchpad; mode "default"
+
+	# show first scratchpad window
+	bindsym semicolon scratchpad show; mode "default"
+
+	# change window focus
+	bindsym h focus left; mode "default"
+	bindsym j focus down; mode "default"
+	bindsym k focus up; mode "default"
+	bindsym l focus right; mode "default"
+
+	# move window
+	bindsym Shift+h move left; mode "default"
+	bindsym Shift+j move down; mode "default"
+	bindsym Shift+k move up; mode "default"
+	bindsym Shift+l move right; mode "default"
+
+	# move current workspace to next output
+	bindsym x move workspace to output right; mode "default"
+
+	# enter fullscreen mode for the focused container
+	bindsym f fullscreen; mode "default"
+
+	# change container layout
+	bindsym t layout tabbed; mode "default"
+	bindsym s layout toggle split; mode "default"
+
+	# toggle tiling / floating
+	bindsym Shift+Tab floating toggle; mode "default"
+
+	# change focus between tiling / floating windows
+	bindsym Tab focus mode_toggle; mode "default"
+
+	# re-run automatic scripts
+	bindsym m exec --no-startup-id autorun-scripts; mode "default"
+
+	# HDMI sound toggle
+	bindsym a exec --no-startup-id hdmi-sound; mode "default"
+
+}
 
 #########################
 ## MacOS keybindings

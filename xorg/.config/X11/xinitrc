@@ -22,15 +22,8 @@ if [ -s "$XDG_CONFIG_HOME/X11/xbindkeysrc" ]; then
 	xbindkeys -f "$XDG_CONFIG_HOME/X11/xbindkeysrc"
 fi
 
-# Caps lock is escape
-setxkbmap -option ctrl:escape
-# Left super is meta
-setxkbmap -option altwin:meta_win
-# Move right alt to mod3 (for WM)
-xmodmap -e "remove mod1 = Alt_R" -e "add mod3 = Alt_R"
-
-# Turn num lock on
-numlockx &
+# xkb custom map
+xkbcomp -I$HOME/.config/xkb $HOME/.config/xkb/mymap $DISPLAY
 
 # Run local scripts
 autorun-scripts

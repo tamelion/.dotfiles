@@ -11,22 +11,22 @@ call plug#begin()
 "Plug 'tek/proteome.nvim'
 "Plug 'airodactyl/neovim-ranger'
 
+" Editor config
+Plug 'editorconfig/editorconfig-vim'
+" Indentation guides
+Plug 'nathanaelkane/vim-indent-guides'
 " Preview yanks when pasting
 Plug 'junegunn/vim-peekaboo'
 " Replace by yanking to black hole
 Plug 'vim-scripts/ReplaceWithRegister'
-" Pretty icons
-Plug 'ryanoasis/vim-devicons'
 " Coding colour schemes
 Plug 'chriskempson/base16-vim'
 " Ranger
 Plug 'Mizuchi/vim-ranger'
 " Status bar and themes
 Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-" Snippeting
-Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
 " Autocompletion
-Plug 'Shougo/deoplete.nvim' | Plug 'mhartington/deoplete-typescript'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'mhartington/deoplete-typescript'
 " Git wrapper
 Plug 'tpope/vim-fugitive'
 " Git markers
@@ -51,18 +51,16 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 " Multi-language linting
 Plug 'neomake/neomake'
-" CSS3 syntax highlighting
-Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'less', 'sass', 'scss'] }
+" One stop syntax highlighting
+Plug 'sheerun/vim-polyglot'
 " CSS colour of hex values
 Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss'] }
-" LESS syntax highlighing
-Plug 'groenewege/vim-less', { 'for': 'less' }
 " HTML5 omnicompletion and syntax highlighting
-Plug 'othree/html5.vim', { 'for' : 'html' }
-" Silverstripe highlighting
+"Plug 'othree/html5.vim', { 'for' : 'html' }
+" Silverstripe syntax highlighting
 Plug 'phalkunz/vim-ss'
 " JS and TS syntax highlighting
-Plug 'HerringtonDarkholme/yats.vim'
+"Plug 'HerringtonDarkholme/yats.vim'
 " JS and TS doc
 Plug 'heavenshell/vim-jsdoc'
 " PHP improved omnicompletion
@@ -99,8 +97,8 @@ set shiftwidth=4 " Width of new indentation (multiplies tabstop if necessary)
 set noexpandtab " New indentation with tabs, not spaces
 set shiftround " Within text, indent is calculated from col 1, not from cursor position
 set softtabstop=-1 " Within text, backspace removes same number of spaces as shiftwidth
-set list " Show indentation characters
-set listchars=tab:▸—,precedes:«,extends:» " Set symbols used with list
+set list listchars=tab:\ \ ,nbsp:⎕,precedes:«,extends:» " Set various symbols
+set linebreak showbreak=↪\  " Symbol for line breaks
 
 ""  Filetype specific
 autocmd FileType vim setlocal foldmethod=marker
@@ -183,6 +181,9 @@ endfunction
 
 "" Auto pairs
 let g:AutoPairsMultilineClose = 0
+
+"" Indent guides
+let g:indent_guides_enable_on_vim_startup = 1
 
 "" JSDoc
 let g:jsdoc_enable_es6 = 1

@@ -8,4 +8,5 @@ xkb_symbols "arrows" {
 	key <AC11> { [ apostrophe, quotedbl, KP_Delete, KP_Delete ] };
 	key <AD11> { [ bracketleft, braceleft, Home, Home ] };
 	key <AD12> { [ bracketright, braceright, End, End ] };
+    key <SPCE> { [ space, space, Escape, Escape ] };
 };

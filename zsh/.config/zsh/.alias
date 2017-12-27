@@ -6,7 +6,7 @@ if [[ `uname` == 'Linux' ]]; then
 	alias ls='ls --color'
 
 	# Update
-	alias update='trizen -Syu'
+	alias update='trizen -Syu; asdf plugin-update --all'
 
 	orphans() {
 	  if [[ ! -n $(pacman -Qdt) ]]; then

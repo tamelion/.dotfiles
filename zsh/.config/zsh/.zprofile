@@ -30,6 +30,10 @@ export LESSHISTFILE=-
 # Virtual machines
 export VBOX_USER_HOME=$HOME/vm
 
+# FZF (use ripgrep)
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 # Composer
 export COMPOSER_HOME="$XDG_CONFIG_HOME"/composer
 export COMPOSER_CACHE_DIR="$XDG_CACHE_HOME"/composer

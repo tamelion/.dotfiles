@@ -240,7 +240,7 @@ vnoremap > >gv
 nnoremap gp `[v`]
 
 " Files
-nnoremap <CR> :FilesGit<CR>
+nnoremap <CR> :GitFiles<CR>
 
 " Ban ex mode
 nnoremap Q <Nop>
@@ -269,14 +269,17 @@ nnoremap ,j <Nop>
 " }}}
 " Mappings - meta {{{
 
+" FZF show commands
+nmap <M-.> <plug>(fzf-maps-n)
+
 "" Tabs
 " Tab new
 nnoremap <M-t> :tabnew<CR>
 " Move current pane to new tab
 nnoremap <M-T> :tabedit %<CR>gT<C-w>cgt
 " Tab move
-nmap <M-o> gt
-nmap <M-i> gT
+nmap <M-]> gt
+nmap <M-[> gT
 " Tab by ID
 nmap <M-1> 1gt
 nmap <M-2> 2gt
@@ -326,7 +329,7 @@ map <Space> <Leader>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
 " Open from all files in pwd
-nnoremap <Leader><CR> :FilesAll<CR>
+nnoremap <Leader><CR> :Files<CR>
 " Change tab type and width
 nnoremap <Leader><Tab> :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
 nnoremap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>
@@ -344,9 +347,9 @@ nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
 " Move to current tab format, remove trailing space and re-indent file
 nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
 " Find (respect .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>f :Find --hidden --ignore .git 
+nnoremap <Leader>f :Rg 
 " Find (disregard .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>F :Find -U --hidden --ignore .git 
+nnoremap <Leader>F :RgAll 
 " cd to git repo which contains current file
 nnoremap <Leader>g. :Gcd<CR>:pwd<CR>
 " git add
@@ -432,10 +435,8 @@ function! ChooseTerm(termname, slider)
 endfunction
 
 " Override FZF commands to include preview windows
-command! -bang -nargs=? -complete=dir FilesGit
-  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview({'source': 'ag --hidden --ignore .git -g ""'}), <bang>0)
-command! -bang -nargs=? -complete=dir FilesAll
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'source': 'ag -U --hidden --ignore .git -g ""'}), <bang>0)
-command! -bang -nargs=* Find
-  \ call fzf#vim#ag_raw(<q-args>, fzf#vim#with_preview(), <bang>1)
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+command! -bang -nargs=* RgAll
+  \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" --no-ignore '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 "  }}}

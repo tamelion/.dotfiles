@@ -2,16 +2,25 @@
 ## Setup
 #########################
 
-# autostart
-exec_always --no-startup-id polybar-reload
-exec --no-startup-id set-wallpaper
-
 # aliases
 set $alt Mod1
 set $cmd Mod4
 
 # mouse drags floating windows with this
-floating_modifier $cmd 
+floating_modifier $cmd
+
+# autostart
+exec --no-startup-id set-wallpaper
+
+# status bar
+bar {
+	status_command i3status --config ~/.config/i3status
+	position top
+	mode hide
+	hidden_state hide
+	# to toggle hidden state
+	modifier $cmd
+}
 
 # window design
 new_window pixel 2
@@ -55,83 +64,70 @@ bindsym ctrl+$alt+l exec --no-startup-id i3lock -n -c 000000 -i ~/.lockscreen.jp
 bindsym --release Print exec --no-startup-id scrot -s
 
 # WM mode
-bindsym ctrl+space mode "WM"
+#bindsym ctrl+$alt+space mode "WM"
+#mode "WM" {
 
-mode "WM" {
+	#bindsym Escape mode "default"
 
-	bindsym Escape mode "default"
+# vertical split (i3 calls this h)
+	bindsym ctrl+$alt+bar split h
 
-	# vertical split (i3 calls this h)
-	bindsym bar split h
+# horizontal split (i3 calls this v)
+	bindsym ctrl+$alt+minus split v
 
-	# horizontal split (i3 calls this v)
-	bindsym minus split v
+# focus the parent container
+	bindsym ctrl+$alt+p focus parent
 
-	# focus the parent container
-	bindsym p focus parent
+# focus the child container
+	bindsym ctrl+$alt+c focus child
 
-	# focus the child container
-	bindsym c focus child
+# resize
+	bindsym ctrl+$alt+Left resize shrink width 10 px or 10 ppt
+	bindsym ctrl+$alt+Down resize grow height 10 px or 10 ppt
+	bindsym ctrl+$alt+Up resize shrink height 10 px or 10 ppt
+	bindsym ctrl+$alt+Right resize grow width 10 px or 10 ppt
 
-	# resize
-	bindsym Left resize shrink width 10 px or 10 ppt
-	bindsym Down resize grow height 10 px or 10 ppt
-	bindsym Up resize shrink height 10 px or 10 ppt
-	bindsym Right resize grow width 10 px or 10 ppt
+# reload config file
+	bindsym ctrl+$alt+r reload; mode "default"
 
-	# reload config file
-	bindsym r reload; mode "default"
+# restart i3
+	bindsym ctrl+$alt+shift+r restart; mode "default"
 
-	# restart i3
-	bindsym shift+r restart; mode "default"
+# exit i3
+	bindsym ctrl+$alt+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"; mode "default"
 
-	# exit i3
-	bindsym q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"; mode "default"
+# start a terminal command
+	bindsym ctrl+$alt+Return exec --no-startup-id termite; mode "default"
 
-	# start a terminal command
-	bindsym Return exec --no-startup-id termite; mode "default"
+# make currently focused window a scratchpad
+	bindsym ctrl+$alt+Shift+semicolon move scratchpad; mode "default"
 
-	# make currently focused window a scratchpad
-	bindsym Shift+semicolon move scratchpad; mode "default"
+# show first scratchpad window
+	bindsym ctrl+$alt+semicolon scratchpad show; mode "default"
 
-	# show first scratchpad window
-	bindsym semicolon scratchpad show; mode "default"
+# move current workspace to next output
+	bindsym ctrl+$alt+x move workspace to output right; mode "default"
 
-	# change window focus
-	bindsym h focus left; mode "default"
-	bindsym j focus down; mode "default"
-	bindsym k focus up; mode "default"
-	bindsym l focus right; mode "default"
+# enter fullscreen mode for the focused container
+	bindsym ctrl+$alt+f fullscreen; mode "default"
 
-	# move window
-	bindsym Shift+h move left; mode "default"
-	bindsym Shift+j move down; mode "default"
-	bindsym Shift+k move up; mode "default"
-	bindsym Shift+l move right; mode "default"
+# change container layout
+	bindsym ctrl+$alt+t layout tabbed; mode "default"
+	bindsym ctrl+$alt+s layout toggle split; mode "default"
 
-	# move current workspace to next output
-	bindsym x move workspace to output right; mode "default"
+# toggle tiling / floating
+	bindsym ctrl+$alt+Shift+Tab floating toggle; mode "default"
 
-	# enter fullscreen mode for the focused container
-	bindsym f fullscreen; mode "default"
+# change focus between tiling / floating windows
+	bindsym ctrl+$alt+Tab focus mode_toggle; mode "default"
 
-	# change container layout
-	bindsym t layout tabbed; mode "default"
-	bindsym s layout toggle split; mode "default"
+# re-run automatic scripts
+	bindsym ctrl+$alt+m exec --no-startup-id autorun-scripts; mode "default"
 
-	# toggle tiling / floating
-	bindsym Shift+Tab floating toggle; mode "default"
+# HDMI sound toggle
+	bindsym ctrl+$alt+a exec --no-startup-id hdmi-sound; mode "default"
 
-	# change focus between tiling / floating windows
-	bindsym Tab focus mode_toggle; mode "default"
-
-	# re-run automatic scripts
-	bindsym m exec --no-startup-id autorun-scripts; mode "default"
-
-	# HDMI sound toggle
-	bindsym a exec --no-startup-id hdmi-sound; mode "default"
-
-}
+#}
 
 #########################
 ## MacOS keybindings
@@ -143,20 +139,30 @@ bindsym $cmd+space exec --no-startup-id rofi -show combi
 # quit application
 bindsym $cmd+q kill
 
-# quick switch workspaces
-bindsym ctrl+Right workspace next_on_output
-bindsym ctrl+Left workspace prev_on_output
+# switch container (allow for both directions)
+bindsym $cmd+grave focus right; focus down
+bindsym $cmd+Shift+grave focus left; focus up
+
+# move container
+bindsym $cmd+Shift+h move left
+bindsym $cmd+Shift+j move down
+bindsym $cmd+Shift+k move up
+bindsym $cmd+Shift+l move right
+
+# switch workspace
+bindsym $cmd+Tab workspace next_on_output
+bindsym Shift+$cmd+Tab workspace prev_on_output
 
 # switch to workspace
-bindsym ctrl+1 workspace 1
-bindsym ctrl+2 workspace 2
-bindsym ctrl+3 workspace 3
-bindsym ctrl+4 workspace 4
-bindsym ctrl+5 workspace 5
+bindsym F1 workspace 1
+bindsym F2 workspace 2
+bindsym F3 workspace 3
+bindsym F4 workspace 4
+bindsym F5 workspace 5
 
 # move with focused container to workspace
-bindsym shift+ctrl+1 move container to workspace 1; workspace 1
-bindsym shift+ctrl+2 move container to workspace 2; workspace 2
-bindsym shift+ctrl+3 move container to workspace 3; workspace 3
-bindsym shift+ctrl+4 move container to workspace 4; workspace 4
-bindsym shift+ctrl+5 move container to workspace 5; workspace 5
+bindsym shift+F1 move container to workspace 1; workspace 1
+bindsym shift+F2 move container to workspace 2; workspace 2
+bindsym shift+F3 move container to workspace 3; workspace 3
+bindsym shift+F4 move container to workspace 4; workspace 4
+bindsym shift+F5 move container to workspace 5; workspace 5

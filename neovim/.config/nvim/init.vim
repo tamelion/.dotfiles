@@ -9,12 +9,17 @@ call plug#begin()
 
 " To research:
 "Plug 'tek/proteome.nvim'
-"Plug 'airodactyl/neovim-ranger'
 
+" Tmux syntax highlighting
+Plug 'ericpruitt/tmux.vim'
+" Function signature help
+Plug 'Shougo/echodoc.vim'
+" Snippets engine
+Plug 'SirVer/ultisnips'
+" General snippets
+Plug 'honza/vim-snippets'
 " Editor config
 Plug 'editorconfig/editorconfig-vim'
-" Indentation guides
-Plug 'nathanaelkane/vim-indent-guides'
 " Preview yanks when pasting
 Plug 'junegunn/vim-peekaboo'
 " Replace by yanking to black hole
@@ -50,7 +55,7 @@ Plug 'jiangmiao/auto-pairs'
 " Fuzzy find
 Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 " Multi-language linting
-Plug 'neomake/neomake'
+Plug 'w0rp/ale'
 " One stop syntax highlighting
 Plug 'sheerun/vim-polyglot'
 " CSS colour of hex values
@@ -63,10 +68,14 @@ Plug 'phalkunz/vim-ss'
 "Plug 'HerringtonDarkholme/yats.vim'
 " JS and TS doc
 Plug 'heavenshell/vim-jsdoc'
+" TERN
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 " PHP improved omnicompletion
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 " PHP standards
 "Plug 'beanworks/vim-phpfmt'
+
+
 
 
 call plug#end()
@@ -90,6 +99,9 @@ set so=999 " Scrolloff - keep cursor centred
 set splitbelow splitright " Window split direction
 set undofile undodir=~/.config/nvim/undo " Persistent undo
 set synmaxcol=500
+set completeopt+=noinsert " Wait for manual insertion of completion candidate
+set pumheight=20 " Limit omnicomplete to 20 visible items
+set shortmess+=c " Hide 'match x of y' messages in deoplete
 
 "" Indentation
 set tabstop=4 " Width of existing tabs to display on file open
@@ -97,26 +109,26 @@ set shiftwidth=4 " Width of new indentation (multiplies tabstop if necessary)
 set noexpandtab " New indentation with tabs, not spaces
 set shiftround " Within text, indent is calculated from col 1, not from cursor position
 set softtabstop=-1 " Within text, backspace removes same number of spaces as shiftwidth
-set list listchars=tab:\ \ ,nbsp:⎕,precedes:«,extends:» " Set various symbols
+set list listchars=tab:┊\ ,nbsp:.,precedes:«,extends:» " Set various symbols
 set linebreak showbreak=↪\  " Symbol for line breaks
 
 ""  Filetype specific
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=4 tabstop=4
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4
 autocmd FileType zsh,yaml,python,json,coffee setlocal expandtab shiftwidth=2 tabstop=2
-autocmd! BufWritePost * Neomake
 
 "" Colours and fonts
 set termguicolors " 24 bit colour
 syntax enable " Enable syntax highlighting
 set background=dark
 set cursorline " Highlight current line
-set colorcolumn=80,100,120 " Highlight columns for target max length
+set colorcolumn=80,120 " Highlight columns for target max length
 colorscheme base16-tomorrow-night
-hi SpecialKey guifg=#444444 " Override colour for list characters
+hi Whitespace guifg=#444444 " Override colour for list characters
 
 " Terminal: 8 normal colors 
 let g:terminal_color_0 = '#1d1f21' "black
@@ -179,8 +191,17 @@ function! AirlineCustomInit()
 endfunction
 "autocmd User AirlineAfterInit call AirlineCustomInit()
 
+"" ALE
+let g:ale_fixers = {
+			\   'javascript': ['eslint'],
+			\   'php': ['phpcbf'],
+			\}
+
 "" Auto pairs
 let g:AutoPairsMultilineClose = 0
+
+"" EchoDoc
+let g:echodoc#enable_at_startup = 1
 
 "" Indent guides
 let g:indent_guides_enable_on_vim_startup = 1
@@ -211,11 +232,10 @@ let g:fzf_action = {
   \ 'alt-x': 'split',
   \ 'alt-v': 'vsplit' }
 
-"" Neosnippet
-let g:neosnippet#snippets_directory = '~/code/snippets'
+"" Ultisnips
+let g:UltiSnipsSnippetsDir="~/code/_snippets"
+let g:UltiSnipsEditSplit='vertical'
 
-"" Neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
 
 "" Undotree
 let g:undotree_SetFocusWhenToggle = 1
@@ -249,11 +269,6 @@ nnoremap Q <Nop>
 " Fix Y
 nnoremap Y y$
 
-" Neosnippet
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-
 " Switch CWD to the directory of the open buffer
 nnoremap cd :cd %:p:h<CR>:pwd<CR>
 
@@ -266,6 +281,13 @@ cnoremap ,j <Esc>
 vnoremap ,j <Esc>
 tnoremap ,j <C-\><C-n>
 nnoremap ,j <Nop>
+
+" Use matching c-[ and c-] for tag stack
+nmap <c-[> <c-t>
+
+" Omnicomplete with Tab or CR
+inoremap <expr> <Tab> pumvisible() ? "\<c-y>" : "\<Tab>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " }}}
 " Mappings - meta {{{
@@ -327,6 +349,8 @@ nnoremap <M-u> :UndotreeToggle<CR>
 
 " Map Leader
 map <Space> <Leader>
+" Don't allow leader alone
+nnoremap <Leader> <Nop>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
 " Open from all files in pwd
@@ -348,9 +372,9 @@ nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
 " Move to current tab format, remove trailing space and re-indent file
 nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
 " Find (respect .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>f :Rg 
+nnoremap <Leader>f :FindInRepo 
 " Find (disregard .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>F :RgAll 
+nnoremap <Leader>F :FindInDir 
 " cd to git repo which contains current file
 nnoremap <Leader>g. :Gcd<CR>:pwd<CR>
 " git add
@@ -435,9 +459,9 @@ function! ChooseTerm(termname, slider)
 	endif
 endfunction
 
-" Override FZF commands to include preview windows
-command! -bang -nargs=* Rg
+" Add FZF commands to use ripgrep
+command! -bang -nargs=* FindInRepo
   \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
-command! -bang -nargs=* RgAll
+command! -bang -nargs=* FindInDir
   \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" --no-ignore '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 "  }}}

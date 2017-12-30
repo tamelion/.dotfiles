@@ -177,11 +177,7 @@ runtime macros/matchit.vim "Enable extended % matching
 "" Airline
 let g:airline_theme='base16_tomorrow'
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_splits = 0
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline_extensions = ['branch', 'tabline']
+let g:airline_extensions = ['branch']
 
 function! AirlineCustomInit()
 	let g:airline_section_a = airline#section#create(['%{expand("%:h")}'])

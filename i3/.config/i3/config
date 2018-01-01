@@ -106,44 +106,44 @@ bindsym Ctrl+$alt+Up resize shrink height 10 px or 10 ppt
 bindsym Ctrl+$alt+Right resize grow width 10 px or 10 ppt
 
 # reload config file
-bindsym Ctrl+$alt+r reload; mode "default"
+bindsym Ctrl+$alt+r reload
 
 # restart i3
-bindsym Ctrl+$alt+Shift+r restart; mode "default"
+bindsym Ctrl+$alt+Shift+r restart
 
 # exit i3
-bindsym Ctrl+$alt+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"; mode "default"
+bindsym Ctrl+$alt+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # start a terminal command
-bindsym Ctrl+$alt+Return exec --no-startup-id termite; mode "default"
+bindsym Ctrl+$alt+Return exec --no-startup-id termite
 
 # make currently focused window a scratchpad
-bindsym Ctrl+$alt+Shift+semicolon move scratchpad; mode "default"
+bindsym Ctrl+$alt+Shift+semicolon move scratchpad
 
 # show first scratchpad window
-bindsym Ctrl+$alt+semicolon scratchpad show; mode "default"
+bindsym Ctrl+$alt+semicolon scratchpad show
 
 # move current workspace to next output
-bindsym Ctrl+$alt+x move workspace to output right; mode "default"
+bindsym Ctrl+$alt+x move workspace to output right
 
 # enter fullscreen mode for the focused container
-bindsym Ctrl+$alt+f fullscreen; mode "default"
+bindsym Ctrl+$alt+f fullscreen
 
 # change container layout
-bindsym Ctrl+$alt+t layout tabbed; mode "default"
-bindsym Ctrl+$alt+s layout toggle split; mode "default"
+bindsym Ctrl+$alt+t layout tabbed
+bindsym Ctrl+$alt+s layout toggle split
 
 # toggle tiling / floating
-bindsym Ctrl+$alt+Shift+Tab floating toggle; mode "default"
+bindsym Ctrl+$alt+Shift+Tab floating toggle
 
 # change focus between tiling / floating windows
-bindsym Ctrl+$alt+Tab focus mode_toggle; mode "default"
+bindsym Ctrl+$alt+Tab focus mode_toggle
 
 # re-run automatic scripts
-bindsym Ctrl+$alt+m exec --no-startup-id autorun-scripts; mode "default"
+bindsym Ctrl+$alt+m exec --no-startup-id autorun-scripts
 
 # HDMI sound toggle
-bindsym Ctrl+$alt+a exec --no-startup-id hdmi-sound; mode "default"
+bindsym Ctrl+$alt+a exec --no-startup-id hdmi-sound
 
 
 #########################

@@ -115,7 +115,7 @@ bindsym Ctrl+$alt+Shift+r restart
 bindsym Ctrl+$alt+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # start a terminal command
-bindsym Ctrl+$alt+Return exec --no-startup-id termite
+bindsym Ctrl+$alt+Return exec termite
 
 # make currently focused window a scratchpad
 bindsym Ctrl+$alt+Shift+semicolon move scratchpad
@@ -170,5 +170,5 @@ bindsym $meta+Shift+grave focus left; focus up
 #########################
 assign [class="Termite"] 1
 assign [class="^Google-chrome$"] 2
-exec --no-startup-id i3-msg 'workspace 1; exec termite --exec="tmux new-session -A -s general"'
-exec --no-startup-id i3-msg 'workspace 2; exec google-chrome-stable'
+exec "termite --exec='tmux new-session -A -s general'"
+exec google-chrome-stable

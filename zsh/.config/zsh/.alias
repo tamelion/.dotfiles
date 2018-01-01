@@ -41,6 +41,9 @@ alias vim='nvim'
 alias ll='ls -hl'
 alias la='ls -Ahl'
 
+# Make termite run tmux
+alias t='tmux new-session -A -s general'
+
 # Ranger
 alias r='ranger'
 

@@ -10,7 +10,7 @@ call plug#begin()
 " To research:
 "Plug 'tek/proteome.nvim'
 
-" Tmux syntax highlighting
+" Tmux config syntax highlighting
 Plug 'ericpruitt/tmux.vim'
 " Function signature help
 Plug 'Shougo/echodoc.vim'
@@ -242,9 +242,6 @@ let g:undotree_SetFocusWhenToggle = 1
 " Easy on the pinky
 nnoremap ; :
 
-" Edit from current directory
-nnoremap \ :e %:p:h<CR>
-
 " Home row friendly navigation
 nnoremap H ^
 nnoremap L $
@@ -277,6 +274,9 @@ cnoremap ,j <Esc>
 vnoremap ,j <Esc>
 tnoremap ,j <C-\><C-n>
 nnoremap ,j <Nop>
+
+" Edit from current directory
+nnoremap <C-\> :e %:p:h<CR>
 
 " Use matching c-[ and c-] for tag stack
 nmap <c-[> <c-t>
@@ -345,8 +345,6 @@ nnoremap <M-u> :UndotreeToggle<CR>
 
 " Map Leader
 map <Space> <Leader>
-" Don't allow leader alone
-nnoremap <Leader> <Nop>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
 " Open from all files in pwd

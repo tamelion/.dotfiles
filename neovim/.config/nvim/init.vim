@@ -130,7 +130,7 @@ set colorcolumn=80,120 " Highlight columns for target max length
 colorscheme base16-tomorrow-night
 hi Whitespace guifg=#444444 " Override colour for list characters
 
-" Terminal: 8 normal colors 
+" Terminal: 8 normal colors
 let g:terminal_color_0 = '#1d1f21' "black
 let g:terminal_color_1 = '#cc6666' "red
 let g:terminal_color_2 = '#b5bd68' "green
@@ -288,6 +288,9 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 " }}}
 " Mappings - meta {{{
 
+" Move to current tab format, remove trailing space and re-indent file
+nnoremap <M-=> :retab<CR>mzggvG@tgv=`z
+
 " FZF show commands
 nmap <M-.> <plug>(fzf-maps-n)
 
@@ -336,8 +339,6 @@ nnoremap <M-w> <C-w>c
 nnoremap <M-`> :call ChooseTerm("term-slider", 1)<CR>
 " Start terminal in pane
 nnoremap <M-CR> :call ChooseTerm("term-pane", 0)<CR>
-" Create new file and set syntax
-nnoremap <M-n> :enew<CR>:set syntax=
 " Toggle undo tree
 nnoremap <M-u> :UndotreeToggle<CR>
 " }}}

@@ -48,8 +48,15 @@ if [[ -s "$ZPLUG_HOME" ]]; then
   # syntax highlighting and history come last
   zplug "zsh-users/zsh-syntax-highlighting", defer:2
   zplug "zsh-users/zsh-history-substring-search", defer:3
-  bindkey '^[[A' history-substring-search-up
-  bindkey '^[[B' history-substring-search-down
+
+  # history substring settings
+  zmodload zsh/terminfo
+  bindkey "$terminfo[kcuu1]" history-substring-search-up
+  bindkey "$terminfo[kcud1]" history-substring-search-down
+  #bindkey '^[[A' history-substring-search-up
+  #bindkey '^[[B' history-substring-search-down
+  bindkey -M vicmd 'k' history-substring-search-up
+  bindkey -M vicmd 'j' history-substring-search-down
 
   # Check for plugins which need installing
   if ! zplug check --verbose; then

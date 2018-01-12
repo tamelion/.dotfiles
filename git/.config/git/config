@@ -10,7 +10,7 @@
   autosquash = true
 
 [credential]
-  helper = osxkeychain
+  helper = cache
 
 [difftool]
   prompt = false

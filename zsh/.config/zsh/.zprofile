@@ -53,6 +53,7 @@ path=(
 $HOME/.local/bin
 $HOME/.asdf/bin
 $HOME/.asdf/shims
+$HOME/.cargo/bin
 /usr/local/bin
 $path
 )

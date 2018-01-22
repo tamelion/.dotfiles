@@ -206,6 +206,13 @@ let g:echodoc#enable_at_startup = 1
 "" GitGutter
 let g:gitgutter_highlight_lines = 1
 
+"" Gutentags
+let ctagsdir = expand("$HOME/.cache/ctags")
+if !isdirectory(ctagsdir)
+	call mkdir(ctagsdir)
+endif
+let g:gutentags_cache_dir="$HOME/.cache/ctags"
+
 "" Indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 

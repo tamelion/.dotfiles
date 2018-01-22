@@ -10,6 +10,10 @@ call plug#begin()
 " To research:
 "Plug 'tek/proteome.nvim'
 
+" Ctags
+Plug 'ludovicchabant/vim-gutentags'
+" Tagbar
+Plug 'majutsushi/tagbar'
 " Tmux config syntax highlighting
 Plug 'ericpruitt/tmux.vim'
 " Function signature help
@@ -71,7 +75,7 @@ Plug 'heavenshell/vim-jsdoc'
 " TERN
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 " PHP improved omnicompletion
-Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+"Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 " PHP standards
 "Plug 'beanworks/vim-phpfmt'
 
@@ -120,6 +124,8 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4
 autocmd FileType zsh,yaml,python,json,coffee setlocal expandtab shiftwidth=2 tabstop=2
+"Open tagbar for all supported filetypes
+autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 "" Colours and fonts
 set termguicolors " 24 bit colour
@@ -231,7 +237,6 @@ let g:fzf_action = {
 "" Ultisnips
 let g:UltiSnipsSnippetsDir="~/code/_snippets"
 let g:UltiSnipsEditSplit='vertical'
-
 
 "" Undotree
 let g:undotree_SetFocusWhenToggle = 1

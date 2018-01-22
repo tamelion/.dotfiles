@@ -132,7 +132,8 @@ set background=dark
 set cursorline " Highlight current line
 set colorcolumn=80,120 " Highlight columns for target max length
 colorscheme base16-tomorrow-night
-hi Whitespace guifg=#444444 " Override colour for list characters
+highlight Whitespace guifg=#444444 " list characters
+highlight SignColumn guibg=#222222 " gitgutter and parsers"
 
 " Terminal: 8 normal colors
 let g:terminal_color_0 = '#1d1f21' "black
@@ -204,7 +205,15 @@ let g:AutoPairsMultilineClose = 0
 let g:echodoc#enable_at_startup = 1
 
 "" GitGutter
-let g:gitgutter_highlight_lines = 1
+let g:gitgutter_sign_added = '»'
+let g:gitgutter_sign_modified = 'δ'
+let g:gitgutter_sign_removed = '«'
+let g:gitgutter_sign_modified_removed = '±'
+let g:gitgutter_override_sign_column_highlight = 0
+highlight GitGutterAdd guibg=#b5bd68 guifg=#222222
+highlight GitGutterChange guibg=#81a2be guifg=#222222
+highlight GitGutterDelete guibg=#cc6666 guifg=#222222
+highlight GitGutterChangeDelete guibg=#b294bb guifg=#222222
 
 "" Gutentags
 let ctagsdir = expand("$HOME/.cache/ctags")
@@ -398,7 +407,7 @@ nnoremap <leader>gD :Git diff --staged<CR>
 " git commit --amend
 nnoremap <Leader>gC :Git commit --amend --reuse-message HEAD<CR>
 " git log (repo)
-nnoremap <Leader>gl :Commits<CR>
+nnoremap <Leader>gl :Commits!<CR>
 " git push
 nnoremap <Leader>gp :Git push<CR>
 " git push force

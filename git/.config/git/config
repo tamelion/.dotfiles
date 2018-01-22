@@ -43,7 +43,6 @@
 	cF = commit --verbose --amend
 	d = diff
 	dc = diff --cached
-	flush = rm -r --cached .
 	g = grep -n
 	l = "log -10 --topo-order --pretty=format:'%C(auto)%h %s%n%C(cyan)(%ar by %an)%C(auto)%d%n'"
 	ll = "log --topo-order"
@@ -53,6 +52,7 @@
 	p = push
 	pf = push --force-with-lease
 	r = "!f() { git fetch; git rebase origin/$1; }; f"
+	assets = ! git rm -r --cached . && git add .
 	s = status -s
 	sl = status
 	standup = shortlog --since=yesterday

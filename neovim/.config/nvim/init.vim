@@ -124,8 +124,6 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4
 autocmd FileType zsh,yaml,python,json,coffee setlocal expandtab shiftwidth=2 tabstop=2
-"Open tagbar for all supported filetypes
-autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 "" Colours and fonts
 set termguicolors " 24 bit colour
@@ -205,6 +203,9 @@ let g:AutoPairsMultilineClose = 0
 "" EchoDoc
 let g:echodoc#enable_at_startup = 1
 
+"" GitGutter
+let g:gitgutter_highlight_lines = 1
+
 "" Indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 
@@ -267,8 +268,8 @@ nnoremap Q <Nop>
 " Fix Y
 nnoremap Y y$
 
-" Switch CWD to the directory of the open buffer
-nnoremap cd :cd %:p:h<CR>:pwd<CR>
+" Change dir to git repo which contains current file (then pwd)
+nnoremap cd :Gcd<CR>:pwd<CR>
 
 " Easymotion
 nmap f <Plug>(easymotion-s)
@@ -342,8 +343,12 @@ nnoremap <M-w> <C-w>c
 "" Special panes
 " Toggle 'default' terminal
 nnoremap <M-`> :call ChooseTerm("term-slider", 1)<CR>
-" Start terminal in pane
-nnoremap <M-CR> :call ChooseTerm("term-pane", 0)<CR>
+" Recently opened files
+nnoremap <M-CR> :Buffers<CR>
+" git blame panel
+nnoremap <M-b> :Gblame<CR>
+" Toggle tagbar (ctags) tree
+nnoremap <M-c> :TagbarToggle<CR>
 " Toggle undo tree
 nnoremap <M-u> :UndotreeToggle<CR>
 " }}}
@@ -375,33 +380,34 @@ nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
 nnoremap <Leader>f :FindInRepo 
 " Find (disregard .gitignore, include hidden files, ignore .git dir)
 nnoremap <Leader>F :FindInDir 
-" cd to git repo which contains current file
-nnoremap <Leader>g. :Gcd<CR>:pwd<CR>
-" git add
+" write and git add
 nnoremap <Leader>ga :Gwrite<CR>
-" git add
-nnoremap <Leader>gb :Gblame<CR>
 " git commit
-nnoremap <Leader>gc :Gwrite<CR>
-" git checkout (edit)
-nnoremap <Leader>ge :Gread<CR>
-" git status find
-nnoremap <Leader>gf :GFiles?<CR>
-" git log (buffer history)
-nnoremap <Leader>gh :BCommits<CR>
+nnoremap <Leader>gc :Gcommit<CR>i
+" git diff
+nnoremap <Leader>gd :Git diff<CR>
+" git diff staged
+nnoremap <leader>gD :Git diff --staged<CR>
+" git commit --amend
+nnoremap <Leader>gC :Git commit --amend --reuse-message HEAD<CR>
 " git log (repo)
 nnoremap <Leader>gl :Commits<CR>
-" git move
-nnoremap <Leader>gm :Gmove 
+" git push
+nnoremap <Leader>gp :Git push<CR>
+" git push force
+nnoremap <Leader>gP :Git push --force-with-lease<CR>
 " git status
 nnoremap <Leader>gs :Gstatus<CR>
-" git remove
-nnoremap <Leader>gd :Gremove<CR>
-" Recently opened files
-nnoremap <Leader>r :History<CR>!term: 
+" Git hunk controls
+nmap <Leader>h <Plug>GitGutterPreviewHunk
+nmap <Leader>ha <Plug>GitGutterStageHunk
+nmap <Leader>hs <Plug>GitGutterStageHunk
+nmap <Leader>hu <Plug>GitGutterUndoHunk
+nmap <Leader>hp <Plug>GitGutterPrevHunk
+nmap <Leader>hh <Plug>GitGutterNextHunk
 " Search non-UTF8 characters
 nnoremap <Leader>u /[^\x00-\x7F]<CR>
-" Fast open vimrc
+"getLegend() Fast open vimrc
 nnoremap <Leader>v :e ~/.dotfiles/neovim/.config/nvim/init.vim<CR>
 " Reload .vimrc
 nnoremap <Leader>V :so $MYVIMRC<CR>
@@ -433,27 +439,18 @@ let @v = ':%s/ / /ge:%s//‘/ge:%s//’/ge:%s//“/ge:%s//”/ge:%
 " }}}
 "  Functions and commands {{{
 
-function! ChooseTerm(termname, slider)
+function! ChooseTerm(termname)
 	let pane = bufwinnr(a:termname)
 	let buf = bufexists(a:termname)
 	if pane > 0
 		" pane is visible
-		if a:slider > 0
-			:exe pane . "wincmd c"
-		else
-			:exe "e #" 
-		endif
+		:exe pane . "wincmd c"
 	elseif buf > 0
 		" buffer is not in pane
-		if a:slider
-			:exe "topleft split"
-		endif
-		:exe "buffer " . a:termname
+		:exe "topleft split"
 	else
 		" buffer is not loaded, create
-		if a:slider
-			:exe "topleft split"
-		endif
+		:exe "topleft split"
 		:terminal
 		:exe "f " a:termname
 	endif
@@ -464,4 +461,4 @@ command! -bang -nargs=* FindInRepo
   \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 command! -bang -nargs=* FindInDir
   \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" --no-ignore '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
-"  }}}
+"}}}

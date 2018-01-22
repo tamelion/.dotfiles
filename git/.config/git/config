@@ -1,84 +1,88 @@
 [user]
-  # Ask per user/email for each repo
-  useConfigOnly = true
+	# Ask per user/email for each repo
+	useConfigOnly = true
 
 [core]
   # Handle line endings
-  autocrlf = input
+	autocrlf = input
+
+[push]
+	# Create remote branch if it doesn't exist
+	default = current
 
 [rebase]
-  autosquash = true
+	autosquash = true
 
 [credential]
-  helper = cache
+	helper = cache
 
 [difftool]
-  prompt = false
+	prompt = false
 
 [diff]
-  tool = vimdiff
+	tool = vimdiff
 
 [mergetool]
-  keepBackup = false
+	keepBackup = false
 
 [mergetool "vimdiff"]
-  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [merge]
-  # Include summaries of merged commits in newly created merge commit messages
-  log = true
-  tool = vimdiff
-  conflictstyle = diff3
+    # Include summaries of merged commits in newly created merge commit messages
+	log = true
+	tool = vimdiff
+	conflictstyle = diff3
 
 [alias]
-  a = add
-  b = branch
-  c = commit -m
-  co = checkout
-  cf = commit --amend --reuse-message HEAD
-  cF = commit --verbose --amend
-  d = diff
-  dc = diff --cached
-  flush = rm -r --cached .
-  g = grep -n
-  l = "log -10 --topo-order --pretty=format:'%C(auto)%h %s%n%C(cyan)(%ar by %an)%C(auto)%d%n'"
-  ll = "log --topo-order"
-  lg = "log --topo-order --all --graph --simplify-by-decoration --pretty=format:'%C(auto)%h %s%d'"
-  m = merge
-  mt = mergetool
-  p = push
-  pf = push --force-with-lease
-  r = "!f() { git fetch; git rebase origin/$1; }; f"
-  s = status -s
-  sl = status
-  standup = shortlog --since=yesterday
+	a = add
+	b = branch
+	c = commit -m
+	co = checkout
+	cf = commit --amend --reuse-message HEAD
+	cF = commit --verbose --amend
+	d = diff
+	dc = diff --cached
+	flush = rm -r --cached .
+	g = grep -n
+	l = "log -10 --topo-order --pretty=format:'%C(auto)%h %s%n%C(cyan)(%ar by %an)%C(auto)%d%n'"
+	ll = "log --topo-order"
+	lg = "log --topo-order --all --graph --simplify-by-decoration --pretty=format:'%C(auto)%h %s%d'"
+	m = merge
+	mt = mergetool
+	p = push
+	pf = push --force-with-lease
+	r = "!f() { git fetch; git rebase origin/$1; }; f"
+	s = status -s
+	sl = status
+	standup = shortlog --since=yesterday
 
 [color "branch"]
-  current = magenta bold
-  local = magenta
-  remote = green
-  upstream = green reverse
+	current = magenta bold
+	local = magenta
+	remote = green
+	upstream = green reverse
 
 [color "diff"]
-  commit = blue
-  meta = cyan bold
-  frag = magenta
-  old = red
-  new = green
+	commit = blue
+	meta = cyan bold
+	frag = magenta
+	old = red
+	new = green
 
 [color "decorate"]
-  branch = magenta
-  HEAD = yellow
-  stash = magenta reverse
-  remoteBranch = green
-  tag = red
+	branch = magenta
+	HEAD = yellow
+	stash = magenta reverse
+	remoteBranch = green
+	tag = red
 
 [color "grep"]
-  filename = cyan
-  linenumber = blue
-  match = red
+	filename = cyan
+	linenumber = blue
+	match = red
 
 [color "status"]
-  added = green
-  changed = yellow
-  untracked = red
+	added = green
+	changed = yellow
+	untracked = red

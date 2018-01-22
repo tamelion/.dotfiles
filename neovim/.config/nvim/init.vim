@@ -182,15 +182,15 @@ runtime macros/matchit.vim "Enable extended % matching
 "" Airline
 let g:airline_theme='base16_tomorrow'
 let g:airline_powerline_fonts = 1
-let g:airline_extensions = ['branch']
-
-function! AirlineCustomInit()
-	let g:airline_section_a = airline#section#create(['%{expand("%:h")}'])
-	let g:airline_section_c = airline#section#create(['%t'])
-	let g:airline_section_x = airline#section#create([''])
-	let g:airline_section_z = airline#section#create(['mode', 'crypt', 'paste', 'spell', 'iminsert'])
+let g:airline#extensions#default#section_truncate_width = {} "disable trunc
+function! AirlineInit()
+	let g:airline_section_b = airline#section#create(['branch'])
+	let g:airline_section_c = airline#section#create(['hunks'])
+	let g:airline_section_x = ''
+	let g:airline_section_y = airline#section#create(['%{expand("%:h")}/'])
+	let g:airline_section_z = '%t'
 endfunction
-"autocmd User AirlineAfterInit call AirlineCustomInit()
+autocmd User AirlineAfterInit call AirlineInit()
 
 "" ALE
 let g:ale_fixers = {
@@ -247,9 +247,9 @@ let g:deoplete#ignore_sources.php = ['omni']
 let g:fzf_layout = { 'down': '~33%' }
 let g:fzf_buffers_jump = 1 " Jump to open buffer if matched
 let g:fzf_action = {
-  \ 'alt-t': 'tab split',
-  \ 'alt-x': 'split',
-  \ 'alt-v': 'vsplit' }
+			\ 'alt-t': 'tab split',
+			\ 'alt-x': 'split',
+			\ 'alt-v': 'vsplit' }
 
 "" Ultisnips
 let g:UltiSnipsSnippetsDir="~/code/_snippets"
@@ -393,9 +393,9 @@ nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
 " Move to current tab format, remove trailing space and re-indent file
 nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
 " Find (respect .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>f :FindInRepo 
+nnoremap <Leader>f :FindInRepo
 " Find (disregard .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>F :FindInDir 
+nnoremap <Leader>F :FindInDir
 " write and git add
 nnoremap <Leader>ga :Gwrite<CR>
 " git commit
@@ -417,10 +417,9 @@ nnoremap <Leader>gs :Gstatus<CR>
 " Git hunk controls
 nmap <Leader>h <Plug>GitGutterPreviewHunk
 nmap <Leader>ha <Plug>GitGutterStageHunk
-nmap <Leader>hs <Plug>GitGutterStageHunk
 nmap <Leader>hu <Plug>GitGutterUndoHunk
-nmap <Leader>hp <Plug>GitGutterPrevHunk
-nmap <Leader>hh <Plug>GitGutterNextHunk
+" Shortcut for alt file
+nmap <Leader>j <C-^>
 " Search non-UTF8 characters
 nnoremap <Leader>u /[^\x00-\x7F]<CR>
 "getLegend() Fast open vimrc
@@ -474,7 +473,7 @@ endfunction
 
 " Add FZF commands to use ripgrep
 command! -bang -nargs=* FindInRepo
-  \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+			\ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 command! -bang -nargs=* FindInDir
-  \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" --no-ignore '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+			\ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" --no-ignore '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 "}}}

@@ -220,7 +220,7 @@ let ctagsdir = expand("$HOME/.cache/ctags")
 if !isdirectory(ctagsdir)
 	call mkdir(ctagsdir)
 endif
-let g:gutentags_cache_dir="$HOME/.cache/ctags"
+let g:gutentags_cache_dir=ctagsdir
 
 "" Indent guides
 let g:indent_guides_enable_on_vim_startup = 1
@@ -393,9 +393,9 @@ nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
 " Move to current tab format, remove trailing space and re-indent file
 nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
 " Find (respect .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>f :FindInRepo
+nnoremap <Leader>f :FindInRepo 
 " Find (disregard .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>F :FindInDir
+nnoremap <Leader>F :FindInDir 
 " write and git add
 nnoremap <Leader>ga :Gwrite<CR>
 " git commit

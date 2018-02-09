@@ -39,10 +39,10 @@
 	b = branch
 	c = commit -m
 	co = checkout
-	cf = commit --amend --reuse-message HEAD
-	cF = commit --verbose --amend
+	cc = commit --amend --reuse-message HEAD
+	ca = commit --verbose --amend
 	d = diff
-	dc = diff --cached
+	ds = diff --staged
 	g = grep -n
 	l = "log -10 --topo-order --pretty=format:'%C(auto)%h %s%n%C(cyan)(%ar by %an)%C(auto)%d%n'"
 	ll = "log --topo-order"

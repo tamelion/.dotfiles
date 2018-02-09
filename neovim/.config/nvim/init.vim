@@ -76,11 +76,6 @@ Plug 'heavenshell/vim-jsdoc'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 " PHP improved omnicompletion
 "Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
-" PHP standards
-"Plug 'beanworks/vim-phpfmt'
-
-
-
 
 call plug#end()
 
@@ -231,10 +226,6 @@ let g:jsdoc_input_description = 1
 
 "" Peekaboo
 let g:peekaboo_window = 'vert bo 50new'
-
-"" PHPfmt
-let g:phpfmt_standard = 'PSR2'
-let g:phpfmt_autosave = 0
 
 "" Deoplete
 let g:deoplete#enable_at_startup = 1

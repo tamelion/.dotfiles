@@ -34,8 +34,14 @@ Plug 'chriskempson/base16-vim'
 Plug 'Mizuchi/vim-ranger'
 " Status bar and themes
 Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-" Autocompletion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'mhartington/deoplete-typescript'
+" Completion menu
+Plug 'Shougo/deoplete.nvim', { 'tag': '4.0-serial', 'do': ':UpdateRemotePlugins' }
+" TS completion
+Plug 'mhartington/nvim-typescript'
+" PHP completion
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+" HTML5 completion and syntax highlighting
+Plug 'othree/html5.vim', { 'for' : 'html' }
 " Git wrapper
 Plug 'tpope/vim-fugitive'
 " Git markers
@@ -64,18 +70,12 @@ Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
 " CSS colour of hex values
 Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss'] }
-" HTML5 omnicompletion and syntax highlighting
-"Plug 'othree/html5.vim', { 'for' : 'html' }
 " Silverstripe syntax highlighting
 Plug 'phalkunz/vim-ss'
 " JS and TS syntax highlighting
-"Plug 'HerringtonDarkholme/yats.vim'
+Plug 'HerringtonDarkholme/yats.vim'
 " JS and TS doc
 Plug 'heavenshell/vim-jsdoc'
-" TERN
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-" PHP improved omnicompletion
-"Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 
 call plug#end()
 
@@ -115,8 +115,8 @@ set linebreak showbreak=↪\  " Symbol for line breaks
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=4 tabstop=4
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType javascript setlocal omnifunc=tern#Complete
+autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4
 autocmd FileType zsh,yaml,python,json,coffee setlocal expandtab shiftwidth=2 tabstop=2
 

@@ -192,6 +192,9 @@ let g:ale_fixers = {
 			\   'javascript': ['eslint'],
 			\   'php': ['phpcbf'],
 			\}
+let g:ale_sign_error = '!!'
+let g:ale_sign_warning = '!'
+let g:ale_sign_info = '?'
 
 "" Auto pairs
 let g:AutoPairsMultilineClose = 0
@@ -205,10 +208,10 @@ let g:gitgutter_sign_modified = 'δ'
 let g:gitgutter_sign_removed = '«'
 let g:gitgutter_sign_modified_removed = '±'
 let g:gitgutter_override_sign_column_highlight = 0
-highlight GitGutterAdd guibg=#b5bd68 guifg=#222222
-highlight GitGutterChange guibg=#81a2be guifg=#222222
-highlight GitGutterDelete guibg=#cc6666 guifg=#222222
-highlight GitGutterChangeDelete guibg=#b294bb guifg=#222222
+highlight GitGutterAdd guifg=#b5bd68
+highlight GitGutterChange guifg=#81a2be
+highlight GitGutterDelete guifg=#cc6666
+highlight GitGutterChangeDelete guifg=#b294bb
 
 "" Gutentags
 let ctagsdir = expand("$HOME/.cache/ctags")

@@ -104,8 +104,8 @@ set shortmess+=c " Hide 'match x of y' messages in deoplete
 
 "" Indentation
 set tabstop=4 " Width of existing tabs to display on file open
-set shiftwidth=4 " Width of new indentation (multiplies tabstop if necessary)
-set noexpandtab " New indentation with tabs, not spaces
+set shiftwidth=4 " Width of new indentation
+set expandtab " New indentation with spaces, not tabs
 set shiftround " Within text, indent is calculated from col 1, not from cursor position
 set softtabstop=-1 " Within text, backspace removes same number of spaces as shiftwidth
 set list listchars=tab:┊\ ,nbsp:.,precedes:«,extends:» " Set various symbols
@@ -113,12 +113,11 @@ set linebreak showbreak=↪\  " Symbol for line breaks
 
 ""  Filetype specific
 autocmd FileType vim setlocal foldmethod=marker
-autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags shiftwidth=4 tabstop=4
+autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
 "autocmd FileType javascript setlocal omnifunc=tern#Complete
-autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4
-autocmd FileType zsh,yaml,python,json,coffee setlocal expandtab shiftwidth=2 tabstop=2
+autocmd FileType yaml,python setlocal expandtab shiftwidth=2 tabstop=2
 
 "" Colours and fonts
 set termguicolors " 24 bit colour

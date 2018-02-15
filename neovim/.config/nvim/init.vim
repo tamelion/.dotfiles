@@ -178,11 +178,12 @@ let g:airline_theme='base16_tomorrow'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#default#section_truncate_width = {} "disable trunc
 function! AirlineInit()
-	let g:airline_section_b = airline#section#create(['branch'])
-	let g:airline_section_c = airline#section#create(['hunks'])
+	let g:airline_section_a = '%t'
+	let g:airline_section_b = airline#section#create(['file', 'readonly'])
+	let g:airline_section_c = airline#section#create(['tagbar'])
 	let g:airline_section_x = ''
-	let g:airline_section_y = airline#section#create(['%{expand("%:h")}/'])
-	let g:airline_section_z = '%t'
+	let g:airline_section_y = airline#section#create(['hunks'])
+	let g:airline_section_z = airline#section#create(['branch'])
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
 
@@ -191,9 +192,9 @@ let g:ale_fixers = {
 			\   'javascript': ['eslint'],
 			\   'php': ['phpcbf'],
 			\}
-let g:ale_sign_error = '!!'
-let g:ale_sign_warning = '!'
-let g:ale_sign_info = '?'
+let g:ale_sign_error = '⚠'
+let g:ale_sign_warning = 'ϴ'
+let g:ale_sign_info = '🛈'
 
 "" Auto pairs
 let g:AutoPairsMultilineClose = 0
@@ -201,10 +202,13 @@ let g:AutoPairsMultilineClose = 0
 "" EchoDoc
 let g:echodoc#enable_at_startup = 1
 
+"" Editorconfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
 "" GitGutter
-let g:gitgutter_sign_added = '»'
+let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = 'δ'
-let g:gitgutter_sign_removed = '«'
+let g:gitgutter_sign_removed = '-'
 let g:gitgutter_sign_modified_removed = '±'
 let g:gitgutter_override_sign_column_highlight = 0
 highlight GitGutterAdd guifg=#b5bd68

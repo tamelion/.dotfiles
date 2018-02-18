@@ -76,6 +76,10 @@ Plug 'phalkunz/vim-ss'
 Plug 'HerringtonDarkholme/yats.vim'
 " JS and TS doc
 Plug 'heavenshell/vim-jsdoc'
+" Tab management
+Plug 'gcmt/taboo.vim'
+" Session restore
+Plug 'tpope/vim-obsession'
 
 call plug#end()
 
@@ -101,6 +105,7 @@ set synmaxcol=500
 set completeopt+=noinsert " Wait for manual insertion of completion candidate
 set pumheight=20 " Limit omnicomplete to 20 visible items
 set shortmess+=c " Hide 'match x of y' messages in deoplete
+set sessionoptions+=tabpages,globals " Save tab names in sessions
 
 "" Indentation
 set tabstop=4 " Width of existing tabs to display on file open
@@ -177,15 +182,25 @@ runtime macros/matchit.vim "Enable extended % matching
 let g:airline_theme='base16_tomorrow'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#default#section_truncate_width = {} "disable trunc
+
 function! AirlineInit()
-	let g:airline_section_a = '%t'
-	let g:airline_section_b = airline#section#create(['file', 'readonly'])
-	let g:airline_section_c = airline#section#create(['tagbar'])
-	let g:airline_section_x = ''
-	let g:airline_section_y = airline#section#create(['hunks'])
-	let g:airline_section_z = airline#section#create(['branch'])
+	let g:airline_section_y = airline#section#create(['obsession'])
+	let g:airline_section_z = airline#section#create(['linenr', 'maxlinenr'])
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tab_nr = 0 " taboo handles numbers
+"let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#tab_min_count = 1 
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+let g:airline#extensions#obsession#enabled = 1
+let g:airline#extensions#obsession#indicator_text = 'Session'
+let g:airline#extensions#taboo#enabled = 1
 
 "" ALE
 let g:ale_fixers = {
@@ -193,7 +208,7 @@ let g:ale_fixers = {
 			\   'php': ['phpcbf'],
 			\}
 let g:ale_sign_error = '⚠'
-let g:ale_sign_warning = 'ϴ'
+let g:ale_sign_warning = '⚠'
 let g:ale_sign_info = '🛈'
 
 "" Auto pairs
@@ -248,6 +263,11 @@ let g:fzf_action = {
 			\ 'alt-x': 'split',
 			\ 'alt-v': 'vsplit' }
 
+"" Taboo
+let g:taboo_tabline = 0 " Airline manages tabs
+let g:taboo_tab_format = '%N: general [%W]'
+let g:taboo_renamed_tab_format = '%N: %l [%W]'
+
 "" Ultisnips
 let g:UltiSnipsSnippetsDir="~/code/_snippets"
 let g:UltiSnipsEditSplit='vertical'
@@ -272,7 +292,7 @@ vnoremap > >gv
 " Select last pasted
 nnoremap gp `[v`]
 
-" Files
+" Open file from git repo
 nnoremap <CR> :GitFiles<CR>
 
 " Ban ex mode
@@ -288,6 +308,7 @@ nnoremap cd :Gcd<CR>:pwd<CR>
 nmap f <Plug>(easymotion-s)
 
 " More convenient escape sequence
+tnoremap <C-[> <C-\><C-n>
 inoremap ,j <Esc>
 cnoremap ,j <Esc>
 vnoremap ,j <Esc>
@@ -297,73 +318,23 @@ nnoremap ,j <Nop>
 " Edit from current directory
 nnoremap <C-\> :e %:p:h<CR>
 
-" Use matching c-[ and c-] for tag stack
-nmap <c-[> <c-t>
-
 " Omnicomplete with Tab or CR
 inoremap <expr> <Tab> pumvisible() ? "\<c-y>" : "\<Tab>"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
+" New tab
+nnoremap <C-w>t :tabnew<CR>
+
 " }}}
 " Mappings - meta {{{
 
-" Move to current tab format, remove trailing space and re-indent file
-nnoremap <M-=> :retab<CR>mzggvG@tgv=`z
-
-" FZF show commands
-nmap <M-.> <plug>(fzf-maps-n)
-
-"" Tabs
-" Tab new
-nnoremap <M-t> :tabnew<CR>
-" Move current pane to new tab
-nnoremap <M-T> :tabedit %<CR>gT<C-w>cgt
-" Tab move
-nmap <M-]> gt
-nmap <M-[> gT
-" Tab by ID
-nmap <M-1> 1gt
-nmap <M-2> 2gt
-nmap <M-3> 3gt
-nmap <M-4> 4gt
-nmap <M-5> 5gt
-nmap <M-6> 6gt
-nmap <M-7> 7gt
-nmap <M-8> 8gt
-nmap <M-9> 9gt
-
-"" Panes
-" Pane open
-nnoremap <M--> <C-w>s<CR>
-nnoremap <M-\> <C-w>v<CR>
-" Pane move
-nnoremap <M-h> <C-w>h
-nnoremap <M-H> <C-w>H
-nnoremap <M-j> <C-w>j
-nnoremap <M-J> <C-w>J
-nnoremap <M-k> <C-w>k
-nnoremap <M-K> <C-w>K
-nnoremap <M-l> <C-w>l
-nnoremap <M-L> <C-w>L
-" Pane resize
-nnoremap <Left>  :10wincmd <<CR>
-nnoremap <Right> :10wincmd ><CR>
-nnoremap <Up>    :10wincmd +<CR>
-nnoremap <Down>  :10wincmd -<CR>
-" Pane close
-nnoremap <M-w> <C-w>c
-
-"" Special panes
-" Toggle 'default' terminal
-nnoremap <M-`> :call ChooseTerm("term-slider", 1)<CR>
-" Recently opened files
-nnoremap <M-CR> :Buffers<CR>
-" git blame panel
+" Toggle git blame panel
 nnoremap <M-b> :Gblame<CR>
 " Toggle tagbar (ctags) tree
-nnoremap <M-c> :TagbarToggle<CR>
+nnoremap <M-t> :TagbarToggle<CR>
 " Toggle undo tree
 nnoremap <M-u> :UndotreeToggle<CR>
+
 " }}}
 " Mappings - leader {{{
 
@@ -371,28 +342,30 @@ nnoremap <M-u> :UndotreeToggle<CR>
 map <Space> <Leader>
 " Write operations
 nnoremap <Leader><Space> :w<CR>
-" Open from all files in pwd
-nnoremap <Leader><CR> :Files<CR>
-" Change tab type and width
+" Change tab type
 nnoremap <Leader><Tab> :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
-nnoremap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>
-nnoremap <Leader>4 :set tabstop=4<CR>:set shiftwidth=4<CR>
-nnoremap <Leader>8 :set tabstop=8<CR>:set shiftwidth=8<CR>
+" Open from cwd
+nnoremap <Leader><CR> :Files<CR>
 " Marks
 nnoremap <Leader>' :Marks<CR>
 " Commands
 nnoremap <Leader>; :Commands<CR>
+" FZF show commands
+nmap <Leader>. <plug>(fzf-maps-n)
 " Blurred lines
 nnoremap <Leader>/ :Lines<CR>
 " Find next non-unicode character
 nnoremap <Leader>@ /[^[:alnum:][:punct:][:space:]]<CR>:echo "Searching for non-unicode characters"<CR>
-nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
 " Move to current tab format, remove trailing space and re-indent file
 nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
+" Fix linting issues
+nnoremap <Leader>a :ALEFix<CR>
+" Switch to buffer
+nnoremap <Leader>b :Buffers<CR>!term ![No Name] 
 " Find (respect .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>f :FindInRepo 
+nnoremap <Leader>fg :FindGit 
 " Find (disregard .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>F :FindInDir 
+nnoremap <Leader>ff :FindAll
 " write and git add
 nnoremap <Leader>ga :Gwrite<CR>
 " git commit
@@ -416,13 +389,15 @@ nmap <Leader>h <Plug>GitGutterPreviewHunk
 nmap <Leader>ha <Plug>GitGutterStageHunk
 nmap <Leader>hu <Plug>GitGutterUndoHunk
 " Shortcut for alt file
-nmap <Leader>j <C-^>
+nmap <Leader>p <C-^>
+" Reload config
+nnoremap <Leader>R :so $MYVIMRC<CR>
 " Search non-UTF8 characters
 nnoremap <Leader>u /[^\x00-\x7F]<CR>
-"getLegend() Fast open vimrc
+" Fast open config
 nnoremap <Leader>v :e ~/.dotfiles/neovim/.config/nvim/init.vim<CR>
-" Reload .vimrc
-nnoremap <Leader>V :so $MYVIMRC<CR>
+" Sudo write
+nnoremap <Leader>W :w !sudo tee % > /dev/null<CR>
 
 " }}}
 " Mappings - macros {{{
@@ -469,8 +444,8 @@ function! ChooseTerm(termname)
 endfunction
 
 " Add FZF commands to use ripgrep
-command! -bang -nargs=* FindInRepo
+command! -bang -nargs=* FindGit
 			\ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
-command! -bang -nargs=* FindInDir
+command! -bang -nargs=* FindAll
 			\ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" --no-ignore '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 "}}}

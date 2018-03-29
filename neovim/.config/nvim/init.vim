@@ -265,11 +265,11 @@ let g:fzf_action = {
 
 "" Taboo
 let g:taboo_tabline = 0 " Airline manages tabs
-let g:taboo_tab_format = '%N: general [%W]'
-let g:taboo_renamed_tab_format = '%N: %l [%W]'
+let g:taboo_tab_format = '%N: general[%W]'
+let g:taboo_renamed_tab_format = '%N: %l[%W]'
 
 "" Ultisnips
-let g:UltiSnipsSnippetsDir="~/code/_snippets"
+let g:UltiSnipsSnippetsDir='~/code/snippets/UltiSnips'
 let g:UltiSnipsEditSplit='vertical'
 
 "" Undotree

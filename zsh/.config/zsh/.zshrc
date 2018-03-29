@@ -33,7 +33,6 @@ if [[ -s "$ZPLUG_HOME" ]]; then
 
   # theme
   zplug "denysdovhan/spaceship-zsh-theme", as:theme
-  SPACESHIP_PROMPT_SYMBOL='¯\_(ツ)_/¯'
   SPACESHIP_VI_MODE_SHOW=false
 
   # more commands for git

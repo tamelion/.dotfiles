@@ -57,32 +57,10 @@
 	sl = status
 	standup = shortlog --since=yesterday
 
-[color "branch"]
-	current = magenta bold
-	local = magenta
-	remote = green
-	upstream = green reverse
-
 [color "diff"]
-	commit = blue
-	meta = cyan bold
-	frag = magenta
-	old = red
-	new = green
-
-[color "decorate"]
-	branch = magenta
-	HEAD = yellow
-	stash = magenta reverse
-	remoteBranch = green
-	tag = red
+	meta = magenta
 
 [color "grep"]
-	filename = cyan
+	filename = magenta
 	linenumber = blue
-	match = red
-
-[color "status"]
-	added = green
-	changed = yellow
-	untracked = red
+	match = magenta bold

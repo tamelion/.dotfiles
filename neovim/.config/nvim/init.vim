@@ -29,19 +29,18 @@ Plug 'junegunn/vim-peekaboo'
 " Replace by yanking to black hole
 Plug 'vim-scripts/ReplaceWithRegister'
 " Coding colour schemes
-Plug 'chriskempson/base16-vim'
-" Ranger
-Plug 'Mizuchi/vim-ranger'
+"Plug 'chriskempson/base16-vim'
+Plug 'fenetikm/falcon'
+" Dirvish
+Plug 'justinmk/vim-dirvish'
 " Status bar and themes
-Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 " Completion menu
 Plug 'Shougo/deoplete.nvim', { 'tag': '4.0-serial', 'do': ':UpdateRemotePlugins' }
 " TS completion
 Plug 'mhartington/nvim-typescript'
 " PHP completion
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
-" HTML5 completion and syntax highlighting
-Plug 'othree/html5.vim', { 'for' : 'html' }
 " Git wrapper
 Plug 'tpope/vim-fugitive'
 " Git markers
@@ -74,6 +73,8 @@ Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss'] }
 Plug 'phalkunz/vim-ss'
 " JS and TS syntax highlighting
 Plug 'HerringtonDarkholme/yats.vim'
+" ReactJS syntax highlighting
+Plug 'mxw/vim-jsx'
 " JS and TS doc
 Plug 'heavenshell/vim-jsdoc'
 " Tab management
@@ -97,7 +98,7 @@ set nobackup noswapfile " No backup or swap files
 set noerrorbells novisualbell tm=500 " No sound or flash on errors
 set number " Display line numbers
 set showmatch " Show matching brackets when text indicator is over them
-set noshowmode " Mode already displayed in airline
+set noshowmode " Mode already displayed in plugins
 set so=999 " Scrolloff - keep cursor centred
 set splitbelow splitright " Window split direction
 set undofile " Persistent undo
@@ -119,7 +120,7 @@ set linebreak showbreak=↪\  " Symbol for line breaks
 "  Filetype specific
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType css,scss,sass,less setlocal omnifunc=csscomplete#CompleteCSS foldmethod=indent
 autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
 "autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType yaml,python setlocal expandtab shiftwidth=2 tabstop=2
@@ -128,11 +129,9 @@ autocmd FileType yaml,python setlocal expandtab shiftwidth=2 tabstop=2
 set termguicolors " 24 bit colour
 syntax enable " Enable syntax highlighting
 set background=dark
-set cursorline " Highlight current line
 set colorcolumn=80,120 " Highlight columns for target max length
-colorscheme base16-tomorrow-night
-highlight Whitespace guifg=#444444 " list characters
-highlight SignColumn guibg=#222222 " gitgutter and parsers"
+colorscheme falcon
+highlight ColorColumn guibg=#1c1c1c " colorcolumn
 
 " Terminal: 8 normal colors
 let g:terminal_color_0 = '#1d1f21' "black
@@ -178,31 +177,7 @@ runtime macros/matchit.vim "Enable extended % matching
 " }}}
 " Plugin settings {{{
 
-"" Airline
-let g:airline_theme='base16_tomorrow'
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#default#section_truncate_width = {} "disable trunc
-
-function! AirlineInit()
-	let g:airline_section_y = airline#section#create(['obsession'])
-	let g:airline_section_z = airline#section#create(['linenr', 'maxlinenr'])
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_tab_nr = 0 " taboo handles numbers
-"let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#tab_min_count = 1 
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tab_type = 0
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-let g:airline#extensions#obsession#enabled = 1
-let g:airline#extensions#obsession#indicator_text = 'Session'
-let g:airline#extensions#taboo#enabled = 1
-
-"" ALE
+" ALE
 let g:ale_fixers = {
             \   'javascript': ['eslint'],
             \   'php': ['phpcbf'],
@@ -226,10 +201,10 @@ let g:gitgutter_sign_modified = 'δ'
 let g:gitgutter_sign_removed = '-'
 let g:gitgutter_sign_modified_removed = '±'
 let g:gitgutter_override_sign_column_highlight = 0
-highlight GitGutterAdd guifg=#b5bd68
-highlight GitGutterChange guifg=#81a2be
-highlight GitGutterDelete guifg=#cc6666
-highlight GitGutterChangeDelete guifg=#b294bb
+highlight GitGutterAdd guifg = #b5bd68
+highlight GitGutterChange guifg = #81a2be
+highlight GitGutterDelete guifg = #cc6666
+highlight GitGutterChangeDelete guifg = #b294bb
 
 " Gutentags
 let ctagsdir = expand("$XDG_DATA_HOME/ctags")
@@ -263,9 +238,57 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:fzf_layout = { 'down': '~33%' }
 let g:fzf_buffers_jump = 1 " Jump to open buffer if matched
 let g:fzf_action = {
-			\ 'alt-t': 'tab split',
-			\ 'alt-x': 'split',
-			\ 'alt-v': 'vsplit' }
+            \ 'alt-t': 'tab split',
+            \ 'alt-x': 'split',
+            \ 'alt-v': 'vsplit' }
+
+" Lightline
+let g:lightline = {
+            \ 'colorscheme': 'falcon',
+            \ 'active': {
+            \   'left': [
+            \      [ 'filedetail' ],
+            \      [ 'tag' ],
+            \      [ 'percent' ],
+            \   ],
+            \   'right': [
+            \      [ 'fugitive' ],
+            \      [ 'mode', 'paste' ],
+            \      [ 'obsession' ]
+            \   ]
+            \ },
+            \ 'inactive': {
+            \   'left': [
+            \      [ 'filedetail' ]
+            \   ],
+            \   'right': [
+            \      [ 'fugitive' ]
+            \   ]
+            \ },
+            \ 'component': {
+            \   'obsession': '%{ObsessionStatus()} ',
+            \   'tag': '%{tagbar#currenttag("%s","[No tag]")} ',
+            \ },
+            \ 'component_function': {
+            \   'fugitive': 'LightlineFugitive',
+            \   'filedetail': 'LightlineFilename',
+            \ },
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' },
+            \ }
+function! LightlineFugitive()
+    if exists('*fugitive#head')
+        let branch = fugitive#head()
+        return branch !=# '' ? ''.branch : ''
+    endif
+    return ''
+endfunction
+function! LightlineFilename()
+    let readonly = &readonly ? '' : ''
+    let filename = expand('%:f') !=# '' ? expand('%:f') : '[No Name]'
+    let modified = &modified ? '(+)' : ''
+    return readonly . filename . modified
+endfunction
 
 " ProSession
 let sessiondir = expand("$XDG_DATA_HOME/nvim/session")

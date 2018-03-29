@@ -2,7 +2,7 @@
 
 " Auto-install plug for new deploys
 if (!filereadable(expand("$HOME/.config/nvim/autoload/plug.vim")))
-	call system(expand("curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"))
+    call system(expand("curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"))
 endif
 
 call plug#begin()
@@ -79,7 +79,7 @@ Plug 'heavenshell/vim-jsdoc'
 " Tab management
 Plug 'gcmt/taboo.vim'
 " Session restore
-Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-obsession' | Plug 'dhruvasagar/vim-prosession'
 
 call plug#end()
 
@@ -100,14 +100,14 @@ set showmatch " Show matching brackets when text indicator is over them
 set noshowmode " Mode already displayed in airline
 set so=999 " Scrolloff - keep cursor centred
 set splitbelow splitright " Window split direction
-set undofile undodir=~/.config/nvim/undo " Persistent undo
+set undofile " Persistent undo
 set synmaxcol=500
 set completeopt+=noinsert " Wait for manual insertion of completion candidate
 set pumheight=20 " Limit omnicomplete to 20 visible items
 set shortmess+=c " Hide 'match x of y' messages in deoplete
 set sessionoptions+=tabpages,globals " Save tab names in sessions
 
-"" Indentation
+" Indentation
 set tabstop=4 " Width of existing tabs to display on file open
 set shiftwidth=4 " Width of new indentation
 set expandtab " New indentation with spaces, not tabs
@@ -116,7 +116,7 @@ set softtabstop=-1 " Within text, backspace removes same number of spaces as shi
 set list listchars=tab:┊\ ,nbsp:.,precedes:«,extends:» " Set various symbols
 set linebreak showbreak=↪\  " Symbol for line breaks
 
-""  Filetype specific
+"  Filetype specific
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType html,markdown,xhtml,ss.html setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -124,7 +124,7 @@ autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#Comp
 "autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType yaml,python setlocal expandtab shiftwidth=2 tabstop=2
 
-"" Colours and fonts
+" Colours and fonts
 set termguicolors " 24 bit colour
 syntax enable " Enable syntax highlighting
 set background=dark
@@ -157,12 +157,12 @@ let g:terminal_color_15 = '#ffffff' "white
 " }}}
 " Built-in extensions {{{
 
-"" Netrw
+" Netrw
 let g:netrw_banner=0 " Netrw banner info off
 let g:netrw_liststyle=3 " Netrw default to tree
 let g:netrw_keepdir = 1 " Netrw don't cd to current browsed dir
 
-"" Wildmenu
+" Wildmenu
 set wildmode=list:longest " WiLd menu with shell-style completion
 " Ignore files
 set wildignore+=*/node_modules/*,*bower_components/* " MacOSX/Linux
@@ -172,7 +172,7 @@ set wildignore+=*.eot,*.ttf,*.woff,*.ico
 set wildignore+=*.jpg,*.jpeg,*.JPG,*.png,*.gif,*.tiff,*.eps,*.psd
 set wildignore+=*.pdf,*.doc,*.docx,*.DOCX,*.ppt,*.xls
 
-"" Macros
+" Macros
 runtime macros/matchit.vim "Enable extended % matching
 
 " }}}
@@ -204,23 +204,23 @@ let g:airline#extensions#taboo#enabled = 1
 
 "" ALE
 let g:ale_fixers = {
-			\   'javascript': ['eslint'],
-			\   'php': ['phpcbf'],
-			\}
+            \   'javascript': ['eslint'],
+            \   'php': ['phpcbf'],
+            \}
 let g:ale_sign_error = '⚠'
 let g:ale_sign_warning = '⚠'
 let g:ale_sign_info = '🛈'
 
-"" Auto pairs
+" Auto pairs
 let g:AutoPairsMultilineClose = 0
 
-"" EchoDoc
+" EchoDoc
 let g:echodoc#enable_at_startup = 1
 
-"" Editorconfig
+" Editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-"" GitGutter
+" GitGutter
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = 'δ'
 let g:gitgutter_sign_removed = '-'
@@ -231,31 +231,35 @@ highlight GitGutterChange guifg=#81a2be
 highlight GitGutterDelete guifg=#cc6666
 highlight GitGutterChangeDelete guifg=#b294bb
 
-"" Gutentags
-let ctagsdir = expand("$HOME/.cache/ctags")
+" Gutentags
+let ctagsdir = expand("$XDG_DATA_HOME/ctags")
 if !isdirectory(ctagsdir)
-	call mkdir(ctagsdir)
+    call mkdir(ctagsdir)
 endif
-let g:gutentags_cache_dir=ctagsdir
+let g:gutentags_cache_dir = ctagsdir
 
-"" Indent guides
+" Indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 
-"" JSDoc
+" JSDoc
 let g:jsdoc_enable_es6 = 1
 let g:jsdoc_input_description = 1
 
-"" Peekaboo
+" Peekaboo
 let g:peekaboo_window = 'vert bo 50new'
 
-"" Deoplete
+" Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#tss#javascript_support = 1
 " Ignore omni in favour of phpcd
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-let g:deoplete#ignore_sources.php = ['omni']
+"let g:deoplete#ignore_sources.php = ['omni']
+call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-"" FZF
+" FZF
 let g:fzf_layout = { 'down': '~33%' }
 let g:fzf_buffers_jump = 1 " Jump to open buffer if matched
 let g:fzf_action = {
@@ -263,16 +267,34 @@ let g:fzf_action = {
 			\ 'alt-x': 'split',
 			\ 'alt-v': 'vsplit' }
 
-"" Taboo
-let g:taboo_tabline = 0 " Airline manages tabs
-let g:taboo_tab_format = '%N: general[%W]'
-let g:taboo_renamed_tab_format = '%N: %l[%W]'
+" ProSession
+let sessiondir = expand("$XDG_DATA_HOME/nvim/session")
+if !isdirectory(sessiondir)
+    call mkdir(sessiondir)
+endif
+let g:prosession_dir = sessiondir
+let g:prosession_tmux_title = 1
+let g:prosession_tmux_title_format = "nvim - @@@"
+let g:prosession_per_branch = 1
 
-"" Ultisnips
-let g:UltiSnipsSnippetsDir='~/code/snippets/UltiSnips'
-let g:UltiSnipsEditSplit='vertical'
+" Taboo
+let g:taboo_tab_format = ' %N: %f '
+let g:taboo_renamed_tab_format = ' %N: %l '
 
-"" Undotree
+" Tagbar
+let g:tagbar_left = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
+
+" Ultisnips
+let snippetsdir = expand("$HOME/code/snippets/UltiSnips")
+if !isdirectory(snippetsdir)
+    call mkdir(snippetsdir)
+endif
+let g:UltiSnipsSnippetsDir = snippetsdir
+let g:UltiSnipsEditSplit = 'vertical'
+
+" Undotree
 let g:undotree_SetFocusWhenToggle = 1
 
 " }}}
@@ -308,15 +330,11 @@ nnoremap cd :Gcd<CR>:pwd<CR>
 nmap f <Plug>(easymotion-s)
 
 " More convenient escape sequence
-tnoremap <C-[> <C-\><C-n>
 inoremap ,j <Esc>
 cnoremap ,j <Esc>
 vnoremap ,j <Esc>
 tnoremap ,j <C-\><C-n>
 nnoremap ,j <Nop>
-
-" Edit from current directory
-nnoremap <C-\> :e %:p:h<CR>
 
 " Omnicomplete with Tab or CR
 inoremap <expr> <Tab> pumvisible() ? "\<c-y>" : "\<Tab>"
@@ -361,11 +379,11 @@ nnoremap <Leader>= :retab<CR>mzggvG@tgv=`z
 " Fix linting issues
 nnoremap <Leader>a :ALEFix<CR>
 " Switch to buffer
-nnoremap <Leader>b :Buffers<CR>!term ![No Name] 
+nnoremap <Leader>b :Buffers<CR>!term ![No Name]
 " Find (respect .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>fg :FindGit 
+nnoremap <Leader>f :FindGit 
 " Find (disregard .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>ff :FindAll
+nnoremap <Leader>ff :FindAll 
 " write and git add
 nnoremap <Leader>ga :Gwrite<CR>
 " git commit
@@ -427,25 +445,25 @@ let @v = ':%s/ / /ge:%s//‘/ge:%s//’/ge:%s//“/ge:%s//”/ge:%
 "  Functions and commands {{{
 
 function! ChooseTerm(termname)
-	let pane = bufwinnr(a:termname)
-	let buf = bufexists(a:termname)
-	if pane > 0
-		" pane is visible
-		:exe pane . "wincmd c"
-	elseif buf > 0
-		" buffer is not in pane
-		:exe "topleft split"
-	else
-		" buffer is not loaded, create
-		:exe "topleft split"
-		:terminal
-		:exe "f " a:termname
-	endif
+    let pane = bufwinnr(a:termname)
+    let buf = bufexists(a:termname)
+    if pane > 0
+        " pane is visible
+        :exe pane . "wincmd c"
+    elseif buf > 0
+        " buffer is not in pane
+        :exe "topleft split"
+    else
+        " buffer is not loaded, create
+        :exe "topleft split"
+        :terminal
+        :exe "f " a:termname
+    endif
 endfunction
 
 " Add FZF commands to use ripgrep
 command! -bang -nargs=* FindGit
-			\ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+            \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 command! -bang -nargs=* FindAll
-			\ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" --no-ignore '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+            \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" --no-ignore '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 "}}}

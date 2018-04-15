@@ -16,7 +16,7 @@ fi
 TMPPREFIX="${TMPDIR%/}/zsh"
 
 # Zplug
-export ZPLUG_HOME="$XDG_CACHE_HOME/zplug"
+export ZPLUG_HOME="$XDG_DATA_HOME/zplug"
 
 # Editors
 export EDITOR='nvim'

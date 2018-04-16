@@ -209,7 +209,7 @@ highlight GitGutterChangeDelete guifg = #b294bb
 " Gutentags
 let ctagsdir = expand("$XDG_DATA_HOME/ctags")
 if !isdirectory(ctagsdir)
-    call mkdir(ctagsdir)
+    call mkdir(ctagsdir, 'p')
 endif
 let g:gutentags_cache_dir = ctagsdir
 
@@ -293,7 +293,7 @@ endfunction
 " ProSession
 let sessiondir = expand("$XDG_DATA_HOME/nvim/session")
 if !isdirectory(sessiondir)
-    call mkdir(sessiondir)
+    call mkdir(sessiondir, 'p')
 endif
 let g:prosession_dir = sessiondir
 let g:prosession_tmux_title = 1
@@ -312,7 +312,7 @@ let g:tagbar_autoclose = 1
 " Ultisnips
 let snippetsdir = expand("$HOME/code/snippets/UltiSnips")
 if !isdirectory(snippetsdir)
-    call mkdir(snippetsdir)
+    call mkdir(snippetsdir, 'p')
 endif
 let g:UltiSnipsSnippetsDir = snippetsdir
 let g:UltiSnipsEditSplit = 'vertical'

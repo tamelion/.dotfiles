@@ -15,11 +15,7 @@ exec --no-startup-id set-wallpaper
 # status bar
 bar {
 	status_command i3status --config ~/.config/i3status
-		position top
-		mode hide
-		hidden_state hide
-# to toggle hidden state
-		modifier $alt
+    position top
 }
 
 # window design
@@ -70,6 +66,7 @@ bindsym Ctrl+$alt+Shift+k move up
 bindsym Ctrl+$alt+Shift+l move right
 
 # switch to workspace by number
+bindsym Ctrl+$alt+grave workspace 0
 bindsym Ctrl+$alt+1 workspace 1
 bindsym Ctrl+$alt+2 workspace 2
 bindsym Ctrl+$alt+3 workspace 3
@@ -77,6 +74,7 @@ bindsym Ctrl+$alt+4 workspace 4
 bindsym Ctrl+$alt+5 workspace 5
 
 # move container to workspace by number
+bindsym Ctrl+$alt+Shift+grave move container to workspace 0; workspace 0
 bindsym Ctrl+$alt+Shift+1 move container to workspace 1; workspace 1
 bindsym Ctrl+$alt+Shift+2 move container to workspace 2; workspace 2
 bindsym Ctrl+$alt+Shift+3 move container to workspace 3; workspace 3
@@ -157,18 +155,14 @@ bindsym $meta+space exec --no-startup-id rofi -show combi
 bindsym $meta+q kill
 
 # quick switch workspace (mimic switch applications)
-bindsym $meta+Tab workspace next_on_output
-bindsym Shift+$meta+Tab workspace prev_on_output
-
-# quick switch container (mimic switch application windows)
-bindsym $meta+grave focus right; focus down
-bindsym $meta+Shift+grave focus left; focus up
+bindsym $meta+Tab focus right
+bindsym Shift+$meta+Tab focus left
 
 
 #########################
 ## Auto run
 #########################
-assign [class="Termite"] 1
-assign [class="^Google-chrome$"] 2
+assign [class="Termite"] 0
+assign [class="^Google-chrome$"] 1
 exec "termite --exec='tmux new-session -A -s general'"
 exec google-chrome-stable

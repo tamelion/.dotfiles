@@ -3,11 +3,10 @@
 #########################
 
 # aliases
-set $meta Mod4
-set $alt Mod1
+set $mod Ctrl+Mod1
 
 # mouse drags floating windows with this
-floating_modifier $alt
+floating_modifier $mod
 
 # autostart
 exec --no-startup-id set-wallpaper
@@ -54,109 +53,97 @@ client.urgent               $purple    $purple     $white
 #########################
 
 # switch to container or workspace by position
-bindsym Ctrl+$alt+h focus left
-bindsym Ctrl+$alt+j focus down
-bindsym Ctrl+$alt+k focus up
-bindsym Ctrl+$alt+l focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # move container by position
-bindsym Ctrl+$alt+Shift+h move left
-bindsym Ctrl+$alt+Shift+j move down
-bindsym Ctrl+$alt+Shift+k move up
-bindsym Ctrl+$alt+Shift+l move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # switch to workspace by number
-bindsym Ctrl+$alt+grave workspace 0
-bindsym Ctrl+$alt+1 workspace 1
-bindsym Ctrl+$alt+2 workspace 2
-bindsym Ctrl+$alt+3 workspace 3
-bindsym Ctrl+$alt+4 workspace 4
-bindsym Ctrl+$alt+5 workspace 5
+bindsym $mod+grave workspace 0
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
 
 # move container to workspace by number
-bindsym Ctrl+$alt+Shift+grave move container to workspace 0; workspace 0
-bindsym Ctrl+$alt+Shift+1 move container to workspace 1; workspace 1
-bindsym Ctrl+$alt+Shift+2 move container to workspace 2; workspace 2
-bindsym Ctrl+$alt+Shift+3 move container to workspace 3; workspace 3
-bindsym Ctrl+$alt+Shift+4 move container to workspace 4; workspace 4
-bindsym Ctrl+$alt+Shift+5 move container to workspace 5; workspace 5
+bindsym $mod+Shift+grave move container to workspace 0; workspace 0
+bindsym $mod+Shift+1 move container to workspace 1; workspace 1
+bindsym $mod+Shift+2 move container to workspace 2; workspace 2
+bindsym $mod+Shift+3 move container to workspace 3; workspace 3
+bindsym $mod+Shift+4 move container to workspace 4; workspace 4
+bindsym $mod+Shift+5 move container to workspace 5; workspace 5
 
 # quick switch workspace
-bindsym Ctrl+$alt+p workspace prev_on_output
-bindsym Ctrl+$alt+n workspace next_on_output
+bindsym $mod+p workspace prev_on_output
+bindsym $mod+n workspace next_on_output
 
 # lock screen
-bindsym Ctrl+$meta+$alt+space exec --no-startup-id i3lock -n -c 000000 -i ~/.lockscreen.jpg
+bindsym $mod+Return exec --no-startup-id i3lock -n -c 000000 -i ~/.lockscreen.jpg
 
 # screenshot
 bindsym --release Print exec --no-startup-id scrot -s
 
 # vertical split (i3 calls this h)
-bindsym Ctrl+$alt+bar split h
+bindsym $mod+bar split h
 
 # horizontal split (i3 calls this v)
-bindsym Ctrl+$alt+minus split v
+bindsym $mod+minus split v
 
 # resize
-bindsym Ctrl+$alt+Left resize shrink width 10 px or 10 ppt
-bindsym Ctrl+$alt+Down resize grow height 10 px or 10 ppt
-bindsym Ctrl+$alt+Up resize shrink height 10 px or 10 ppt
-bindsym Ctrl+$alt+Right resize grow width 10 px or 10 ppt
-
-# reload config file
-bindsym Ctrl+$alt+r reload
-
-# restart i3
-bindsym Ctrl+$alt+Shift+r restart
-
-# exit i3
-bindsym Ctrl+$alt+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
-# start a terminal command
-bindsym Ctrl+$alt+Return exec termite
-
-# make currently focused window a scratchpad
-bindsym Ctrl+$alt+Shift+semicolon move scratchpad
-
-# show first scratchpad window
-bindsym Ctrl+$alt+semicolon scratchpad show
-
-# move current workspace to next output
-bindsym Ctrl+$alt+x move workspace to output right
-
-# enter fullscreen mode for the focused container
-bindsym Ctrl+$alt+f fullscreen
-
-# change container layout
-bindsym Ctrl+$alt+t layout tabbed
-bindsym Ctrl+$alt+s layout toggle split
-
-# toggle tiling / floating
-bindsym Ctrl+$alt+Shift+Tab floating toggle
-
-# change focus between tiling / floating windows
-bindsym Ctrl+$alt+Tab focus mode_toggle
-
-# re-run automatic scripts
-bindsym Ctrl+$alt+m exec --no-startup-id autorun-scripts
-
-# HDMI sound toggle
-bindsym Ctrl+$alt+a exec --no-startup-id hdmi-sound
-
-
-#########################
-## MacOS keybindings
-#########################
+bindsym $mod+Left resize shrink width 10 px or 10 ppt
+bindsym $mod+Down resize grow height 10 px or 10 ppt
+bindsym $mod+Up resize shrink height 10 px or 10 ppt
+bindsym $mod+Right resize grow width 10 px or 10 ppt
 
 # switch or start application
-bindsym $meta+space exec --no-startup-id rofi -show combi
+bindsym $mod+space exec --no-startup-id rofi -show combi
 
 # quit application
-bindsym $meta+q kill
+bindsym $mod+q kill
 
-# quick switch workspace (mimic switch applications)
-bindsym $meta+Tab focus right
-bindsym Shift+$meta+Tab focus left
+# reload config file
+bindsym $mod+r reload
+
+# restart i3
+bindsym $mod+Shift+r restart
+
+# exit i3
+bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# make currently focused window a scratchpad
+bindsym $mod+Shift+semicolon move scratchpad
+
+# show first scratchpad window
+bindsym $mod+semicolon scratchpad show
+
+# move current workspace to next output
+bindsym $mod+x move workspace to output right
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout
+bindsym $mod+t layout tabbed
+bindsym $mod+s layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+Tab floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+Tab focus mode_toggle
+
+# re-run automatic scripts
+bindsym $mod+m exec --no-startup-id autorun-scripts
+
+# HDMI sound toggle
+bindsym $mod+a exec --no-startup-id hdmi-sound
 
 
 #########################

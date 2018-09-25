@@ -103,7 +103,7 @@ bindsym $mod+Up resize shrink height 10 px or 10 ppt
 bindsym $mod+Right resize grow width 10 px or 10 ppt
 
 # switch or start application
-bindsym $mod+space exec --no-startup-id rofi -show combi
+bindsym $mod+space exec dmenu_run
 
 # quit application
 bindsym $mod+q kill

@@ -141,15 +141,3 @@ bindsym $mod+Tab focus mode_toggle
 
 # re-run automatic scripts
 bindsym $mod+m exec --no-startup-id autorun-scripts
-
-# HDMI sound toggle
-bindsym $mod+a exec --no-startup-id hdmi-sound
-
-
-#########################
-## Auto run
-#########################
-assign [class="Termite"] 0
-assign [class="^Google-chrome$"] 1
-exec "termite --exec='tmux new-session -A -s general'"
-exec google-chrome-stable

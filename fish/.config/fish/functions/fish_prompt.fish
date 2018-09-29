@@ -5,6 +5,7 @@ function fish_prompt
   echo -n (prompt_pwd)
   set_color normal
   echo -n (__fish_git_prompt)
+  echo
   if test $last_status -ne 0
     set_color magenta --bold
   end

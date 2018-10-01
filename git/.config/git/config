@@ -41,7 +41,7 @@
 	co = checkout
 	cc = commit --amend --reuse-message HEAD
 	ca = commit --verbose --amend
-	d = diff
+	d = diff --color-words
 	ds = diff --staged
 	g = grep -n
 	l = "log -10 --topo-order --pretty=format:'%C(auto)%h %s%n%C(cyan)(%ar by %an)%C(auto)%d%n'"

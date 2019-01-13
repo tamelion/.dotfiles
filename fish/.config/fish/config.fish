@@ -1,3 +1,10 @@
+# exports
+set -x PATH $PATH ~/.local/bin
+set -x NPM_CONFIG_PREFIX ~/.local
+set -x EDITOR 'nvim'
+set -x VISUAL 'nvim'
+set -x PAGER 'less'
+
 # git prompt
 set __fish_git_prompt_show_informative_status true
 set __fish_git_prompt_showcolorhints true

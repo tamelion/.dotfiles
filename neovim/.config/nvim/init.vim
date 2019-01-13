@@ -1,86 +1,37 @@
 " Plugins {{{
 
 " Auto-install plug for new deploys
-if (!filereadable(expand("$HOME/.config/nvim/autoload/plug.vim")))
-    call system(expand("curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"))
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin()
 
-" To research:
-"Plug 'tek/proteome.nvim'
-
-" Ctags
-Plug 'ludovicchabant/vim-gutentags'
-" Tagbar
-Plug 'majutsushi/tagbar'
-" Tmux config syntax highlighting
-Plug 'ericpruitt/tmux.vim'
-" Function signature help
-Plug 'Shougo/echodoc.vim'
-" Snippets engine
-Plug 'SirVer/ultisnips'
-" General snippets
-Plug 'honza/vim-snippets'
-" Editor config
-Plug 'editorconfig/editorconfig-vim'
-" Preview yanks when pasting
-Plug 'junegunn/vim-peekaboo'
-" Replace by yanking to black hole
-Plug 'vim-scripts/ReplaceWithRegister'
-" Coding colour schemes
-"Plug 'chriskempson/base16-vim'
-Plug 'fenetikm/falcon'
-" Dirvish
-Plug 'justinmk/vim-dirvish'
-" Status bar and themes
-Plug 'itchyny/lightline.vim'
-" Completion menu
-Plug 'Shougo/deoplete.nvim', { 'tag': '4.0-serial', 'do': ':UpdateRemotePlugins' }
-" TS completion
-Plug 'mhartington/nvim-typescript'
-" PHP completion
-Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
-" Git wrapper
-Plug 'tpope/vim-fugitive'
-" Git markers
-Plug 'airblade/vim-gitgutter'
-" Github gists
-Plug 'mattn/gist-vim'
-" Useful macros using [ and ]
-Plug 'tpope/vim-unimpaired'
-" Use . repeat for tpope plugins
-Plug 'tpope/vim-repeat'
-" Quick commenting
-Plug 'tpope/vim-commentary'
-" Change surroundings
-Plug 'tpope/vim-surround'
-" Move through vim
-Plug 'Lokaltog/vim-easymotion'
-" Undo tree
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-" Auto close brackets
-Plug 'jiangmiao/auto-pairs'
-" Fuzzy find
-Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
-" Multi-language linting
-Plug 'w0rp/ale'
-" One stop syntax highlighting
-Plug 'sheerun/vim-polyglot'
-" CSS colour of hex values
-Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss'] }
-" Silverstripe syntax highlighting
-Plug 'phalkunz/vim-ss'
-" JS and TS syntax highlighting
-Plug 'HerringtonDarkholme/yats.vim'
-" ReactJS syntax highlighting
-Plug 'mxw/vim-jsx'
-" JS and TS doc
-Plug 'heavenshell/vim-jsdoc'
-" Tab management
-Plug 'gcmt/taboo.vim'
-" Session restore
-Plug 'tpope/vim-obsession' | Plug 'dhruvasagar/vim-prosession'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " LSP client
+Plug 'chriskempson/base16-vim' " Coding colour schemes
+Plug 'sheerun/vim-polyglot' " One stop syntax highlighting
+Plug 'ericpruitt/tmux.vim' " Tmux config syntax highlighting
+Plug 'Shougo/echodoc.vim' " Function signature in command line
+Plug 'editorconfig/editorconfig-vim' " Pick up any editor config files
+Plug 'junegunn/vim-peekaboo' " Preview yanks when pasting
+Plug 'itchyny/lightline.vim' " Status bar and themes
+Plug 'airblade/vim-gitgutter' " Git markers in the gutter
+Plug 'tpope/vim-unimpaired' " Useful macros using [ and ]
+Plug 'tpope/vim-repeat' " Use . repeat for tpope plugins
+Plug 'tpope/vim-commentary' " Quick commenting
+Plug 'tpope/vim-surround' " Change surroundings
+Plug 'Lokaltog/vim-easymotion' " Move through vim
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' } " Undo tree
+Plug 'jiangmiao/auto-pairs' " Auto close brackets
+Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim' " Fuzzy find
+Plug 'w0rp/ale' " Multi-language linting
+Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss'] } " CSS colour of hex values
+Plug 'HerringtonDarkholme/yats.vim' " JS and TS syntax highlighting
+Plug 'heavenshell/vim-jsdoc' " JS and TS doc
+Plug 'gcmt/taboo.vim' " Tab management
+Plug 'tpope/vim-obsession' | Plug 'dhruvasagar/vim-prosession' " Session restore
 
 call plug#end()
 
@@ -130,28 +81,8 @@ set termguicolors " 24 bit colour
 syntax enable " Enable syntax highlighting
 set background=dark
 set colorcolumn=80,120 " Highlight columns for target max length
-colorscheme falcon
-highlight ColorColumn guibg=#1c1c1c " colorcolumn
-
-" Terminal: 8 normal colors
-let g:terminal_color_0 = '#1d1f21' "black
-let g:terminal_color_1 = '#cc6666' "red
-let g:terminal_color_2 = '#b5bd68' "green
-let g:terminal_color_3 = '#f0c674' "yellow
-let g:terminal_color_4 = '#81a2be' "blue
-let g:terminal_color_5 = '#b294bb' "magenta
-let g:terminal_color_6 = '#8abeb7' "cyan
-let g:terminal_color_7 = '#c5c8c6' "white
-
-" Terminal: 8 bright colors
-let g:terminal_color_8 = '#969896' "black
-let g:terminal_color_9 = '#cc6666' "red
-let g:terminal_color_10 = '#b5bd68' "green
-let g:terminal_color_11 = '#f0c674' "yellow
-let g:terminal_color_12 = '#81a2be' "blue
-let g:terminal_color_13 = '#b294bb' "magenta
-let g:terminal_color_14 = '#8abeb7' "cyan
-let g:terminal_color_15 = '#ffffff' "white
+colorscheme base16-tomorrow-night
+highlight ColorColumn guibg=#222222 " colorcolumn
 
 " }}}
 " Built-in extensions {{{
@@ -206,13 +137,6 @@ highlight GitGutterChange guifg = #81a2be
 highlight GitGutterDelete guifg = #cc6666
 highlight GitGutterChangeDelete guifg = #b294bb
 
-" Gutentags
-let ctagsdir = expand("$XDG_DATA_HOME/ctags")
-if !isdirectory(ctagsdir)
-    call mkdir(ctagsdir, 'p')
-endif
-let g:gutentags_cache_dir = ctagsdir
-
 " Indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 
@@ -220,19 +144,13 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:jsdoc_enable_es6 = 1
 let g:jsdoc_input_description = 1
 
+" LSP
+let g:LanguageClient_serverCommands = {
+    \ 'javascript': ['flow-language-server', '--stdio'],
+    \ }
+
 " Peekaboo
 let g:peekaboo_window = 'vert bo 50new'
-
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#tss#javascript_support = 1
-" Ignore omni in favour of phpcd
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-"let g:deoplete#ignore_sources.php = ['omni']
-call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " FZF
 let g:fzf_layout = { 'down': '~33%' }
@@ -244,11 +162,10 @@ let g:fzf_action = {
 
 " Lightline
 let g:lightline = {
-            \ 'colorscheme': 'falcon',
+            \ 'colorscheme': 'Tomorrow_Night',
             \ 'active': {
             \   'left': [
             \      [ 'filedetail' ],
-            \      [ 'tag' ],
             \      [ 'percent' ],
             \   ],
             \   'right': [
@@ -267,7 +184,6 @@ let g:lightline = {
             \ },
             \ 'component': {
             \   'obsession': '%{ObsessionStatus()} ',
-            \   'tag': '%{tagbar#currenttag("%s","[No tag]")} ',
             \ },
             \ 'component_function': {
             \   'fugitive': 'LightlineFugitive',
@@ -291,7 +207,7 @@ function! LightlineFilename()
 endfunction
 
 " ProSession
-let sessiondir = expand("$XDG_DATA_HOME/nvim/session")
+let sessiondir = expand("$HOME/.local/share/nvim/session")
 if !isdirectory(sessiondir)
     call mkdir(sessiondir, 'p')
 endif
@@ -304,24 +220,14 @@ let g:prosession_per_branch = 1
 let g:taboo_tab_format = ' %N: %f '
 let g:taboo_renamed_tab_format = ' %N: %l '
 
-" Tagbar
-let g:tagbar_left = 1
-let g:tagbar_autofocus = 1
-let g:tagbar_autoclose = 1
-
-" Ultisnips
-let snippetsdir = expand("$HOME/code/snippets/UltiSnips")
-if !isdirectory(snippetsdir)
-    call mkdir(snippetsdir, 'p')
-endif
-let g:UltiSnipsSnippetsDir = snippetsdir
-let g:UltiSnipsEditSplit = 'vertical'
-
 " Undotree
 let g:undotree_SetFocusWhenToggle = 1
 
 " }}}
 " Mappings - overrides {{{
+
+" Write operations
+nnoremap <CR> :w<CR>
 
 " Easy on the pinky
 nnoremap ; :
@@ -338,7 +244,7 @@ vnoremap > >gv
 nnoremap gp `[v`]
 
 " Open file from git repo
-nnoremap <CR> :GitFiles<CR>
+nnoremap <C-p> :GitFiles<CR>
 
 " Ban ex mode
 nnoremap Q <Nop>
@@ -371,8 +277,6 @@ nnoremap <C-w>t :tabnew<CR>
 
 " Toggle git blame panel
 nnoremap <M-b> :Gblame<CR>
-" Toggle tagbar (ctags) tree
-nnoremap <M-t> :TagbarToggle<CR>
 " Toggle undo tree
 nnoremap <M-u> :UndotreeToggle<CR>
 
@@ -381,12 +285,10 @@ nnoremap <M-u> :UndotreeToggle<CR>
 
 " Map Leader
 map <Space> <Leader>
-" Write operations
-nnoremap <Leader><Space> :w<CR>
 " Change tab type
 nnoremap <Leader><Tab> :setlocal <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
 " Open from cwd
-nnoremap <Leader><CR> :Files<CR>
+nnoremap <Leader>p :Files<CR>
 " Marks
 nnoremap <Leader>' :Marks<CR>
 " Commands
@@ -404,33 +306,7 @@ nnoremap <Leader>a :ALEFix<CR>
 " Switch to buffer
 nnoremap <Leader>b :Buffers<CR>!term ![No Name]
 " Find (respect .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>f :FindGit 
-" Find (disregard .gitignore, include hidden files, ignore .git dir)
-nnoremap <Leader>ff :FindAll 
-" write and git add
-nnoremap <Leader>ga :Gwrite<CR>
-" git commit
-nnoremap <Leader>gc :Gcommit<CR>i
-" git diff
-nnoremap <Leader>gd :Git diff<CR>
-" git diff staged
-nnoremap <leader>gD :Git diff --staged<CR>
-" git commit --amend
-nnoremap <Leader>gC :Git commit --amend --reuse-message HEAD<CR>
-" git log (repo)
-nnoremap <Leader>gl :Commits!<CR>
-" git push
-nnoremap <Leader>gp :Git push<CR>
-" git push force
-nnoremap <Leader>gP :Git push --force-with-lease<CR>
-" git status
-nnoremap <Leader>gs :Gstatus<CR>
-" Git hunk controls
-nmap <Leader>h <Plug>GitGutterPreviewHunk
-nmap <Leader>ha <Plug>GitGutterStageHunk
-nmap <Leader>hu <Plug>GitGutterUndoHunk
-" Shortcut for alt file
-nmap <Leader>p <C-^>
+nnoremap <Leader>f :GitGrep
 " Reload config
 nnoremap <Leader>R :so $MYVIMRC<CR>
 " Search non-UTF8 characters
@@ -467,26 +343,10 @@ let @v = ':%s/ / /ge:%s//‘/ge:%s//’/ge:%s//“/ge:%s//”/ge:%
 " }}}
 "  Functions and commands {{{
 
-function! ChooseTerm(termname)
-    let pane = bufwinnr(a:termname)
-    let buf = bufexists(a:termname)
-    if pane > 0
-        " pane is visible
-        :exe pane . "wincmd c"
-    elseif buf > 0
-        " buffer is not in pane
-        :exe "topleft split"
-    else
-        " buffer is not loaded, create
-        :exe "topleft split"
-        :terminal
-        :exe "f " a:termname
-    endif
-endfunction
-
-" Add FZF commands to use ripgrep
-command! -bang -nargs=* FindGit
-            \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
-command! -bang -nargs=* FindAll
-            \ call fzf#vim#grep('rg --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!.git/*" --color "always" --no-ignore '.shellescape(<q-args>), 1, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+" Add FZF command for git grep
+" - fzf#vim#grep(command, with_column, [options], [fullscreen])
+command! -bang -nargs=* GitGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 "}}}

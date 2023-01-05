@@ -18,3 +18,5 @@ vim.g.maplocalleader = " "
 require("lazy").setup("user.plugins")
 require("user.options")
 require("user.mappings")
+
+vim.cmd[[colorscheme tokyonight]]

@@ -1,4 +1,5 @@
 [core]
+  editor = nvim
   # Handle line endings
 	autocrlf = input
 

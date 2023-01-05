@@ -1,7 +1,3 @@
-[user]
-	# Ask per user/email for each repo
-	useConfigOnly = true
-
 [core]
   # Handle line endings
 	autocrlf = input
@@ -12,9 +8,6 @@
 
 [rebase]
 	autosquash = true
-
-[credential]
-	helper = cache
 
 [difftool]
 	prompt = false

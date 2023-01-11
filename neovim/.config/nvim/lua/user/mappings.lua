@@ -2,12 +2,12 @@ local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
 
 map({"i","c","v"}, ",j", "<Esc>", opts, { desc = "Convenient escape sequence" })
-map("n", "<S-l>", ":bnext<CR>", opts, { desc = "Next buffer" })
-map("n", "<S-h>", ":bprevious<CR>", opts, { desc = "Previous buffer" })
+map({"i","c","v"}, "j,", "<Esc>", opts, { desc = "Convenient escape sequence" })
 map("n", ",j", "<Nop>", opts) -- dont use combo in n mode
-map("n", "<CR>", ":w<CR>", opts, { desc = "Quick write" })
-map("n", "H", "^", opts, { desc = "Home row start of line" })
-map("n", "L", "$", opts, { desc = "Home row end of line" })
+map("n", "j,", "<Nop>", opts) -- dont use combo in n mode
+
+--map("n", "<CR>", ":w<CR>", opts, { desc = "Quick write" })
+map("n", "<Leader>=","mzggVG=`z", opts, { desc = "Re-indent buffer and maintain current cursor position" })
 map("v", "<", "<gv", opts, { desc = "Keep selection afer indent left" })
 map("v", ">", ">gv", opts, { desc = "Keep selection after indent right" })
 map("n", "gp", "`[v`]", opts, { desc = "Visually select last paste" })

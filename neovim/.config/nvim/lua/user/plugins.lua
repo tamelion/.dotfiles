@@ -21,7 +21,37 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     config = true
-  }
+  },
+  {
+    'ggandor/leap.nvim',
+    config = function()
+      require('leap').add_default_mappings()
+    end
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    dependencies = { 
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    },
+    keys = {
+      { "<leader>t", "<cmd>Neotree reveal toggle<cr>", desc = "NeoTree" },
+    },
+    config = function()
+      -- Unless you are still migrating, remove the deprecated commands from v1.x
+      vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+      require("neo-tree").setup()
+    end,
+  },
+  {
+    'akinsho/toggleterm.nvim',
+    require("toggleterm").setup{
+      direction = 'float'
+    },
+  },
+
   --"folke/which-key.nvim",
 
 }

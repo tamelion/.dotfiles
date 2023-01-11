@@ -9,6 +9,7 @@ local options = {
   expandtab = true,                        -- convert tabs to spaces
   fileencoding = "utf-8",                  -- the encoding written to a file
   hlsearch = false,                        -- turn off search highlighting
+  hidden = true,                           -- allow background buffers without writing
   ignorecase = true,                       -- ignore case in search patterns
   linebreak = true,                        -- don't split words
   mouse = "a",                             -- allow the mouse to be used in neovim

@@ -45,12 +45,6 @@ return {
       require("neo-tree").setup()
     end,
   },
-  {
-    'akinsho/toggleterm.nvim',
-    require("toggleterm").setup{
-      direction = 'float'
-    },
-  },
 
   --"folke/which-key.nvim",
 

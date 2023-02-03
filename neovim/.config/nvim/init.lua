@@ -19,5 +19,3 @@ require("lazy").setup("user.plugins")
 require("user.options")
 --require("user.macros") --WIP
 require("user.mappings")
-
-vim.cmd[[colorscheme tokyonight]]

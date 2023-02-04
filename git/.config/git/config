@@ -46,7 +46,7 @@
 	p = push
 	pf = push --force-with-lease
 	r = "!f() { git fetch; git rebase origin/$1; }; f"
-	assets = ! git rm -r --cached . && git add .
+	ignore = ! git rm -r --cached . && git add .
 	s = status -s
 	sl = status
 	standup = shortlog --since=yesterday
@@ -58,6 +58,3 @@
 	filename = magenta
 	linenumber = blue
 	match = magenta bold
-[user]
-	name = Jim Perry
-	email = mail@jim.nz

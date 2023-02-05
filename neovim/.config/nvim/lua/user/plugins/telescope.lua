@@ -1,43 +1,56 @@
 -- Automagically included by Lazy
 return {
-  "nvim-telescope/telescope.nvim",
-  dependencies = {
-    {
-      "nvim-telescope/telescope-fzf-native.nvim",
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
       "nvim-lua/plenary.nvim",
-      build = "make"
-    },
-  },
-  keys = {
-    {
-      "<CR>",
-      function()
-        require("telescope.builtin").builtin()
-      end,
-      desc = "Show all telescope commands in telescope",
-    },
-    {
-      "<leader>o",
-      function()
-        require("telescope.builtin").git_files()
-      end,
-      desc = "[O]pen file from git repo",
-    },
-    {
-      "<leader><space>",
-      function()
-        require("telescope.builtin").buffers()
-      end,
-      desc = "Show open buffers",
-    },
-  },
-  config = function(plugin)
-    local telescope = require("telescope")
-    local actions = require("telescope.actions")
-    telescope.setup {
-      defaults = {
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        config = function()
+          require("telescope").load_extension("fzf")
+        end,
       },
-    }
-    telescope.load_extension("fzf")
-  end,
+    },
+    config = true,
+    keys = {
+      {
+        "<CR>",
+        function()
+          require("telescope.builtin").builtin()
+        end,
+        desc = "Show all telescope commands in telescope",
+      },
+      {
+        "<leader>o",
+        function()
+          require("telescope.builtin").git_files()
+        end,
+        desc = "[O]pen file from git repo",
+      },
+      {
+        "<leader><space>",
+        function()
+          require("telescope.builtin").buffers()
+        end,
+        desc = "Show open buffers",
+      },
+    },
+  },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim"
+    },
+    config = function()
+      require("telescope").load_extension("file_browser")
+    end,
+    keys = {
+      {
+        "<leader>f",
+        "<cmd>Telescope file_browser hidden=true auto_depth=true path=%:p:h<cr>",
+        desc = "Browse [f]iles",
+      },
+    },
+  },
 }

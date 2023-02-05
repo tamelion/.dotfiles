@@ -23,10 +23,11 @@ return {
     config = true
   },
   {
-    'ggandor/leap.nvim',
-    config = function()
-      require('leap').add_default_mappings()
-    end
+    'phaazon/hop.nvim',
+    keys = {
+      { 'f', "<cmd>HopChar2<cr>", desc = "Hop to any word" },
+    },
+    config = true
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -53,4 +54,10 @@ return {
 -- TODO install more!
 -- "folke/which-key.nvim"
 -- "akinsho/toggleterm.nvim"
+--
+-- Close brackets!
+-- Editor config
+-- Linter / prettier
+-- Language highlighting
+-- Completion
 --

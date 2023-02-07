@@ -22,14 +22,14 @@ return {
         desc = "Show all telescope commands in telescope",
       },
       {
-        "<leader>o",
+        "<leader><space>",
         function()
           require("telescope.builtin").git_files()
         end,
         desc = "[O]pen file from git repo",
       },
       {
-        "<leader><space>",
+        "<leader>b",
         function()
           require("telescope.builtin").buffers()
         end,

@@ -40,6 +40,10 @@ return {
     end,
   },
   {
+    'ray-x/lsp_signature.nvim',
+    config = true,
+  },
+  {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -49,8 +53,9 @@ return {
 
       null_ls.setup({
         sources = {
-          null_ls.builtins.formatting.prettierd,
           null_ls.builtins.completion.spell,
+          null_ls.builtins.diagnostics.fish,
+          null_ls.builtins.formatting.prettierd,
         },
       })
     end

@@ -80,7 +80,16 @@ return {
       { "<leader>z", "<cmd>Twilight<cr>", desc = "Twilight [z]en mode" },
     }
   },
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      require("notify").setup({
+        timeout = 1000,
+        top_down = false,
+      })
+      vim.notify = require("notify")
+    end
+  },
 }
-
 -- TODO install more!
 -- 3 way  diff

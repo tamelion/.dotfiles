@@ -1,21 +1,6 @@
-#########################
-# Linux only
-#########################
-if [[ `uname` == 'Linux' ]]; then
-	# Listing colours
-	alias ls='ls --color'
-fi
+# Listing colours
+alias ls='ls --color'
 
-#########################
-# BSD/Darwin only
-#########################
-if [[ `uname` == 'Darwin' ]]; then
-	# Listing colours
-	alias ls='ls -G'
-fi
-#########################
-# General
-#########################
 # Use nvim by default
 alias vi='nvim'
 alias vim='nvim'
@@ -24,7 +9,7 @@ alias vim='nvim'
 alias ll='ls -hl'
 alias la='ls -Ahl'
 
-# Make termite run tmux
+# Attach to default tmux session
 alias t='tmux new-session -A -s default'
 
 # Ranger

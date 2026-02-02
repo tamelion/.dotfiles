@@ -15,9 +15,6 @@ fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
 
-# Zplug
-export ZPLUG_HOME="$XDG_DATA_HOME/zplug"
-
 # Editors
 export EDITOR='nvim'
 export VISUAL='nvim'
@@ -67,57 +64,30 @@ zstyle ':completion:*' menu select
 # fuzzy find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+#
+# Config repositories
+#
+
 # Add LazyVim if no nvim config
-if [[ ! -d "$XDG_CONFIG_HOME/nvim" ]]; then
-  git clone https://github.com/LazyVim/starter $XDG_CONFIG_HOME/nvim
-fi
+NVIM_CONFIG="$XDG_CONFIG_HOME/nvim"
+[ ! -d $NVIM_CONFIG ] && git clone --depth 1 https://github.com/LazyVim/starter $NVIM_CONFIG
+
+# tmux plugin manager
+TPM_CONFIG="$XDG_CONFIG_HOME/tmux/plugins/tpm"
+[ ! -d $TPM_CONFIG ] && git clone --depth 1 https://github.com/tmux-plugins/tpm $TPM_CONFIG
 
 #
-# Zplug
+# Zinit
 #
 
-# Add Zplug if not installed
-if [[ ! -d "$ZPLUG_HOME" ]]; then
-  git clone https://github.com/zplug/zplug $ZPLUG_HOME
-fi
+ZINIT_HOME="$XDG_DATA_HOME/zinit"
+[ ! -d $ZINIT_HOME ] && git clone --depth 1 https://github.com/zdharma-continuum/zinit.git $ZINIT_HOME
+source $ZINIT_HOME/zinit.zsh
 
-# If installed
-if [[ -s "$ZPLUG_HOME" ]]; then
-  # init
-  source $ZPLUG_HOME/init.zsh
+export ZPLUG_HOME="$XDG_DATA_HOME/zplug"
 
-  # theme
-  zplug "denysdovhan/spaceship-zsh-theme", as:theme
-  SPACESHIP_VI_MODE_SHOW=false
-
-  # more commands for git
-  zplug "unixorn/git-extra-commands"
-
-  # bookmarks
-  zplug "urbainvaes/fzf-marks"
-
-  # bd to go back up to a dir
-  zplug "Tarrasch/zsh-bd"
-
-  # syntax highlighting and history come last
-  zplug "zsh-users/zsh-syntax-highlighting", defer:2
-  zplug "zsh-users/zsh-history-substring-search", defer:3
-
-  # history substring settings
-  zmodload zsh/terminfo
-  bindkey '^[[A' history-substring-search-up
-  bindkey '^[[B' history-substring-search-down
-  bindkey -M vicmd 'k' history-substring-search-up
-  bindkey -M vicmd 'j' history-substring-search-down
-
-  # Check for plugins which need installing
-  if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-      echo; zplug install
-    fi
-  fi
-
-  # Source plugins and add commands to $PATH
-  zplug load
-fi
+# Load theme
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship

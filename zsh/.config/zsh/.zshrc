@@ -34,11 +34,6 @@ export VBOX_USER_HOME=$HOME/vm
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# Browser
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-fi
-
 # Development
 export NODE_ENV=dev
 
@@ -55,7 +50,7 @@ $path
 typeset -gU cdpath fpath mailpath path
 
 #
-# General
+# History, completion, aliases
 #
 
 # Write history when term exits, remove duplicates
@@ -67,17 +62,21 @@ SAVEHIST=1000
 # Complete with menu
 zstyle ':completion:*' menu select
 
-# custom aliases
+# Add custom aliases
 [[ -f "$XDG_CONFIG_HOME/zsh/.alias" ]] && source "$XDG_CONFIG_HOME/zsh/.alias"
 # fuzzy find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Add LazyVim if no nvim config
+if [[ ! -d "$XDG_CONFIG_HOME/nvim" ]]; then
+  git clone https://github.com/LazyVim/starter $XDG_CONFIG_HOME/nvim
+fi
 
 #
 # Zplug
 #
 
-# If not installed
+# Add Zplug if not installed
 if [[ ! -d "$ZPLUG_HOME" ]]; then
   git clone https://github.com/zplug/zplug $ZPLUG_HOME
 fi
@@ -106,10 +105,8 @@ if [[ -s "$ZPLUG_HOME" ]]; then
 
   # history substring settings
   zmodload zsh/terminfo
-  bindkey "$terminfo[kcuu1]" history-substring-search-up
-  bindkey "$terminfo[kcud1]" history-substring-search-down
-  #bindkey '^[[A' history-substring-search-up
-  #bindkey '^[[B' history-substring-search-down
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
   bindkey -M vicmd 'k' history-substring-search-up
   bindkey -M vicmd 'j' history-substring-search-down
 

@@ -61,6 +61,7 @@ zstyle ':completion:*' menu select
 
 # Add custom aliases
 [[ -f "$XDG_CONFIG_HOME/zsh/.alias" ]] && source "$XDG_CONFIG_HOME/zsh/.alias"
+
 # fuzzy find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

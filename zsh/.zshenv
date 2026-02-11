@@ -16,5 +16,11 @@ fi
 # If there's not already a data directory, create it
 [[ ! -d "${XDG_DATA_HOME}/zsh" ]] && mkdir -p "${XDG_DATA_HOME}/zsh"
 
+# Enable use of podman on host from within container
+export CONTAINER_CMD="flatpak-spawn --host podman"
+
+# Disable telemetry for OpenSpec
+export OPENSPEC_TELEMETRY=0
+
 # Soure all further config from here
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"

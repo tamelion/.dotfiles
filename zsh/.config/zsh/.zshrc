@@ -27,18 +27,25 @@ export LESSHISTFILE=-
 # Virtual machines
 export VBOX_USER_HOME=$HOME/vm
 
-# FZF (use ripgrep)
+# fzf (use ripgrep)
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# Development
-export NODE_ENV=dev
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+
+# docker uses podman
+# NOTE: on a new host, enable the podman system service using:
+# systemctl --user enable podman.socket
+# systemctl --user start podman.socket
+export DOCKER_HOST="unix:///run/user/1000/podman/podman.sock"
 
 #
 # Paths
 #
 path=(
 $HOME/.local/bin
+$HOME/.local/share/pnpm
 /usr/local/bin
 $path
 )

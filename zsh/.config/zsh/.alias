@@ -5,6 +5,10 @@ alias ls='ls --color'
 alias ll='ls -hl'
 alias la='ls -Ahl'
 
+# Point container tools at podman on host
+alias docker='flatpak-spawn --host podman'
+alias podman='flatpak-spawn --host podman'
+
 # Attach to default tmux session
 alias t='tmux new-session -A -s default'
 

@@ -58,3 +58,5 @@
 	filename = magenta
 	linenumber = blue
 	match = magenta bold
+[init]
+	defaultBranch = main
